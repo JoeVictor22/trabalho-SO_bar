@@ -3,8 +3,89 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Bar{
-	static Bebo Bebos[] = new Bebo[6];
+	/*Variaveis Globais*/
+	static Semaphore cheio = new Semaphore(2,true);
+	static Semaphore mutex = new Semaphore(1);
+	static Bebo Bebos[] = new Bebo[3];
+	/*Variaveis Globais*/
 	
+	static class Bebo extends Thread{
+		//Tempo Registrado em cada estado//
+		private int timeCasa;
+		private int timeBebendo;
+		//Tempo Registrado em cada estado//
+
+		//Estado da Thread//
+		private boolean estadoCasa=false;
+		public boolean getEstadoCasa() {
+			return estadoCasa;
+		}
+
+		public void setEstadoCasa(boolean estadoCasa) {
+			this.estadoCasa = estadoCasa;
+		}
+
+		private boolean estadoBebendo=true;
+		public boolean getEstadoBebendo() {
+			return estadoBebendo;
+		}
+
+		public void setEstadoBebendo(boolean estadoBebendo) {
+			this.estadoBebendo = estadoBebendo;
+		}
+		//Estado da Thread//
+
+		public Bebo(int timeCasa, int timeBebendo, String nome){ 	//Construtor
+			super(nome);		// getName(); Recebe o nome da Thread
+			this.timeCasa = timeCasa;
+			this.timeBebendo = timeBebendo;	
+		}
+		
+		
+		public void noBar(){
+			try {
+				cheio.acquire();
+				System.out.printf("--%s Estou a beber por %d segundos--\n", getName(),this.timeBebendo);
+				try {
+					sleep(this.timeBebendo*1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				this.estadoBebendo=false;
+				this.estadoCasa=true;
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+			cheio.release();
+			
+		}
+		
+		public void emCasa(){
+			System.out.printf("**%s Estou em casa por %d segundos**\n", getName(),this.timeCasa);
+			try {
+				sleep(this.timeCasa*1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			this.estadoCasa=false;
+			this.estadoBebendo=true;
+			
+		}
+		public void saida () throws InterruptedException{
+			System.out.printf("%s %d-%s %d-%s\n", getName(), this.timeCasa,getEstadoCasa(), this.timeBebendo,getEstadoBebendo());
+		}
+
+		public void run(){
+			while(true) {
+				if(this.estadoBebendo==true) {
+					noBar();
+				}else if(this.estadoCasa==true){
+					emCasa();
+				}
+			}
+		}
+	}
 	
 	public static void printThreads() throws IOException{
 		for (Bebo t : Bebos){
@@ -26,17 +107,9 @@ public class Bar{
 	
 	
 	public static void main(String[] args) throws InterruptedException, IOException{
-		int cadeiras = 3; 		//Qtd de cadeira no bar
-		//int qtdOcupado=0;		//Qtd de cadeira no bar Ocupadas
-		//int jantandoJuntos=0;	//True se Cadeiras==qtdOcupado
+		Random random = new Random();
 		
-		Semaphore cheio = new Semaphore(0);
-		Semaphore mutex = new Semaphore(1);
-		
-		
-		Random random=new Random();
-		
-		String qtdBebosArg = "6"; // deve ser passado via argumentos com o max 10
+		String qtdBebosArg = "3"; // deve ser passado via argumentos com o max 10
 								  //validar se foi digitado um numero e nao um char
 		/*if(qtdBebosArg.isNumeric() || qtdBebosArg > 10){
 			System.out.println("Digite um valor de 1 a 10");
@@ -51,78 +124,9 @@ public class Bar{
 			int randInt2 = random.nextInt(5);
 			String ID=("Thread "+Integer.toString(i+1));
 			Bebos [i] = new Bebo(randInt1+1, randInt2+1, ID);
-		}
-		
-		for (int i = 0; i < qtdBebos; i++) {
-			Bebos[i].start();
-		}
-		
-		while(true){
-			for (int i=0;i<qtdBebos;i++) {
-				if (cadeiras>0) {
-					System.out.printf("%d Cadeiras Livres\n",cadeiras);
-					mutex.acquire();
-					cadeiras--;
-					mutex.release();
-					Bebos[i].noBar();
-					printThreads();
-					System.out.printf("%d Cadeiras Livres\n",cadeiras);
-				}else{
-					mutex.acquire();
-					cadeiras=3;
-					mutex.release();
-				}
-			}
-		}
-		/* Get all threads */
-		// Set<Thread> threads = Thread.getAllStackTraces().keySet();
-		// ciclo de exec
-		
+			Bebos [i].start();
+		}		
 	}
 }
 
 
-class Bebo extends Thread{
-	//Tempo Registrado em cada estado//
-	private int timeCasa;
-	private int timeBebendo;
-	//Tempo Registrado em cada estado//
-
-	//Estado da Thread//
-	private int estadoCasa=0;
-	private int estadoBebendo=0;
-	//Estado da Thread//
-
-	public Bebo(int timeCasa, int timeBebendo, String nome){ 	//Construtor
-		super(nome);		// getName(); Recebe o nome da Thread
-		this.timeCasa = timeCasa;
-		this.timeBebendo = timeBebendo;	
-	}
-
-	public void run(){
-		while(true) {	
-		}
-	}
-	
-	public void noBar() throws InterruptedException{
-		this.estadoBebendo=1;
-		while(this.estadoBebendo==1){
-			System.out.printf("Eu %s Estou a beber por %d segundos\n", getName(),this.timeBebendo);
-			super.sleep(this.timeBebendo*3000);
-			this.estadoBebendo=0;
-		}
-	}
-	
-	public void emCasa() throws InterruptedException{
-		this.estadoCasa=1;
-		while(this.estadoCasa==1){
-			System.out.printf("Eu %s Estou em casa por %d segundos\n", getName(),this.timeBebendo);
-			super.sleep(this.timeBebendo*10000);
-			this.estadoCasa=0;
-		}
-	}
-	
-	public void saida () throws InterruptedException{
-		System.out.printf("%s %d %d\n", getName(), this.timeCasa, this.timeBebendo);
-	}
-}
