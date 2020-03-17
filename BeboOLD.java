@@ -1,4 +1,4 @@
-class Bebo extends Thread{
+class BeboOLD extends Thread{
 	private int ID;
 	//Tempo Registrado em cada estado//
 	private int timeCasa;
@@ -10,7 +10,7 @@ class Bebo extends Thread{
 	private int estadoBebendo=0;
 	//Estado da Thread//
 
-	public Bebo(int timeCasa, int timeBebendo, int ID){ 	//Construtor
+	public BeboOLD(int timeCasa, int timeBebendo, int ID){ 	//Construtor
 		this.timeCasa = timeCasa;
 		this.timeBebendo = timeBebendo;
 		this.ID=ID;
