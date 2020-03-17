@@ -2,7 +2,6 @@ import java.util.concurrent.*;
 import java.io.IOException;
 import java.util.Random;
 
-
 public class Bar{
 	static Bebo Bebos[] = new Bebo[6];
 	
@@ -33,7 +32,7 @@ public class Bar{
 		
 		Semaphore cheio = new Semaphore(0);
 		Semaphore mutex = new Semaphore(1);
-		int ID=1;
+		
 		
 		Random random=new Random();
 		
@@ -47,11 +46,14 @@ public class Bar{
 		//cadeiras = ler.nextInt();
 		
 		
-		for(int i = 0; i < qtdBebos; i++){
+		for (int i = 0; i < qtdBebos; i++){
 			int randInt1 = random.nextInt(5);
 			int randInt2 = random.nextInt(5);
+			String ID=("Thread "+Integer.toString(i+1));
 			Bebos [i] = new Bebo(randInt1+1, randInt2+1, ID);
-			ID=ID+1;
+		}
+		
+		for (int i = 0; i < qtdBebos; i++) {
 			Bebos[i].start();
 		}
 		
@@ -76,5 +78,51 @@ public class Bar{
 		// Set<Thread> threads = Thread.getAllStackTraces().keySet();
 		// ciclo de exec
 		
+	}
+}
+
+
+class Bebo extends Thread{
+	//Tempo Registrado em cada estado//
+	private int timeCasa;
+	private int timeBebendo;
+	//Tempo Registrado em cada estado//
+
+	//Estado da Thread//
+	private int estadoCasa=0;
+	private int estadoBebendo=0;
+	//Estado da Thread//
+
+	public Bebo(int timeCasa, int timeBebendo, String nome){ 	//Construtor
+		super(nome);		// getName(); Recebe o nome da Thread
+		this.timeCasa = timeCasa;
+		this.timeBebendo = timeBebendo;	
+	}
+
+	public void run(){
+		while(true) {	
+		}
+	}
+	
+	public void noBar() throws InterruptedException{
+		this.estadoBebendo=1;
+		while(this.estadoBebendo==1){
+			System.out.printf("Eu %s Estou a beber por %d segundos\n", getName(),this.timeBebendo);
+			super.sleep(this.timeBebendo*3000);
+			this.estadoBebendo=0;
+		}
+	}
+	
+	public void emCasa() throws InterruptedException{
+		this.estadoCasa=1;
+		while(this.estadoCasa==1){
+			System.out.printf("Eu %s Estou em casa por %d segundos\n", getName(),this.timeBebendo);
+			super.sleep(this.timeBebendo*10000);
+			this.estadoCasa=0;
+		}
+	}
+	
+	public void saida () throws InterruptedException{
+		System.out.printf("%s %d %d\n", getName(), this.timeCasa, this.timeBebendo);
 	}
 }
