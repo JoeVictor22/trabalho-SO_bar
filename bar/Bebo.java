@@ -65,16 +65,21 @@ public class Bebo extends Thread{
 	
 	public void esperarAmigos() throws InterruptedException {
 		mutex.acquire();
+		esperaAmigos.drainPermits();
 		bar.setTerminados(bar.getTerminados()+1);
 		if (bar.getTerminados()!=bar.getCadBKP()) {
+			//System.out.println(esperaAmigos.availablePermits()+" "+bar.getTerminados()+" "+getName());
 			mutex.release();
-			//System.out.println("Dormi " + getName());
 			esperaAmigos.acquire();
+			//System.out.println(esperaAmigos.availablePermits()+" "+bar.getTerminados()+" "+getName());
 		}else if (bar.getTerminados()==bar.getCadBKP()) {
+			
 			bar.setTerminados(0);
 			bar.setCadeiras(bar.getCadBKP());
 			cadSemaphore.release(bar.getCadeiras());
-			esperaAmigos.release();
+			esperaAmigos.release(bar.getCadeiras()-1);
+			//System.out.println("Sai por ultimo " + getName());
+			//System.out.println(esperaAmigos.availablePermits()+" "+bar.getTerminados()+" "+getName());
 			//System.out.println(esperaAmigos.toString());
 			mutex.release();
 		}
