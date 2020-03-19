@@ -5,10 +5,9 @@ import java.util.concurrent.Semaphore;
 public class Bebo extends Thread{
 	
 	Semaphore cadSemaphore;
+	Semaphore esperaAmigos;
 	Semaphore mutex;
-	int cadeiras;
-	int cadBKP;
-	int terminados;
+	Bar bar;
 	
 	//Tempo Registrado em cada estado//
 	private int timeCasa;
@@ -35,11 +34,10 @@ public class Bebo extends Thread{
 	}
 	//Estado da Thread//
 
-	public Bebo(int terminado, int cadeiras,Semaphore mutex, Semaphore cadSemaphore, int timeCasa, int timeBebendo, String nome){ 	//Construtor
+	public Bebo(Bar bar, Semaphore esperaAmigos, Semaphore mutex, Semaphore cadSemaphore, int timeCasa, int timeBebendo, String nome){ 	//Construtor
 		super(nome);		//getName(); Recebe o nome da Thread
-		this.cadeiras = cadeiras;
-		this.cadBKP = cadeiras;
-		this.terminados = terminado;
+		this.bar = bar;
+		this.esperaAmigos = esperaAmigos;
 		this.mutex = mutex;
 		this.cadSemaphore = cadSemaphore;
 		this.timeCasa = timeCasa;
@@ -49,15 +47,15 @@ public class Bebo extends Thread{
 	public void entrarBar() throws InterruptedException {
 		cadSemaphore.acquire();
 		mutex.acquire();
-		cadeiras--;
+		bar.setCadeiras(bar.getCadeiras()-1);
 		mutex.release();
-		System.out.printf("%d\n",cadeiras);
+		System.out.printf("%d\n",bar.getCadeiras());
 	}
 	
 	public void sairBar() throws InterruptedException {
-		if(cadeiras!=0) {
+		if(bar.getCadeiras()!=0) {
 			mutex.acquire();
-			cadeiras++;
+			bar.setCadeiras(bar.getCadeiras()+1);
 			cadSemaphore.release();
 			mutex.release();
 		}else{
@@ -67,18 +65,19 @@ public class Bebo extends Thread{
 	
 	public void esperarAmigos() throws InterruptedException {
 		mutex.acquire();
-		terminados++;
-		mutex.release();
-		while(terminados!=cadBKP){
-			//esperando amigos//
+		bar.setTerminados(bar.getTerminados()+1);
+		if (bar.getTerminados()!=bar.getCadBKP()) {
+			mutex.release();
+			System.out.println("Dormi " + getName());
+			esperaAmigos.acquire();
+		}else if (bar.getTerminados()==bar.getCadBKP()) {
+			bar.setTerminados(0);
+			bar.setCadeiras(bar.getCadBKP());
+			cadSemaphore.release(bar.getCadeiras());
+			esperaAmigos.release();
+			//System.out.println(esperaAmigos.toString());
+			mutex.release();
 		}
-		mutex.acquire();
-			if(terminados!=0) {
-				terminados=0;
-				cadeiras=cadBKP;
-				cadSemaphore.release(cadeiras);	
-			}
-		mutex.release();
 	}
 	
 	public void noBar() throws InterruptedException{
