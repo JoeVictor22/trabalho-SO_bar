@@ -68,7 +68,7 @@ public class Bebo extends Thread{
 		bar.setTerminados(bar.getTerminados()+1);
 		if (bar.getTerminados()!=bar.getCadBKP()) {
 			mutex.release();
-			System.out.println("Dormi " + getName());
+			//System.out.println("Dormi " + getName());
 			esperaAmigos.acquire();
 		}else if (bar.getTerminados()==bar.getCadBKP()) {
 			bar.setTerminados(0);
