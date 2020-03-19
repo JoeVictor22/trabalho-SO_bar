@@ -4,7 +4,7 @@ import java.awt.event.KeyListener;
 
 
 
-public class Aperte implements Runnable, KeyListener {
+public class KeyListenerTest implements Runnable, KeyListener {
 	/**
 	 * 
 	 */
