@@ -49,7 +49,7 @@ public class Bebo extends Thread{
 		mutex.acquire();
 		bar.setCadeiras(bar.getCadeiras()-1);
 		mutex.release();
-		System.out.printf("%d\n",bar.getCadeiras());
+		//System.out.printf("%d\n",bar.getCadeiras());
 	}
 	
 	public void sairBar() throws InterruptedException {
