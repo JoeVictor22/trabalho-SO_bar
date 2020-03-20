@@ -29,23 +29,17 @@ public class main{
 		Scanner ler = new Scanner(System.in);
 		Random random = new Random();
 		
-		System.out.printf("Cadeiras, Quantidade de Bebados\n");
+		System.out.printf("Cadeiras\n");
 		
-		Bar bar= new Bar(ler.nextInt(), ler.nextInt());
+		Bar bar= new Bar(ler.nextInt());
 		ler.close();
 		
 		Semaphore mutex = new Semaphore(1);
-		Semaphore esperaAmigos = new Semaphore(0);
+		Semaphore esperaAmigos = new Semaphore(0,true);
 		Semaphore cadSemaphore = new Semaphore(bar.getCadeiras(),true);
 		
-		Bebo Bebos[] = new Bebo[bar.getQtdBebos()];
+		App ap = new App(bar, mutex, esperaAmigos, cadSemaphore);
+		ap.run();
 		
-		for (int i = 0; i < bar.getQtdBebos(); i++){
-			int randInt1 = random.nextInt(6);
-			int randInt2 = random.nextInt(4);
-			String ID=("Thread "+Integer.toString(i+1));
-			Bebos [i] = new Bebo(bar, esperaAmigos, mutex, cadSemaphore, randInt1+1, randInt2+1, ID);
-			Bebos [i].start();
-		}
 	}
 }
