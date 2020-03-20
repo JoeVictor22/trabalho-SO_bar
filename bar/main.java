@@ -27,7 +27,6 @@ public class main{
 	
 	public static void main(final String[] args) throws InterruptedException, IOException{
 		Scanner ler = new Scanner(System.in);
-		Random random = new Random();
 		
 		System.out.printf("Cadeiras\n");
 		
