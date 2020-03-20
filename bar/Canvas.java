@@ -24,16 +24,31 @@ public class Canvas extends JPanel implements Runnable{
 	private static final long serialVersionUID = 6244965887359695579L;
 		
 	private BufferedImage cenario;
-		
+	
+	private int h;
+	private int w;
+
+	private int quantidadeDeBebos = 0;
+	private PersonagemBebo[] bebos;
+	private int larguraDoPersonagem;
+	private int alturaDoPersonagem;
+	
+	private Thread gameLoop = new Thread(this);
+
 
 	//constructor
 	public Canvas(int h, int w) {
 		
         setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(h,w));
-
-        revalidate();
-        repaint();
+        this.quantidadeDeBebos = 10;
+        this.h = h;
+        this.w = w;
+        this.larguraDoPersonagem = 150;
+        this.alturaDoPersonagem = 100;
+        
+        
+      
         this.setVisible(true);
 
 		//carrega cenario
@@ -45,8 +60,11 @@ public class Canvas extends JPanel implements Runnable{
             Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, e);
 			
 		}
-		
+		gameLoop.start();
+
 	}
+	
+	
 	
 	//instrucoes
 	public void run() {
@@ -55,7 +73,7 @@ public class Canvas extends JPanel implements Runnable{
 		
 		while(true) {
 			
-	
+			atualiza();
 			repaint();
 			dorme();	
 	
@@ -90,10 +108,35 @@ public class Canvas extends JPanel implements Runnable{
 		//pinta as imagens de background
 		g2d.drawImage(cenario, null, 0,0 );
 
-	
+		// draw bebos
+		for(int i = 0; i < bebos.length; i++) {
+			if(bebos[i] != null) {
+				bebos[i].pintarBebo(g2d);
+			}
+		}
+		
 	}
 	
-	
+
+	public void atualiza() {
+		
+		// atualizar bebos
+		
+	}
+
+
+	public void criarBebos() {
+
+		Random random = new Random();
+		
+		bebos = new PersonagemBebo[quantidadeDeBebos];
+		for(int i = 0; i < 10; i++) {
+			bebos[i] = new PersonagemBebo( 0, 0, alturaDoPersonagem, larguraDoPersonagem, 5,
+					0-larguraDoPersonagem/2, h-larguraDoPersonagem/2, h, w, 68 + random.nextInt(13));
+
+		}
+		
+	}
 	
 	/*  UTILS */
 	// funcao para dar resize em uma imagem

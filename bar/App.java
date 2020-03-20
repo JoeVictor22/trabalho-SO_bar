@@ -100,7 +100,7 @@ public class App extends JFrame implements Runnable, ActionListener{
 		//add(panel);
 		
 		setVisible(true);
-		PlayMusic.playMusic("Data/SFX/Undertale_-_Determination.mid");
+		//PlayMusic.playMusic("Data/SFX/Undertale_-_Determination.mid");
 
 	}
 	
