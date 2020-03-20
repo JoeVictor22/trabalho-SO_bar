@@ -10,14 +10,20 @@ import javax.swing.JComboBox;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
- 
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.BorderLayout;
 
 
 
 public class App extends JFrame implements Runnable, ActionListener{
     private static final long serialVersionUID = 1L;
-
+    
+    List<String> nomes = new ArrayList<>();
+    List<String> bebendo = new ArrayList<>();
+    List<String> dormindo = new ArrayList<>();
+    
+    
 	JPanel panel = new JPanel();
 	JButton startButton = new JButton("Iniciar");
 	JLabel nomeLabel = new JLabel("Digite o nome do bebo!");
@@ -43,7 +49,7 @@ public class App extends JFrame implements Runnable, ActionListener{
 	JComboBox box = new JComboBox(tabela);
 	*/
 	public void run() {
-
+		
 		System.out.printf("%s\n",nome.getText());
 		System.out.printf("%s\n",tempoBebendo.getText());
 		System.out.printf("%s\n",tempoDormindo.getText());
@@ -59,7 +65,7 @@ public class App extends JFrame implements Runnable, ActionListener{
 	
 	public App() {
 		super("Bar do Seu Batista");
-		setSize(1920,1080);
+		setSize(1280,768);
 		setResizable(true);
 		
 		
@@ -104,14 +110,17 @@ public class App extends JFrame implements Runnable, ActionListener{
             System.out.println("comecou!");
         }
         else if (action.equals("Adicionar Papudim")) {
-        	String x1 = nome.getText();
-        	String x2 = tempoBebendo.getText();
-        	String x3 = tempoDormindo.getText();
+    		      	
+    		nomes.add(nome.getText());
+    		bebendo.add(tempoBebendo.getText());
+    		dormindo.add(tempoDormindo.getText());
         	
-        	if(x1.length() <= 0 || x2.length() <= 0  || x3.length() <= 0 ) {
+        	if(/*to do*/1!=1) {
         		System.out.printf("Campo vazio!\n");
         	}else {
-        		System.out.printf("%s - %s - %s\n",x1, x2, x3);
+        		System.out.println(nomes);
+        		System.out.println(bebendo);
+        		System.out.println(dormindo);
         	}
         	
         	
