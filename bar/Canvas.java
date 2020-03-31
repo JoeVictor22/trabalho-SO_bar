@@ -1,6 +1,5 @@
 package bar;
 
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -11,93 +10,90 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-import java.awt.Dimension;
-import java.awt.BorderLayout;
-
 public class Canvas extends JPanel implements Runnable{
-
-
-	private static final long serialVersionUID = 6244965887359695579L;
-		
-	private BufferedImage cenario;
+	
+	private static final long serialVersionUID = 1L;
 	
 	private int h;
 	private int w;
-
-	private int quantidadeDeBebos = 0;
-	private PersonagemBebo[] bebos;
-	private int larguraDoPersonagem;
-	private int alturaDoPersonagem;
 	
-	private Thread gameLoop = new Thread(this);
-
-
-	//constructor
-	public Canvas(int h, int w) {
+	
+	private int quantidadeDeAtores = 0;
+	private BufferedImage cenario;
+	private Ator[] atores;
+	private int alturaDoAtor;
+	private int larguraDoAtor;
+	
+	private boolean jogando;
+	private boolean pausado;
+	
+	private Janela janela;
+	
+	private Thread gameloop = new Thread(this);
+	
+	private String scenePath = "Data/Scenes/scene.jpg";
+	
+	public Canvas(int h, int w, Janela janela) {
+		alturaDoAtor = 150;
+		larguraDoAtor= 100;
+		pausado = false;
+		jogando = false;
 		
-        setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(h,w));
-        this.quantidadeDeBebos = 10;
-        this.h = h;
-        this.w = w;
-        this.larguraDoPersonagem = 150;
-        this.alturaDoPersonagem = 100;
-        
-        
-      
-        this.setVisible(true);
-
-		//carrega cenario
+		this.janela = janela;
+		
+		this.h = h;
+		this.w = w;
+		
+		//Load background
 		try {
-			cenario = ImageIO.read(new File("Data/Scenes/cenario.png"));
-			cenario = resize(cenario,h, w);
+			cenario = ImageIO.read(new File(scenePath));
+			cenario = resize(cenario, h, w);
 		}catch(IOException e) {
-			System.out.println("nao carregou background");
-            Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, e);
-			
+			Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, e);
 		}
-		gameLoop.start();
-
+		gameloop.start();
 	}
 	
-	
-	
-	//instrucoes
-	public void run() {
-		long timer = System.currentTimeMillis();
-		int frames = 0;
-		
-		while(true) {
-			
-			atualiza();
-			repaint();
-			dorme();	
-	
-	
-			
-			/*
-			 * contador de frames
-			 */
-			frames++;			
-			if(System.currentTimeMillis() - timer > 1000) {
-				timer+= 1000;
-				System.out.println("frames = " + frames);
-				frames = 0;
-			}
-		}	
-	}
-	
-
-	// sleep para canvas rodar a 60fps
-	public void dorme() {
+	// para manter o refreshRate a 60fps => 1000ms/16 = 62
+	public void sleep() {
 		try {
 			Thread.sleep(16);
 		} catch(InterruptedException e) {
 			Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, e);
+		}
+	}
+	// ciclo de atualizacoes
+	public void run() {
+		long timer = System.currentTimeMillis();
+		int frames = 0;
+		while(true) {
+			if(jogando) {
+				atualiza();	
+			}
+			
+			repaint();
+			
+			// mantem o refresh rate a 60 e conta os frames
+			sleep();
+			frames++;
+			if(System.currentTimeMillis() - timer > 1000) {
+				timer+= 1000;
+				//System.out.println("frames = " + frames);
+				frames = 0;
+			}
+			
+		}
+	}
+	
+	
+	public void atualiza() {
+		for(int i = 0; i < atores.length; i++) {
+			if(atores[i] != null) {
+				atores[i].atualiza();
+			}
 		}
 	}
 
@@ -105,41 +101,26 @@ public class Canvas extends JPanel implements Runnable{
 		super.paintComponent(g);
 		
 		Graphics2D g2d = (Graphics2D) g.create();
-		//pinta as imagens de background
-		g2d.drawImage(cenario, null, 0,0 );
-
-		// draw bebos
-		for(int i = 0; i < bebos.length; i++) {
-			if(bebos[i] != null) {
-				bebos[i].pintarBebo(g2d);
+		// paint background
+		g2d.drawImage(cenario,  null,  0,  0);
+		
+		if(jogando) {
+			for(int i = 0; i < atores.length; i++) {
+				if(atores[i] != null) {
+					atores[i].pintar(g2d);
+				}
 			}
 		}
-		
+	
+	}
+
+	
+	public void addAtor(Ator ator) {
+		atores[quantidadeDeAtores] = ator;
+		quantidadeDeAtores+=1;
 	}
 	
-
-	public void atualiza() {
-		
-		// atualizar bebos
-		
-	}
-
-
-	public void criarBebos() {
-
-		Random random = new Random();
-		
-		bebos = new PersonagemBebo[quantidadeDeBebos];
-		for(int i = 0; i < 10; i++) {
-			bebos[i] = new PersonagemBebo( 0, 0, alturaDoPersonagem, larguraDoPersonagem, 5,
-					0-larguraDoPersonagem/2, h-larguraDoPersonagem/2, h, w, 68 + random.nextInt(13));
-
-		}
-		
-	}
-	
-	/*  UTILS */
-	// funcao para dar resize em uma imagem
+	/* UTILS */
 	public static BufferedImage resize(BufferedImage img, int W, int H) { 
 		
 	    Image temp = img.getScaledInstance(W, H, Image.SCALE_SMOOTH);
@@ -152,4 +133,15 @@ public class Canvas extends JPanel implements Runnable{
 	    return novaImagem;
 	}  
 	
+	
+	/* SETTERS E GETTERS */
+	public void setJogando(boolean jogando) {
+		this.jogando = jogando;
+	}
+	public boolean isJogando() {
+		return this.jogando;
+	}
+	
+
+
 }
