@@ -1,5 +1,7 @@
 package bar;
 
+import java.util.Random;
+
 import javax.swing.JFrame;
 
 import bar.Canvas;
@@ -31,6 +33,7 @@ public class Janela {
 		jogo = new Canvas(w, h, this);
 		janela.add(jogo);
 		janela.setVisible(true);
+		start();
 		
 	}
 
@@ -38,7 +41,10 @@ public class Janela {
 	
 	public void start() {
 		/* Rodar funcoes para dar inicio a animacao dos elementos*/
-		jogo.setJogando(true);		
+		jogo.setJogando(true);	
+		for(int i = 0; i < 4; i++) {
+			addPersonagem();
+		}
 	}
 	
 	public void restart() {
@@ -47,10 +53,17 @@ public class Janela {
 	}
 	
 	public void addPersonagem() {
-		int alturaDoPersonagem = 100;
-		int larguraDoPersonagem = 150;
+		int alturaDoPersonagem = 128;
+		int larguraDoPersonagem = 64;
 
-		//Ator novoAtor = new Ator( 580, 480, alturaDoPersonagem, larguraDoPersonagem, 6,vidaDoJogador,danoDoJogador, 0-(larguraDoPersonagem/2)+36, w-(larguraDoPersonagem/2)-54);
-		//jogo.addAtor(novoAtor);
+		
+		int posX = new Random().nextInt(500) + 10;  // [10...501]
+		int posY = new Random().nextInt(500) + 10;  // [10...501]
+		int orientacao = new Random().nextInt(5);  // [0...4]
+			
+		Ator novoAtor = new Ator( posX, posY, alturaDoPersonagem, larguraDoPersonagem, 6, w, h);
+		novoAtor.setOrientacao(orientacao);
+		System.out.println(orientacao);
+		jogo.addAtor(novoAtor);
 	}
 }

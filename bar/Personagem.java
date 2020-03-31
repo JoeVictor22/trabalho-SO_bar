@@ -28,8 +28,8 @@ abstract public class Personagem {
 	private int altura;
 	
 	// Atributos para controle de movimento
-	private int direcao;
-	private int ultimaDirecao;
+	private int acao;
+	private int orientacao;
 	private int velocidade;
 	private int h;
 	private int w;
@@ -50,8 +50,8 @@ abstract public class Personagem {
 		 * 3 = cima
 		 * 4 = baixo
 		 *  */
-		this.direcao = 0;
-		this.ultimaDirecao = 1;
+		this.acao = 0;
+		this.orientacao = 1;
 		this.h = w;
 		this.h = h;
 		
@@ -115,35 +115,47 @@ abstract public class Personagem {
 	}
 
 	/*
-	 * atualizacao da movimentacao lateral
+	 * atualizacao da movimentacao 
 	 */
 	public void anda(){
-		
-		if(direcao == 1) {
-			if((posX > 0)) {
-				posX -= velocidade;
-			}
+		/* DIRECAO
+		 * 0 = parado
+		 * 1 = esquerda
+		 * 2 = direita
+		 * 3 = cima
+		 * 4 = baixo
+		 *  */
+		acao = getAcao();
+		// implementar limitadores da tela
+		switch(acao) {
 			
-		}else if(direcao == 2){
-			if((posX < w)) {
+			case 1:
 				posX -= velocidade;
-			}
-		}else if(direcao == 3){
-			if((posY < h)) {
-				posY += velocidade;
-			}
-		}else if(direcao == 4){
-			if((posY > 0)) {
+				break;
+			case 2:
+				posX += velocidade;
+				break;
+			case 3:
 				posY -= velocidade;
-			}
+				break;
+			case 4:
+				posY += velocidade;
+				break;
+			default:
+				break;	
 		}
 	}
 	
 	/*
 	 * define a direcao de observacao
 	 */
-	public void andar(int direcao) {
-		this.direcao = direcao;
+	public void andar(int acao) {
+		if(acao != 0) {
+			this.acao = acao;
+			this.orientacao = acao;
+		}else {
+			this.acao = acao;
+		}
 	}
 	
 	
@@ -209,20 +221,26 @@ abstract public class Personagem {
 		this.altura = altura;
 	}
 
-	public int getDirecao() {
-		return direcao;
+	public int getAcao() {
+		return acao;
 	}
 
-	public void setDirecao(int direcao) {
-		this.direcao = direcao;
+	public void setAcao(int acao) {
+		this.acao = acao;
 	}
 
-	public int getUltimaDirecao() {
-		return ultimaDirecao;
+	public int getOrientacao() {
+		return orientacao;
 	}
 
-	public void setUltimaDirecao(int ultimaDirecao) {
-		this.ultimaDirecao = ultimaDirecao;
+	/* a orientacao sempre deve ser um de 1 a 4*/
+	public void setOrientacao(int orientacao) {
+		if(orientacao > 0 && orientacao < 5) {
+			this.orientacao = orientacao;
+		}else {
+			this.orientacao = 2;
+		}
+
 	}
 
 	public int getVelocidade() {

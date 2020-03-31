@@ -23,7 +23,8 @@ public class Canvas extends JPanel implements Runnable{
 	
 	private int quantidadeDeAtores = 0;
 	private BufferedImage cenario;
-	private Ator[] atores;
+	private Ator[] atores = new Ator[20];
+
 	private int alturaDoAtor;
 	private int larguraDoAtor;
 	
@@ -34,7 +35,7 @@ public class Canvas extends JPanel implements Runnable{
 	
 	private Thread gameloop = new Thread(this);
 	
-	private String scenePath = "Data/Scenes/scene.jpg";
+	private String scenePath = "Data/Scenes/cenario.png";
 	
 	public Canvas(int h, int w, Janela janela) {
 		alturaDoAtor = 150;
@@ -46,6 +47,7 @@ public class Canvas extends JPanel implements Runnable{
 		
 		this.h = h;
 		this.w = w;
+		
 		
 		//Load background
 		try {
@@ -81,7 +83,7 @@ public class Canvas extends JPanel implements Runnable{
 			frames++;
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer+= 1000;
-				//System.out.println("frames = " + frames);
+				System.out.println("frames = " + frames);
 				frames = 0;
 			}
 			
@@ -90,11 +92,14 @@ public class Canvas extends JPanel implements Runnable{
 	
 	
 	public void atualiza() {
-		for(int i = 0; i < atores.length; i++) {
+			
+		for(int i = 0; i < quantidadeDeAtores; i++) {
 			if(atores[i] != null) {
-				atores[i].atualiza();
+				atores[i].atualizar();
 			}
 		}
+		
+		
 	}
 
 	public void paintComponent(Graphics g) {
@@ -105,9 +110,9 @@ public class Canvas extends JPanel implements Runnable{
 		g2d.drawImage(cenario,  null,  0,  0);
 		
 		if(jogando) {
-			for(int i = 0; i < atores.length; i++) {
+			for(int i = 0; i < quantidadeDeAtores; i++) {
 				if(atores[i] != null) {
-					atores[i].pintar(g2d);
+					atores[i].pintarAtor(g2d);
 				}
 			}
 		}

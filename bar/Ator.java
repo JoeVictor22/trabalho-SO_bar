@@ -42,26 +42,35 @@ public class Ator extends Personagem {
 	}
 	
 	public void criarAnimacoes() {
-		
-		andandoEsquerda = carregarImagens("Data/Sprites/Inimigo/Run/goblin-run-0", 4, "png");
-		andandoDireita = carregarImagens("Data/Sprites/Inimigo/Run/goblin-run-0", 4, "png");
-		andandoCima = carregarImagens("Data/Sprites/Inimigo/Run/goblin-run-0", 4, "png");
-		andandoBaixo = carregarImagens("Data/Sprites/Inimigo/Run/goblin-run-0", 4, "png");
+		// Data\Sprites\shane
+		andandoEsquerda = carregarImagens("Data/Sprites/shane/walk/esquerda/tile00", 4, "png");
+		andandoDireita = carregarImagens("Data/Sprites/shane/walk/direita/tile00", 4, "png");
+		andandoCima = carregarImagens("Data/Sprites/shane/walk/cima/tile00", 4, "png");
+		andandoBaixo = carregarImagens("Data/Sprites/shane/walk/baixo/tile00", 4, "png");
+		parado= carregarImagens("Data/Sprites/shane/idle/normal/tile00", 4, "png");
 		
 	}
 	
 	
 	public void atualizar() {
 		anda();
+		atualizarContadorDeImagem();	
 	}
 		
-	public void pintarInimigo(Graphics2D g) {
+	public void pintarAtor(Graphics2D g) {
 		
-		int direcao = getDirecao();
-		
-		switch(direcao) {
+		int acao = getAcao();
+		int orientacao = getOrientacao();
+		/* DIRECAO
+		 * 0 = parado
+		 * 1 = esquerda
+		 * 2 = direita
+		 * 3 = cima
+		 * 4 = baixo
+		 *  */
+		switch(acao) {
 			case 0:
-				pintar(g, parado, imagemAtual);
+				pintar(g, parado, orientacao-1);
 				break;
 			case 1:
 				pintar(g, andandoEsquerda, imagemAtual);
@@ -76,7 +85,6 @@ public class Ator extends Personagem {
 				pintar(g, andandoBaixo, imagemAtual);
 				break;
 			default:
-				pintar(g, parado, imagemAtual);
 				break;
 		}
 	}
