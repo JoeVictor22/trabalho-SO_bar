@@ -1,8 +1,13 @@
 package bar;
 
+import java.awt.BorderLayout;
 import java.util.Random;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import bar.Canvas;
 
@@ -11,7 +16,20 @@ public class Janela {
 	// jframe e jpanel do jogo
 	private JFrame janela;
 	private Canvas jogo;
+	// componentes IO do user
+	JPanel inputUser = new JPanel();
+	JButton startButton = new JButton("Iniciar");
+	JLabel nomeLabel = new JLabel("Digite o nome do bebo!");
+	static JTextField nome = new JTextField("", 15);
+	JLabel tempoBebendoLabel = new JLabel("Informe o tempo no bar!");
+	static JTextField tempoBebendo = new JTextField("", 5);
+	JLabel tempoDormindoLabel = new JLabel("Informe o tempo de soneca!");
+	static JTextField tempoDormindo= new JTextField("", 5);
+	JButton newBeboButton = new JButton("Adicionar Papudim");
 	
+	static JLabel errorMessage = new JLabel("");
+	
+
 	//keyListener
 	
 	//dimensoes
@@ -27,14 +45,30 @@ public class Janela {
 	public void create() {
 		janela = new JFrame("Papudim simulator");
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		janela.setSize(w,h+100);
+		janela.setSize(w,h);
 		janela.setResizable(false);
+		
+		
+		/*
+		 * Adicionar todo IO aqui
+		 * */
+		
+		inputUser.add(startButton);
+		inputUser.add(nomeLabel);
+		inputUser.add(nome);
+		inputUser.add(tempoBebendoLabel);
+		inputUser.add(tempoBebendo);
+		inputUser.add(tempoDormindoLabel);
+		inputUser.add(tempoDormindo);
+		inputUser.add(newBeboButton);
+
 		
 		/* TODO: tratar o tamanho do canvas e da criacao 
 		*dos personagens de acordo com o tamanho da janela
 		*/
 		jogo = new Canvas(w, h, this);
 		janela.add(jogo);
+		jogo.add(inputUser);
 		janela.setVisible(true);
 		start();
 		

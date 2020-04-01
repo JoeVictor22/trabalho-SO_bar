@@ -52,7 +52,7 @@ public class Canvas extends JPanel implements Runnable{
 		//Load background
 		try {
 			cenario = ImageIO.read(new File(scenePath));
-			cenario = resize(cenario, h, w);
+			//cenario = resize(cenario, h, w);
 		}catch(IOException e) {
 			Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, e);
 		}
