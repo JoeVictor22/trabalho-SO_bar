@@ -27,9 +27,12 @@ public class Janela {
 	public void create() {
 		janela = new JFrame("Papudim simulator");
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		janela.setSize(w,h);
+		janela.setSize(w,h+100);
 		janela.setResizable(false);
 		
+		/* TODO: tratar o tamanho do canvas e da criacao 
+		*dos personagens de acordo com o tamanho da janela
+		*/
 		jogo = new Canvas(w, h, this);
 		janela.add(jogo);
 		janela.setVisible(true);
@@ -53,8 +56,8 @@ public class Janela {
 	}
 	
 	public void addPersonagem() {
-		int alturaDoPersonagem = 128;
-		int larguraDoPersonagem = 64;
+		int alturaDoPersonagem = 100;
+		int larguraDoPersonagem = 50;
 
 		
 		int posX = new Random().nextInt(500) + 10;  // [10...501]
@@ -62,7 +65,8 @@ public class Janela {
 		int orientacao = new Random().nextInt(5);  // [0...4]
 			
 		Ator novoAtor = new Ator( posX, posY, alturaDoPersonagem, larguraDoPersonagem, 6, w, h);
-		novoAtor.setOrientacao(orientacao);
+		//novoAtor.setOrientacao(orientacao);
+		novoAtor.setAcao(orientacao);
 		System.out.println(orientacao);
 		jogo.addAtor(novoAtor);
 	}

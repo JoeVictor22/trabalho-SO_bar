@@ -53,6 +53,15 @@ public class Ator extends Personagem {
 	
 	
 	public void atualizar() {
+		if(posX >= h ) {
+			andar(1);
+		}else if(posX <= 0) {
+			andar(2);
+		}else if(posY >= w) {
+			andar(3);
+		}else if(posY <= 0) {
+			andar(4);
+		}
 		anda();
 		atualizarContadorDeImagem();	
 	}

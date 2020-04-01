@@ -20,19 +20,19 @@ abstract public class Personagem {
 	 */
 	
 	// Atributos relativos a localizacao
-	private int posX;
-	private int posY;
+	protected int posX;
+	protected int posY;
 	
 	// Atributos relativos as dimensoes
 	private int largura;
 	private int altura;
 	
 	// Atributos para controle de movimento
-	private int acao;
-	private int orientacao;
+	protected int acao;
+	protected int orientacao;
 	private int velocidade;
-	private int h;
-	private int w;
+	protected int h;
+	protected int w;
 	
 	
 	public Personagem(int posX, int posY, int altura, 
@@ -52,7 +52,7 @@ abstract public class Personagem {
 		 *  */
 		this.acao = 0;
 		this.orientacao = 1;
-		this.h = w;
+		this.w = w;
 		this.h = h;
 		
 		/*
