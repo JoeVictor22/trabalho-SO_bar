@@ -1,6 +1,5 @@
 package bar;
 
-
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -21,42 +20,47 @@ abstract public class Personagem {
 	 */
 	
 	// Atributos relativos a localizacao
-	private int posX;
-	private int posY;
+	protected int posX;
+	protected int posY;
 	
 	// Atributos relativos as dimensoes
 	private int largura;
 	private int altura;
 	
 	// Atributos para controle de movimento
-	private int direcao;
-	private int ultimaDirecao;
+	protected int acao;
+	protected int orientacao;
 	private int velocidade;
-	private int fimDaTelaEsquerda;
-	private int fimDaTelaDireita;
-	private int fimDaTelaCima;
-	private int fimDaTelaBaixo;
-
+	protected int h;
+	protected int w;
 	
-	public Personagem(int posX, int posY, int altura, int largura,int velocidade,int fimDaTelaEsquerda, int fimDaTelaDireita, int fimDaTelaCima, int fimDaTelaBaixo) {
+	
+	public Personagem(int posX, int posY, int altura, 
+			int largura,int velocidade, int h, int w) {
 		this.posX = posX;
 		this.posY = posY;
 		this.altura = altura;
 		this.largura = largura;
 		this.velocidade = velocidade;
-		this.direcao = 0;
-		this.ultimaDirecao = 1;
-		this.fimDaTelaDireita = fimDaTelaDireita;
-		this.fimDaTelaEsquerda = fimDaTelaEsquerda;
-		this.fimDaTelaCima = fimDaTelaCima;
-		this.fimDaTelaBaixo = fimDaTelaBaixo;
-
-
+		
+		/* ACOES
+		 * 0 = parado
+		 * 1 = esquerda
+		 * 2 = direita
+		 * 3 = cima
+		 * 4 = baixo
+		 * 5 = beber
+		 * 6 = dormir
+		 *  */
+		this.acao = 0;
+		this.orientacao = 1;
+		this.w = w;
+		this.h = h;
+		
 		/*
 		 * Instanciacao das animacoes
 		 */
 		criarAnimacoes();
-		
 		
 	}
 	//metodos abstratos	
@@ -79,24 +83,15 @@ abstract public class Personagem {
 	 * enviar component de pintura vindo do canvas, e a animacao a ser utilizada
 	 * o indice da animacao nesse metodo pode variar de acordo com a classe filha
 	 */
-	public void pintar(Graphics2D g, BufferedImage[] animacao, int imagemAtual, boolean inverterImagem) {
-		if(inverterImagem){      
-	        g.drawImage(
-	             animacao[imagemAtual],
-	             posX,posY,
-	             posX + largura, posY + altura,
-	             0, 0,
-	             animacao[imagemAtual].getWidth(), animacao[imagemAtual].getHeight(),
-	             null);
-	    }else{
-	            g.drawImage(
-	            	animacao[imagemAtual],
-	                posX,posY,
-	                posX + largura, posY + altura,
-	                animacao[imagemAtual].getWidth(),0,
-	                0, animacao[imagemAtual].getHeight(),
-	            null);
-	    }
+	public void pintar(Graphics2D g, BufferedImage[] animacao, int imagemAtual) {
+	    g.drawImage(
+             animacao[imagemAtual],
+             posX,posY,
+             posX + largura, posY + altura,
+             0, 0,
+             animacao[imagemAtual].getWidth(), animacao[imagemAtual].getHeight(),
+             null);
+    
 	}
 	
 	
@@ -122,44 +117,55 @@ abstract public class Personagem {
 	}
 
 	/*
-	 * atualizacao da movimentacao lateral
-	 */
-	/*
-	  1 = andando direita
-	  2 = andando esquerda
-	  3 = andando cima
-	  4 = andando baixo 
+	 * atualizacao da movimentacao 
 	 */
 	public void anda(){
-		if(direcao == 1) {
-			if((posX < fimDaTelaDireita)) {
-				posX += velocidade;
-			}
+		/* DIRECAO
+		 * 0 = parado
+		 * 1 = esquerda
+		 * 2 = direita
+		 * 3 = cima
+		 * 4 = baixo
+		 *  */
+		/* ACOES
+		 * 0 = parado
+		 * 1 = esquerda
+		 * 2 = direita
+		 * 3 = cima
+		 * 4 = baixo
+		 * 5 = beber
+		 * 6 = dormir
+		 *  */
+		acao = getAcao();
+		// implementar limitadores da tela
+		switch(acao) {
 			
-		}else if(direcao == 2){
-			if((posX > fimDaTelaEsquerda)) {
+			case 1:
 				posX -= velocidade;
-			}
-		}else if(direcao == 3){
-			if((posY < fimDaTelaCima)) {
-				posY += velocidade;
-			}
-		}else if(direcao == 4){
-			if((posY > fimDaTelaBaixo)) {
+				break;
+			case 2:
+				posX += velocidade;
+				break;
+			case 3:
 				posY -= velocidade;
-			}
+				break;
+			case 4:
+				posY += velocidade;
+				break;
+			default:
+				break;	
 		}
 	}
 	
 	/*
 	 * define a direcao de observacao
 	 */
-	public void andar(int direcao) {
-		if(direcao != 0) {
-			this.direcao = direcao;
-			this.ultimaDirecao = direcao;
+	public void andar(int acao) {
+		if(acao != 0) {
+			this.acao = acao;
+			this.orientacao = acao;
 		}else {
-			this.direcao = direcao;
+			this.acao = acao;
 		}
 	}
 	
@@ -175,6 +181,20 @@ abstract public class Personagem {
 
 	    return novaImagem;
 	}  
+	
+	
+	
+	/*
+	 * metodos para alterar posicao caso necessario
+	 */
+	public void somarPosY(int soma){
+		this.posY += soma;
+		
+	}
+	public void somarPosX(int soma) {
+		this.posX += soma;
+		
+	}
 	
 	
 	/*
@@ -212,20 +232,26 @@ abstract public class Personagem {
 		this.altura = altura;
 	}
 
-	public int getDirecao() {
-		return direcao;
+	public int getAcao() {
+		return acao;
 	}
 
-	public void setDirecao(int direcao) {
-		this.direcao = direcao;
+	public void setAcao(int acao) {
+		this.acao = acao;
 	}
 
-	public int getUltimaDirecao() {
-		return ultimaDirecao;
+	public int getOrientacao() {
+		return orientacao;
 	}
 
-	public void setUltimaDirecao(int ultimaDirecao) {
-		this.ultimaDirecao = ultimaDirecao;
+	/* a orientacao sempre deve ser um de 1 a 4*/
+	public void setOrientacao(int orientacao) {
+		if(orientacao > 0 && orientacao < 5) {
+			this.orientacao = orientacao;
+		}else {
+			this.orientacao = 2;
+		}
+
 	}
 
 	public int getVelocidade() {
@@ -236,17 +262,6 @@ abstract public class Personagem {
 		this.velocidade = velocidade;
 	}
 
-	public int getFimDaTelaEsquerda() {
-		return fimDaTelaEsquerda;
-	}
-	public void setFimDaTelaEsquerda(int fimDaTelaEsquerda) {
-		this.fimDaTelaEsquerda = fimDaTelaEsquerda;
-	}
-	public int getFimDaTelaDireita() {
-		return fimDaTelaDireita;
-	}
-	public void setFimDaTelaDireita(int fimDaTelaDireita) {
-		this.fimDaTelaDireita = fimDaTelaDireita;
-	}
+	
 	
 }
