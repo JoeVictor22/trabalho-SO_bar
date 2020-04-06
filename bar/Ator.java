@@ -21,6 +21,7 @@ public class Ator extends Personagem {
 	
 	private int timer;
 	
+	private int velocidadeDasAnimacoesBebendo;
 	private int velocidadeDasAnimacoes;
 	private int quantidadeDeFrames;
 		
@@ -37,6 +38,8 @@ public class Ator extends Personagem {
 		
 		//velocidadeDasAnimacoes; quanto menor mais rapido
 		velocidadeDasAnimacoes= 12;
+		velocidadeDasAnimacoesBebendo = velocidadeDasAnimacoes + 15;
+
 		//quantidadeDeFrames deve ser igual ao tamanho das animacoes usado no criar imagens - 1
 		quantidadeDeFrames = 4;
 	}
@@ -48,7 +51,9 @@ public class Ator extends Personagem {
 		andandoCima = carregarImagens("Data/Sprites/shane/walk/cima/tile00", 4, "png");
 		andandoBaixo = carregarImagens("Data/Sprites/shane/walk/baixo/tile00", 4, "png");
 		parado= carregarImagens("Data/Sprites/shane/idle/normal/tile00", 4, "png");
-		
+		bebendo= carregarImagens("Data/Sprites/shane/drinking/cima/tile00", 4, "png");
+		dormindo= carregarImagens("Data/Sprites/shane/sleep/tile00", 4, "png");
+
 	}
 	
 	
@@ -62,20 +67,47 @@ public class Ator extends Personagem {
 		}else if(posY <= 0) {
 			andar(4);
 		}
+		
+		acao();
 		anda();
 		atualizarContadorDeImagem();	
 	}
 		
-	public void pintarAtor(Graphics2D g) {
-		
-		int acao = getAcao();
-		int orientacao = getOrientacao();
-		/* DIRECAO
+	public void acao() {
+		/* ACOES
 		 * 0 = parado
 		 * 1 = esquerda
 		 * 2 = direita
 		 * 3 = cima
 		 * 4 = baixo
+		 * 5 = beber
+		 * 6 = dormir
+		 *  */
+		acao = getAcao();
+		
+		switch(acao) {
+			case 5:
+				break;
+			case 6:
+				break;
+			default:
+				break;
+		}
+		
+		
+	}
+	public void pintarAtor(Graphics2D g) {
+		
+		int acao = getAcao();
+		int orientacao = getOrientacao();
+		/* ACOES
+		 * 0 = parado
+		 * 1 = esquerda
+		 * 2 = direita
+		 * 3 = cima
+		 * 4 = baixo
+		 * 5 = beber
+		 * 6 = dormir
 		 *  */
 		switch(acao) {
 			case 0:
@@ -93,6 +125,12 @@ public class Ator extends Personagem {
 			case 4:
 				pintar(g, andandoBaixo, imagemAtual);
 				break;
+			case 5:
+				pintar(g, bebendo, imagemAtual);
+				break;
+			case 6:
+				pintar(g, dormindo, imagemAtual);
+				break;
 			default:
 				break;
 		}
@@ -102,7 +140,10 @@ public class Ator extends Personagem {
 	
 
 	public void atualizarContadorDeImagem() {
-		if(timer >= velocidadeDasAnimacoes){
+		int velocidade = 0;
+		velocidade = (acao == 5 ? velocidadeDasAnimacoesBebendo: velocidadeDasAnimacoes );
+
+		if(timer >= velocidade){
 			imagemAtual++;
 			if(imagemAtual == quantidadeDeFrames){
 				imagemAtual = 0;

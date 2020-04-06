@@ -9,9 +9,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Semaphore;
+import java.awt.BorderLayout;
+
 import bar.Canvas;
 
-public class Janela {
+public class Janela implements ActionListener{
 
 	// jframe e jpanel do jogo
 	private JFrame janela;
@@ -52,7 +61,9 @@ public class Janela {
 		/*
 		 * Adicionar todo IO aqui
 		 * */
-		
+		startButton.addActionListener(this);
+		newBeboButton.addActionListener(this);
+
 		inputUser.add(startButton);
 		inputUser.add(nomeLabel);
 		inputUser.add(nome);
@@ -79,9 +90,9 @@ public class Janela {
 	public void start() {
 		/* Rodar funcoes para dar inicio a animacao dos elementos*/
 		jogo.setJogando(true);	
-		for(int i = 0; i < 4; i++) {
+		/*for(int i = 0; i < 6; i++) {
 			addPersonagem();
-		}
+		}*/
 	}
 	
 	public void restart() {
@@ -96,12 +107,30 @@ public class Janela {
 		
 		int posX = new Random().nextInt(500) + 10;  // [10...501]
 		int posY = new Random().nextInt(500) + 10;  // [10...501]
-		int orientacao = new Random().nextInt(5);  // [0...4]
+		int orientacao = new Random().nextInt(7);  // [0...6]
 			
-		Ator novoAtor = new Ator( posX, posY, alturaDoPersonagem, larguraDoPersonagem, 6, w, h);
+		Ator novoAtor = new Ator( posX, posY, alturaDoPersonagem, larguraDoPersonagem, 2, w, h);
 		//novoAtor.setOrientacao(orientacao);
 		novoAtor.setAcao(orientacao);
 		System.out.println(orientacao);
 		jogo.addAtor(novoAtor);
 	}
+	  public void actionPerformed(ActionEvent ae) {
+	        String action = ae.getActionCommand();
+	        if (action.equals("Iniciar")) {
+	        	if(jogo.isJogando()) {
+	        		restart();
+	        	}else {
+	        		start();
+	        	}
+	        }
+	        else if (action.equals("Adicionar Papudim")) {
+	        	if(jogo.getQuantidadeDeAtores() <= 19) {
+		        	System.out.println("adicionou");
+					addPersonagem();
+	        	}else {
+	        		System.out.println("qnt max de atores excedida");
+	        	}
+	        }
+	    }
 }

@@ -43,12 +43,14 @@ abstract public class Personagem {
 		this.largura = largura;
 		this.velocidade = velocidade;
 		
-		/* DIRECAO
+		/* ACOES
 		 * 0 = parado
 		 * 1 = esquerda
 		 * 2 = direita
 		 * 3 = cima
 		 * 4 = baixo
+		 * 5 = beber
+		 * 6 = dormir
 		 *  */
 		this.acao = 0;
 		this.orientacao = 1;
@@ -124,6 +126,15 @@ abstract public class Personagem {
 		 * 2 = direita
 		 * 3 = cima
 		 * 4 = baixo
+		 *  */
+		/* ACOES
+		 * 0 = parado
+		 * 1 = esquerda
+		 * 2 = direita
+		 * 3 = cima
+		 * 4 = baixo
+		 * 5 = beber
+		 * 6 = dormir
 		 *  */
 		acao = getAcao();
 		// implementar limitadores da tela

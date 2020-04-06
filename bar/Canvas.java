@@ -146,6 +146,9 @@ public class Canvas extends JPanel implements Runnable{
 	public boolean isJogando() {
 		return this.jogando;
 	}
+	public int getQuantidadeDeAtores() {
+		return this.quantidadeDeAtores;
+	}
 	
 
 
