@@ -18,8 +18,7 @@ import java.awt.BorderLayout;
 
 
 
-public class App extends JFrame implements Runnable, ActionListener{
-    private static final long serialVersionUID = 1L;
+public class App implements Runnable, ActionListener{
     
     List<String> threadInfo_nomes = new ArrayList<>();
 	List<String> threadInfo_bebendo = new ArrayList<>();
@@ -50,17 +49,7 @@ public class App extends JFrame implements Runnable, ActionListener{
 	static JLabel errorMessage = new JLabel("");
 	
 
-	
-	/*
-	String tabela[] = {
-		"opcao 1",
-		"opcao 2",
-		"opcao 3",
-		"opcao 4"
-	};
-	// remover select se nao usado
-	JComboBox box = new JComboBox(tabela);
-	*/
+
 	public void run() {
 		
 		System.out.printf("%s\n",nome.getText());
@@ -70,45 +59,11 @@ public class App extends JFrame implements Runnable, ActionListener{
 	}
 	
 	public App(Bar bar, Semaphore mutex, Semaphore esperaAmigos, Semaphore cadSemaphore) {
-		super("Bar do Seu Batista");
-		setSize(800,600);
-		setResizable(true);
 		this.bar = bar;
 		this.mutex = mutex;
 		this.esperaAmigos = esperaAmigos;
 		this.cadSemaphore = cadSemaphore;
-		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		startButton.addActionListener(this);
-		newBeboButton.addActionListener(this);
-
-		
-		panel.add(startButton);
-		panel.add(nomeLabel);
-		panel.add(nome);
-		panel.add(tempoBebendoLabel);
-		panel.add(tempoBebendo);
-		panel.add(tempoDormindoLabel);
-		panel.add(tempoDormindo);
-		panel.add(newBeboButton);
-		
-
-		errorMessage.setText("mensagem de erro");
-		errorMessage.setForeground (Color.red);
-
-		panel.add(errorMessage);
-		// remover select se nao usado
-		//panel.add(box);
-
-		Canvas grafico = new Canvas(800, 600);
-		
-		panel.add(grafico);
-        this.add(panel, BorderLayout.CENTER);
-
-		//add(panel);
-		
-		setVisible(true);
-		PlayMusic.playMusic("Data/SFX/Undertale_-_Determination.mid");
+	
 
 	}
     public void actionPerformed(ActionEvent ae) {

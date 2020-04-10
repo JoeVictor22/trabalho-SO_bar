@@ -20,8 +20,21 @@ import java.awt.BorderLayout;
 
 import bar.Canvas;
 
-public class Janela implements ActionListener{
-
+public class Janela implements Runnable, ActionListener{
+    List<String> threadInfo_nomes = new ArrayList<>();
+	List<String> threadInfo_bebendo = new ArrayList<>();
+    List<String> threadInfo_dormindo = new ArrayList<>();
+    Bar bar;
+    Semaphore mutex;
+    Semaphore esperaAmigos;
+    Semaphore cadSemaphore;
+    int bebosInseridos=0;
+	public int getbebosInseridos() {
+		return bebosInseridos;
+	}
+	
+	
+	
 	// jframe e jpanel do jogo
 	private JFrame janela;
 	private Canvas jogo;
@@ -45,11 +58,26 @@ public class Janela implements ActionListener{
 	private int h;
 	private int w;
 	
-	public Janela(int altura, int largura) {
+	public Janela(Bar bar, Semaphore mutex, Semaphore esperaAmigos, Semaphore cadSemaphore, int altura, int largura) {
 		this.h = altura;
 		this.w = largura;
+	
+		
+		
+		this.bar = bar;
+		this.mutex = mutex;
+		this.esperaAmigos = esperaAmigos;
+		this.cadSemaphore = cadSemaphore;
+	
 	}
 	
+	public void run() {
+		
+		System.out.printf("%s\n",nome.getText());
+		System.out.printf("%s\n",tempoBebendo.getText());
+		System.out.printf("%s\n",tempoDormindo.getText());
+	
+	}
 	
 	public void create() {
 		janela = new JFrame("Papudim simulator");
@@ -82,6 +110,7 @@ public class Janela implements ActionListener{
 		jogo.add(inputUser);
 		janela.setVisible(true);
 		start();
+		run();
 		
 	}
 
@@ -123,11 +152,36 @@ public class Janela implements ActionListener{
 	        	}else {
 	        		start();
 	        	}
+	        	
+	        	/* Funcoes do raynan */
+	        	Bebo Bebos[] = new Bebo[bebosInseridos];
+		        for (int i=0;i<bebosInseridos;i++){
+		        	String ID=("Thread "+Integer.toString(i+1));
+					Bebos [i] = new Bebo(bar, esperaAmigos, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(i)), Integer.parseInt(threadInfo_bebendo.get(i)), ID);
+		        }
+		        for (int i=0;i<bebosInseridos;i++) {
+		        	Bebos[i].start();
+		        }
 	        }
 	        else if (action.equals("Adicionar Papudim")) {
 	        	if(jogo.getQuantidadeDeAtores() <= 19) {
 		        	System.out.println("adicionou");
 					addPersonagem();
+			    	
+					/* RAYNAn*/
+					threadInfo_nomes.add(nome.getText());
+		        	threadInfo_bebendo.add(tempoBebendo.getText());
+		        	threadInfo_dormindo.add(tempoDormindo.getText());
+		        	bebosInseridos++;
+		        	if(/*to do*/1!=1) {
+		        		System.out.printf("Campo vazio!\n");
+		        	}else {
+		        		System.out.println(bebosInseridos);
+		        		System.out.println(threadInfo_nomes);
+		        		System.out.println(threadInfo_bebendo);
+		        		System.out.println(threadInfo_dormindo);
+		        	}
+		        	
 	        	}else {
 	        		System.out.println("qnt max de atores excedida");
 	        	}
