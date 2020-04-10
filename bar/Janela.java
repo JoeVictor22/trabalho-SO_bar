@@ -170,9 +170,10 @@ public class Janela implements Runnable, ActionListener{
 	        	threadInfo_bebendo.add(tempoBebendo.getText());
 	        	threadInfo_dormindo.add(tempoDormindo.getText());
 	        	bebosInseridos++;
-	        	String ID=("Thread "+Integer.toString(bebosInseridos+1));
+	        	String ID=("Thread "+Integer.toString(bebosInseridos));
 				Bebos [bebosInseridos-1] = new Bebo(bar, esperaAmigos, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(bebosInseridos-1)), Integer.parseInt(threadInfo_bebendo.get(bebosInseridos-1)), ID);
 				Bebos[bebosInseridos-1].start();
+				addPersonagem();
         	}else {
         		System.out.println("qnt max de atores excedida");
         	}
