@@ -24,7 +24,8 @@ public class Canvas extends JPanel implements Runnable{
 	private int quantidadeDeAtores = 0;
 	private BufferedImage cenario;
 	private Ator[] atores = new Ator[20];
-
+	private Bebo Bebos[] = new Bebo[20];
+	
 	private int alturaDoAtor;
 	private int larguraDoAtor;
 	
@@ -37,14 +38,14 @@ public class Canvas extends JPanel implements Runnable{
 	
 	private String scenePath = "Data/Scenes/cenario.png";
 	
-	public Canvas(int h, int w, Janela janela) {
+	public Canvas(int h, int w, Janela janela,Bebo Bebos[]) {
 		alturaDoAtor = 150;
 		larguraDoAtor= 100;
 		pausado = false;
 		jogando = false;
 		
 		this.janela = janela;
-		
+		this.Bebos = Bebos;
 		this.h = h;
 		this.w = w;
 		
@@ -75,21 +76,37 @@ public class Canvas extends JPanel implements Runnable{
 			if(jogando) {
 				atualiza();	
 			}
-			
+			updateAction();
 			repaint();
-			
 			// mantem o refresh rate a 60 e conta os frames
 			sleep();
 			frames++;
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer+= 1000;
-				System.out.println("frames = " + frames);
+				//System.out.println("frames = " + frames);
 				frames = 0;
 			}
 			
 		}
 	}
 	
+	public void updateAction() {
+		for (int i=0;i<20;i++) {
+			if (Bebos[i]!=null && atores[i] != null) {
+				if (Bebos[i].getEstadoBebendo()==true) {
+					atores[i].setAcao(5);
+				}
+				else if (Bebos[i].getEstadoCasa()==true) {
+					atores[i].setAcao(6);
+				}
+				else if(Bebos[i].getEstadoNaFila()==true) {
+					atores[i].setAcao(2);
+				}
+			}else if(atores[i] != null) {
+				atores[i].setAcao(1);
+			}
+		}
+	}
 	
 	public void atualiza() {
 			
@@ -150,6 +167,4 @@ public class Canvas extends JPanel implements Runnable{
 		return this.quantidadeDeAtores;
 	}
 	
-
-
 }

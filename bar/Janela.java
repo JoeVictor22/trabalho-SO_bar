@@ -68,8 +68,6 @@ public class Janela implements Runnable, ActionListener{
 	}
 	
 	public void run() {
-		System.out.printf("%s\n",tempoBebendo.getText());
-		System.out.printf("%s\n",tempoDormindo.getText());
 	}
 	
 	public void create() {
@@ -97,13 +95,10 @@ public class Janela implements Runnable, ActionListener{
 		/* TODO: tratar o tamanho do canvas e da criacao 
 		*dos personagens de acordo com o tamanho da janela
 		*/
-		jogo = new Canvas(w, h, this);
+		jogo = new Canvas(w, h, this, Bebos);
 		janela.add(jogo);
 		jogo.add(inputUser);
 		janela.setVisible(true);
-		start();
-		run();
-		
 	}
 
 
@@ -147,12 +142,13 @@ public class Janela implements Runnable, ActionListener{
     		beboButton.setText("Adiconar Papudim");
         }
         else if (action.equals("Listar Papudim")) {
-        	if(jogo.getQuantidadeDeAtores() <= 19){
+        	if(bebosInseridos <= 19){
 	        	System.out.println("listou");
-				
+	        	
 	        	threadInfo_bebendo.add(tempoBebendo.getText());
 	        	threadInfo_dormindo.add(tempoDormindo.getText());
 	        	bebosInseridos++;
+	        	
 	        	if(/*to do*/1!=1){
 	        		System.out.printf("Campo vazio!\n");
 	        	}else {
@@ -166,16 +162,24 @@ public class Janela implements Runnable, ActionListener{
         }
         
         else if(action.equals("Adiconar Papudim")) {
-        	if(jogo.getQuantidadeDeAtores() <= 19) {
+        	if(bebosInseridos <= 19) {
+        		System.out.println("Inseriu");
 	        	threadInfo_bebendo.add(tempoBebendo.getText());
 	        	threadInfo_dormindo.add(tempoDormindo.getText());
 	        	bebosInseridos++;
 	        	String ID=("Thread "+Integer.toString(bebosInseridos));
-				Bebos [bebosInseridos-1] = new Bebo(bar, esperaAmigos, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(bebosInseridos-1)), Integer.parseInt(threadInfo_bebendo.get(bebosInseridos-1)), ID);
+				Bebos[bebosInseridos-1] = new Bebo(bar, esperaAmigos, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(bebosInseridos-1)), Integer.parseInt(threadInfo_bebendo.get(bebosInseridos-1)), ID);
 				Bebos[bebosInseridos-1].start();
 				addPersonagem();
+				
+				System.out.println(bebosInseridos);
+        		System.out.println(threadInfo_bebendo);
+        		System.out.println(threadInfo_dormindo);
+        		
         	}else {
+        		
         		System.out.println("qnt max de atores excedida");
+        		
         	}
         }
     }
