@@ -39,14 +39,16 @@ public class Janela implements Runnable, ActionListener
 	private Canvas jogo;
 	// componentes IO do user
 	JPanel inputUser = new JPanel();
-	JButton startButton = new JButton("Iniciar");
-	JLabel tempoBebendoLabel = new JLabel("Informe o tempo no bar!");
-	static JTextField tempoBebendo = new JTextField("", 5);
-	JLabel tempoDormindoLabel = new JLabel("Informe o tempo de soneca!");
-	static JTextField tempoDormindo= new JTextField("", 5);
-	JButton beboButton = new JButton("Listar Papudim");
 	
 	static JLabel errorMessage = new JLabel("");
+	JLabel tempoBebendoLabel = new JLabel("Informe o tempo no bar!");	
+	JLabel tempoDormindoLabel = new JLabel("Informe o tempo de soneca!");
+	static JTextField tempoBebendo = new JTextField("", 5);
+	static JTextField tempoDormindo= new JTextField("", 5);
+	JButton startButton = new JButton("Iniciar");
+	JButton beboButton = new JButton("Listar Papudim");
+	
+	
 	
 
 	//keyListener
@@ -156,7 +158,7 @@ public class Janela implements Runnable, ActionListener
 				threadInfo_dormindo.add(tempoDormindo.getText());
 				bebosInseridos++;
 
-				if(/*to do*/1!=1){
+				if(/*to do*/false){
 					System.out.printf("Campo vazio!\n");
 				}else {
 					System.out.println(bebosInseridos);
