@@ -4,11 +4,8 @@ import java.awt.Graphics2D;
 
 import java.awt.image.BufferedImage;
 
-public class Ator extends Personagem {
-	
-	/*
-	 * Animacoes utilizadas pelo jogador
-	 */
+public class Ator extends Personagem 
+{
 	private BufferedImage[] andandoEsquerda;
 	private BufferedImage[] andandoDireita;
 	private BufferedImage[] andandoCima;
@@ -17,8 +14,7 @@ public class Ator extends Personagem {
 	private BufferedImage[] bebendo;
 	private BufferedImage[] dormindo;
 	
-	private int imagemAtual;
-	
+	private int imagemAtual;	
 	private int timer;
 	
 	private int velocidadeDasAnimacoesBebendo;
@@ -27,14 +23,12 @@ public class Ator extends Personagem {
 		
 
 	public Ator(int posX, int posY, int altura, int largura, 
-			int velocidade,int h, int w) {
+				int velocidade,int h, int w) 
+	{
 		super(posX, posY, altura, largura, velocidade, h, w);
-		//variaveis que necessitam inicializacao	
 			
 		timer = 0;
 		imagemAtual = 0;
-	
-		
 		
 		//velocidadeDasAnimacoes; quanto menor mais rapido
 		velocidadeDasAnimacoes= 12;
@@ -44,7 +38,8 @@ public class Ator extends Personagem {
 		quantidadeDeFrames = 4;
 	}
 	
-	public void criarAnimacoes() {
+	public void criarAnimacoes() 
+	{
 		// Data\Sprites\shane
 		andandoEsquerda = carregarImagens("Data/Sprites/shane/walk/esquerda/tile00", 4, "png");
 		andandoDireita = carregarImagens("Data/Sprites/shane/walk/direita/tile00", 4, "png");
@@ -53,11 +48,11 @@ public class Ator extends Personagem {
 		parado= carregarImagens("Data/Sprites/shane/idle/normal/tile00", 4, "png");
 		bebendo= carregarImagens("Data/Sprites/shane/drinking/cima/tile00", 4, "png");
 		dormindo= carregarImagens("Data/Sprites/shane/sleep/tile00", 4, "png");
-
 	}
 	
 	
-	public void atualizar() {
+	public void atualizar() 
+	{
 		if(posX >= h ) {
 			andar(1);
 		}else if(posX <= 0) {
@@ -73,7 +68,8 @@ public class Ator extends Personagem {
 		atualizarContadorDeImagem();	
 	}
 		
-	public void acao() {
+	public void acao() 
+	{
 		/* ACOES
 		 * 0 = parado
 		 * 1 = esquerda
@@ -85,7 +81,8 @@ public class Ator extends Personagem {
 		 *  */
 		acao = getAcao();
 		
-		switch(acao) {
+		switch(acao) 
+		{
 			case 5:
 				break;
 			case 6:
@@ -96,10 +93,12 @@ public class Ator extends Personagem {
 		
 		
 	}
-	public void pintarAtor(Graphics2D g) {
-		
+	
+	public void pintarAtor(Graphics2D g) 
+	{		
 		int acao = getAcao();
 		int orientacao = getOrientacao();
+	
 		/* ACOES
 		 * 0 = parado
 		 * 1 = esquerda
@@ -109,7 +108,8 @@ public class Ator extends Personagem {
 		 * 5 = beber
 		 * 6 = dormir
 		 *  */
-		switch(acao) {
+		switch(acao) 
+		{
 			case 0:
 				pintar(g, parado, orientacao-1);
 				break;
@@ -136,14 +136,13 @@ public class Ator extends Personagem {
 		}
 	}
 	
-		
-	
-
-	public void atualizarContadorDeImagem() {
+	public void atualizarContadorDeImagem() 
+	{
 		int velocidade = 0;
 		velocidade = (acao == 5 ? velocidadeDasAnimacoesBebendo: velocidadeDasAnimacoes );
 
-		if(timer >= velocidade){
+		if(timer >= velocidade)
+		{
 			imagemAtual++;
 			if(imagemAtual == quantidadeDeFrames){
 				imagemAtual = 0;
@@ -152,18 +151,10 @@ public class Ator extends Personagem {
 		}
 		timer++;
 	}
-
-	
-	
-
-	
-	
-	
 	
 	/*
 	 * setters e getters
 	 */
-
 
 	public BufferedImage[] getParado() {
 		return parado;
@@ -173,7 +164,6 @@ public class Ator extends Personagem {
 		this.parado = parado;
 	}
 
-
 	public int getImagemAtual() {
 		return imagemAtual;
 	}
@@ -182,7 +172,6 @@ public class Ator extends Personagem {
 		this.imagemAtual = imagemAtual;
 	}
 
-
 	public int getTimer() {
 		return timer;
 	}
@@ -190,7 +179,6 @@ public class Ator extends Personagem {
 	public void setTimer(int timer) {
 		this.timer = timer;
 	}
-
 
 	public int getVelocidadeDasAnimacoes() {
 		return velocidadeDasAnimacoes;
@@ -207,7 +195,5 @@ public class Ator extends Personagem {
 	public void setQuantidadeDeFrames(int quantidadeDeFrames) {
 		this.quantidadeDeFrames = quantidadeDeFrames;
 	}
-
-
 	
 }

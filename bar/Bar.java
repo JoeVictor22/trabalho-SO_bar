@@ -1,9 +1,18 @@
 package bar;
 
-public class Bar {
+public class Bar 
+{
 	private int cadeiras;
 	private int terminados;
 	private int cadBKP;
+	
+	
+	public Bar(int cadeiras) 
+	{
+		this.cadeiras=cadeiras;
+		this.cadBKP=cadeiras;
+		this.terminados=0;
+	}	
 	
 	public int getCadeiras() {
 		return cadeiras;
@@ -27,12 +36,6 @@ public class Bar {
 
 	public void setCadBKP(int cadBKP) {
 		this.cadBKP = cadBKP;
-	}
-	
-	public Bar(int cadeiras) {
-		this.cadeiras=cadeiras;
-		this.cadBKP=cadeiras;
-		this.terminados=0;
 	}
 	
 }

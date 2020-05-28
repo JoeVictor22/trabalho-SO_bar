@@ -5,11 +5,11 @@ import java.util.concurrent.Semaphore;
 
 import bar.Janela;
  
-public class Jogo {
+public class Jogo 
+{
 	
-	public static void main(String[] args) {
-	
-		
+	public static void main(String[] args) 
+	{
 		Scanner ler = new Scanner(System.in);
 		
 		System.out.printf("Cadeiras\n");
@@ -27,6 +27,4 @@ public class Jogo {
 		janela.create();
 		 
 	}
-	
 }
-  
