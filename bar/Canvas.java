@@ -68,6 +68,7 @@ public class Canvas extends JPanel implements Runnable{
 			Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, e);
 		}
 	}
+	
 	// ciclo de atualizacoes
 	public void run() {
 		long timer = System.currentTimeMillis();
@@ -108,8 +109,9 @@ public class Canvas extends JPanel implements Runnable{
 		}
 	}
 	
-	public void atualiza() {
-			
+	// atualiza o estado logico dos componentes
+	public void atualiza() {	
+		
 		for(int i = 0; i < quantidadeDeAtores; i++) {
 			if(atores[i] != null) {
 				atores[i].atualizar();
@@ -119,6 +121,7 @@ public class Canvas extends JPanel implements Runnable{
 		
 	}
 
+	// desenha os componentes na tela
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
@@ -126,6 +129,7 @@ public class Canvas extends JPanel implements Runnable{
 		// paint background
 		g2d.drawImage(cenario,  null,  0,  0);
 		
+		// pinta os atores
 		if(jogando) {
 			for(int i = 0; i < quantidadeDeAtores; i++) {
 				if(atores[i] != null) {
@@ -137,12 +141,14 @@ public class Canvas extends JPanel implements Runnable{
 	}
 
 	
+	// adiciona um ator ao canvas
 	public void addAtor(Ator ator) {
 		atores[quantidadeDeAtores] = ator;
 		quantidadeDeAtores+=1;
 	}
 	
 	/* UTILS */
+	// redimensiona imagem
 	public static BufferedImage resize(BufferedImage img, int W, int H) { 
 		
 	    Image temp = img.getScaledInstance(W, H, Image.SCALE_SMOOTH);
