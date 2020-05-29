@@ -12,16 +12,16 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-
-public class Canvas extends JPanel implements Runnable{
+public class Canvas extends JPanel implements Runnable
+{
 	
 	private static final long serialVersionUID = 1L;
 	
 	private int h;
 	private int w;
-	
-	
+		
 	private int quantidadeDeAtores = 0;
+
 	private BufferedImage cenario;
 	private Ator[] atores = new Ator[20];
 	private Casa[] casas = new Casa[20];
@@ -31,7 +31,6 @@ public class Canvas extends JPanel implements Runnable{
 	private Bebo Bebos[] = new Bebo[20];
 	
 
-	
 	private boolean jogando;
 	private boolean pausado;
 	
@@ -43,6 +42,7 @@ public class Canvas extends JPanel implements Runnable{
 	
 	public Canvas(int h, int w, Janela janela,Bebo Bebos[]) {
 
+
 		pausado = false;
 		jogando = false;
 		
@@ -51,31 +51,36 @@ public class Canvas extends JPanel implements Runnable{
 		this.h = h;
 		this.w = w;
 		
-		
 		//Load background
 		try {
 			cenario = ImageIO.read(new File(scenePath));
 			//cenario = resize(cenario, h, w);
-		}catch(IOException e) {
+		}
+		catch(IOException e) {
 			Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, e);
 		}
 		gameloop.start();
 	}
 	
 	// para manter o refreshRate a 60fps => 1000ms/16 = 62
-	public void sleep() {
+	public void sleep() 
+	{
 		try {
 			Thread.sleep(16);
-		} catch(InterruptedException e) {
+		} 
+		catch(InterruptedException e) {
 			Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, e);
 		}
 	}
 	
 	// ciclo de atualizacoes
-	public void run() {
+	public void run() 
+	{
 		long timer = System.currentTimeMillis();
 		int frames = 0;
-		while(true) {
+		
+		while(true) 
+		{
 			if(jogando) {
 				atualiza();	
 			}
@@ -84,18 +89,21 @@ public class Canvas extends JPanel implements Runnable{
 			// mantem o refresh rate a 60 e conta os frames
 			sleep();
 			frames++;
-			if(System.currentTimeMillis() - timer > 1000) {
+			if(System.currentTimeMillis() - timer > 1000) 
+			{
 				timer+= 1000;
 				//System.out.println("frames = " + frames);
 				frames = 0;
-			}
-			
+			}			
 		}
 	}
 	
-	public void updateAction() {
-		for (int i=0;i<20;i++) {
-			if (Bebos[i]!=null && atores[i] != null) {
+	public void updateAction() 
+	{
+		for (int i=0;i<20;i++) 
+		{
+			if (Bebos[i]!=null && atores[i] != null) 
+			{
 				if (Bebos[i].getEstadoBebendo()==true) {
 					atores[i].irParaCadeira();
 				}
@@ -105,26 +113,27 @@ public class Canvas extends JPanel implements Runnable{
 				else if(Bebos[i].getEstadoNaFila()==true) {
 					atores[i].irParaBalcao();
 				}
-			}else if(atores[i] != null) {
+			}
+			else if(atores[i] != null) {
 				atores[i].setAcao(1);
 			}
 		}
 	}
 	
 	// atualiza o estado logico dos componentes
-	public void atualiza() {	
-		
-		for(int i = 0; i < quantidadeDeAtores; i++) {
+	public void atualiza() 
+	{	
+		for(int i = 0; i < quantidadeDeAtores; i++) 
+		{
 			if(atores[i] != null) {
 				atores[i].atualizar();
 			}
-		}
-		
-		
+		}		
 	}
 
 	// desenha os componentes na tela
-	public void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g) 
+	{
 		super.paintComponent(g);
 		
 		Graphics2D g2d = (Graphics2D) g.create();
@@ -132,17 +141,16 @@ public class Canvas extends JPanel implements Runnable{
 		g2d.drawImage(cenario,  null,  0,  0);
 		
 		// pinta os atores
-		if(jogando) {
-			for(int i = 0; i < quantidadeDeAtores; i++) {
+		if(jogando) 
+		{
+			for(int i = 0; i < quantidadeDeAtores; i++) 
+			{
 				if(atores[i] != null) {
 					atores[i].pintarAtor(g2d);
 				}
 			}
-		}
-	
+		}	
 	}
-
-	
 	// adiciona um ator ao canvas
 	public void addAtor(Ator ator) {
 		casas[quantidadeDeAtores] = new Casa(20 + (quantidadeDeAtores * 50), 20);
@@ -152,13 +160,15 @@ public class Canvas extends JPanel implements Runnable{
 		ator.setBalcao(balcoes[quantidadeDeAtores]);
 		ator.setCadeira(cadeiras[quantidadeDeAtores]);
 		ator.irParaCasa();
+
 		atores[quantidadeDeAtores] = ator;
 		quantidadeDeAtores+=1;
 	}
 	
 	/* UTILS */
 	// redimensiona imagem
-	public static BufferedImage resize(BufferedImage img, int W, int H) { 
+	public static BufferedImage resize(BufferedImage img, int W, int H) 
+	{ 
 		
 	    Image temp = img.getScaledInstance(W, H, Image.SCALE_SMOOTH);
 	    BufferedImage novaImagem = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
@@ -169,15 +179,16 @@ public class Canvas extends JPanel implements Runnable{
 
 	    return novaImagem;
 	}  
-	
-	
+		
 	/* SETTERS E GETTERS */
 	public void setJogando(boolean jogando) {
 		this.jogando = jogando;
 	}
+	
 	public boolean isJogando() {
 		return this.jogando;
 	}
+	
 	public int getQuantidadeDeAtores() {
 		return this.quantidadeDeAtores;
 	}

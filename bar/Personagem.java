@@ -12,7 +12,8 @@ import javax.imageio.ImageIO;
  * Classe abstrata para servir de base na criacao do jogador e dos inimigos
  */
 
-abstract public class Personagem {
+abstract public class Personagem 
+{
 	
 	/*
 	 * Atributos fundamentais que cada personagem devera ter
@@ -35,8 +36,9 @@ abstract public class Personagem {
 	protected int w;
 	
 	
-	public Personagem(int posX, int posY, int altura, 
-			int largura,int velocidade, int h, int w) {
+	public Personagem(int posX, int posY, int altura, int largura, 
+					  int velocidade, int h, int w) 
+	{
 		this.posX = posX;
 		this.posY = posY;
 		this.altura = altura;
@@ -60,8 +62,7 @@ abstract public class Personagem {
 		/*
 		 * Instanciacao das animacoes
 		 */
-		criarAnimacoes();
-		
+		criarAnimacoes();	
 	}
 	//metodos abstratos	
 	// Atualizar movimentos e variaveis de controle
@@ -75,15 +76,13 @@ abstract public class Personagem {
 	 *		pulando = carregarImagens("enderecoBonitinho", 10);
 	 */
 	abstract public void criarAnimacoes();
-	
-	
-	
-	
+		
 	/* metodo para pintar animacao
 	 * enviar component de pintura vindo do canvas, e a animacao a ser utilizada
 	 * o indice da animacao nesse metodo pode variar de acordo com a classe filha
 	 */
-	public void pintar(Graphics2D g, BufferedImage[] animacao, int imagemAtual) {
+	public void pintar(Graphics2D g, BufferedImage[] animacao, int imagemAtual) 
+	{
 	    g.drawImage(
              animacao[imagemAtual],
              posX,posY,
@@ -92,34 +91,35 @@ abstract public class Personagem {
              animacao[imagemAtual].getWidth(), animacao[imagemAtual].getHeight(),
              null);
     
-	}
-	
-	
-	
-	/* metodo para carregar imagens em um vetor
+	}	
+	/*
+	 *  metodo para carregar imagens em um vetor
 	 * enviar endereco, e quantidade de imagens e o tipo de extensao sem o ponto (.)
 	 * o endereco das imagens devem ser iguais e enumerados no final de 1 ao size
 	 * 
 	 */
-	public BufferedImage[] carregarImagens(String endereco, int size,  String extensao) {
+	public BufferedImage[] carregarImagens(String endereco, int size,  String extensao) 
+	{
 		BufferedImage[] imagem = new BufferedImage[size];
 		
-		for(int i = 0; i < size; i++) {	
+		for(int i = 0; i < size; i++) 
+		{	
 			try {
 				imagem[i] = ImageIO.read(new File(endereco + (i+1) + "." + extensao));
-			}catch(IOException e) {
+			}
+			catch(IOException e) {
 				System.out.println("Metodo carregarImagens : nao carregou imagens "+ endereco+(i+1) +"." + extensao);
 			}
 			
 		}
-		return imagem;
-		
+		return imagem;		
 	}
 
 	/*
 	 * atualizacao da movimentacao 
 	 */
-	public void anda(){
+	public void anda()
+	{
 		/* DIRECAO
 		 * 0 = parado
 		 * 1 = esquerda
@@ -138,8 +138,8 @@ abstract public class Personagem {
 		 *  */
 		acao = getAcao();
 		// implementar limitadores da tela
-		switch(acao) {
-			
+		switch(acao) 
+		{			
 			case 1:
 				posX -= velocidade;
 				break;
@@ -160,18 +160,20 @@ abstract public class Personagem {
 	/*
 	 * define a direcao de observacao
 	 */
-	public void andar(int acao) {
-		if(acao != 0) {
+	public void andar(int acao) 
+	{
+		if(acao != 0) 
+		{
 			this.acao = acao;
 			this.orientacao = acao;
-		}else {
+		}
+		else {
 			this.acao = acao;
 		}
 	}
-	
-	
-	public static BufferedImage resize(BufferedImage img, int W, int H) { 
 		
+	public static BufferedImage resize(BufferedImage img, int W, int H) 
+	{ 	
 	    Image temp = img.getScaledInstance(W, H, Image.SCALE_SMOOTH);
 	    BufferedImage novaImagem = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
 
@@ -182,28 +184,37 @@ abstract public class Personagem {
 	    return novaImagem;
 	}  
 	
-	
-	
 	/*
 	 * metodos para alterar posicao caso necessario
 	 */
 	public void somarPosY(int soma){
-		this.posY += soma;
-		
+		this.posY += soma;		
 	}
+	
 	public void somarPosX(int soma) {
-		this.posX += soma;
-		
-	}
-	
-	
+		this.posX += soma;		
+	}	
 	/*
 	 * Metodos de acesso
 	 */
+	public int getOrientacao() {
+		return orientacao;
+	}
+
+	/* a orientacao sempre deve ser um de 1 a 4*/
+	public void setOrientacao(int orientacao) {
+		if(orientacao > 0 && orientacao < 5) {
+			this.orientacao = orientacao;
+		}
+		else {
+			this.orientacao = 2;
+		}
+	}
+	
 	public int getPosX() {
 		return posX;
 	}
-
+	
 	public void setPosX(int posX) {
 		this.posX = posX;
 	}
@@ -240,20 +251,6 @@ abstract public class Personagem {
 		this.acao = acao;
 	}
 
-	public int getOrientacao() {
-		return orientacao;
-	}
-
-	/* a orientacao sempre deve ser um de 1 a 4*/
-	public void setOrientacao(int orientacao) {
-		if(orientacao > 0 && orientacao < 5) {
-			this.orientacao = orientacao;
-		}else {
-			this.orientacao = 2;
-		}
-
-	}
-
 	public int getVelocidade() {
 		return velocidade;
 	}
@@ -261,7 +258,5 @@ abstract public class Personagem {
 	public void setVelocidade(int velocidade) {
 		this.velocidade = velocidade;
 	}
-
-	
 	
 }

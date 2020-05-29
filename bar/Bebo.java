@@ -2,7 +2,8 @@ package bar;
 
 import java.util.concurrent.Semaphore;
 
-public class Bebo extends Thread{
+public class Bebo extends Thread
+{
 	
 	Semaphore cadSemaphore;
 	Semaphore esperaAmigos;
@@ -12,35 +13,15 @@ public class Bebo extends Thread{
 	//Tempo Registrado em cada estado//
 	private int timeCasa;
 	private int timeBebendo;
-	//Tempo Registrado em cada estado//
 
 	//Estado da Thread//
 	private boolean estadoCasa=false;
-	public boolean getEstadoCasa() {
-		return estadoCasa;
-	}
-	public void setEstadoCasa(boolean estadoCasa) {
-		this.estadoCasa = estadoCasa;
-	}
-
 	private boolean estadoBebendo=false;
-	public boolean getEstadoBebendo() {
-		return estadoBebendo;
-	}
-	public void setEstadoBebendo(boolean estadoBebendo) {
-		this.estadoBebendo = estadoBebendo;
-	}
-	
 	private boolean estadoNaFila=true;
-	public boolean getEstadoNaFila() {
-		return estadoNaFila;
-	}
-	public void setEstadoNaFila(boolean estadoNaFila) {
-		this.estadoNaFila = estadoNaFila;
-	}
-	//Estado da Thread//
-
-	public Bebo(Bar bar, Semaphore esperaAmigos, Semaphore mutex, Semaphore cadSemaphore, int timeCasa, int timeBebendo, String nome){ 	//Construtor
+	
+	public Bebo(Bar bar, Semaphore esperaAmigos, Semaphore mutex, Semaphore cadSemaphore, 
+				int timeCasa, int timeBebendo, String nome)
+	{
 		super(nome);		//getName(); Recebe o nome da Thread
 		this.bar = bar;
 		this.esperaAmigos = esperaAmigos;
@@ -50,7 +31,8 @@ public class Bebo extends Thread{
 		this.timeBebendo = timeBebendo;	
 	}
 	
-	public void entrarBar() throws InterruptedException {
+	public void entrarBar() throws InterruptedException 
+	{
 		cadSemaphore.acquire();
 		mutex.acquire();
 		bar.setCadeiras(bar.getCadeiras()-1);
@@ -60,8 +42,10 @@ public class Bebo extends Thread{
 		//System.out.printf("%d\n",bar.getCadeiras());
 	}
 	
-	public void sairBar() throws InterruptedException {
-		if(bar.getCadeiras()!=0) {
+	public void sairBar() throws InterruptedException 
+	{
+		if(bar.getCadeiras()!=0) 
+		{
 			mutex.acquire();
 			bar.setCadeiras(bar.getCadeiras()+1);
 			cadSemaphore.release();
@@ -71,16 +55,20 @@ public class Bebo extends Thread{
 		}
 	}
 	
-	public void esperarAmigos() throws InterruptedException {
+	public void esperarAmigos() throws InterruptedException 
+	{
 		mutex.acquire();
 		esperaAmigos.drainPermits();
 		bar.setTerminados(bar.getTerminados()+1);
-		if (bar.getTerminados()!=bar.getCadBKP()) {
+		if (bar.getTerminados()!=bar.getCadBKP()) 
+		{
 			//System.out.println(esperaAmigos.availablePermits()+" "+bar.getTerminados()+" "+getName());
 			mutex.release();
 			esperaAmigos.acquire();
 			//System.out.println(esperaAmigos.availablePermits()+" "+bar.getTerminados()+" "+getName());
-		}else if (bar.getTerminados()==bar.getCadBKP()) {
+		}
+		else if (bar.getTerminados()==bar.getCadBKP()) 
+		{
 			
 			bar.setTerminados(0);
 			bar.setCadeiras(bar.getCadBKP());
@@ -93,7 +81,8 @@ public class Bebo extends Thread{
 		}
 	}
 	
-	public void noBar() throws InterruptedException{
+	public void noBar() throws InterruptedException
+	{
 		entrarBar();
 		System.out.printf("--%s Estou a beber por %d segundos--\n", getName(),this.timeBebendo);
 		sleep(this.timeBebendo*1000);
@@ -102,25 +91,32 @@ public class Bebo extends Thread{
 		this.estadoCasa=true;
 	}
 	
-	public void emCasa() throws InterruptedException{
+	public void emCasa() throws InterruptedException
+	{
 		System.out.printf("**%s Estou em casa por %d segundos**\n", getName(),this.timeCasa);
 		sleep(this.timeCasa*1000);
 		this.estadoCasa=false;
 		this.estadoNaFila=true;
 	}
-	public void saida () throws InterruptedException{
+	
+	public void saida () throws InterruptedException {
 		System.out.printf("%s %d-%s %d-%s\n", getName(), this.timeCasa,getEstadoCasa(), this.timeBebendo,getEstadoBebendo());
 	}
 
-	public void run(){
-		while(true) {
-			if(this.estadoNaFila==true){
+	public void run()
+	{
+		while(true) 
+		{
+			if(this.estadoNaFila==true)
+			{
 				try {
 					noBar();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			}else if(this.estadoCasa==true){
+			}
+			else if(this.estadoCasa==true)
+			{
 				try {
 					emCasa();
 				} catch (InterruptedException e) {
@@ -129,5 +125,28 @@ public class Bebo extends Thread{
 			}
 		}
 	}
-
+	
+	public boolean getEstadoCasa() {
+		return estadoCasa;
+	}
+	
+	public void setEstadoCasa(boolean estadoCasa) {
+		this.estadoCasa = estadoCasa;
+	}
+	
+	public boolean getEstadoBebendo() {
+		return estadoBebendo;
+	}
+	
+	public void setEstadoBebendo(boolean estadoBebendo) {
+		this.estadoBebendo = estadoBebendo;
+	}
+	
+	public boolean getEstadoNaFila() {
+		return estadoNaFila;
+	}
+	
+	public void setEstadoNaFila(boolean estadoNaFila) {
+		this.estadoNaFila = estadoNaFila;
+	}
 }

@@ -20,7 +20,8 @@ import java.awt.BorderLayout;
 
 import bar.Canvas;
 
-public class Janela implements Runnable, ActionListener{
+public class Janela implements Runnable, ActionListener
+{
 
 	List<String> threadInfo_bebendo = new ArrayList<>();
     List<String> threadInfo_dormindo = new ArrayList<>();
@@ -33,23 +34,21 @@ public class Janela implements Runnable, ActionListener{
     int bebosInseridos=0;
 	Bebo Bebos[] = new Bebo[20];
     
-	public int getbebosInseridos() {
-		return bebosInseridos;
-	}
-	
 	// jframe e jpanel do jogo
 	private JFrame janela;
 	private Canvas jogo;
 	// componentes IO do user
 	JPanel inputUser = new JPanel();
-	JButton startButton = new JButton("Iniciar");
-	JLabel tempoBebendoLabel = new JLabel("Informe o tempo no bar!");
-	static JTextField tempoBebendo = new JTextField("", 5);
-	JLabel tempoDormindoLabel = new JLabel("Informe o tempo de soneca!");
-	static JTextField tempoDormindo= new JTextField("", 5);
-	JButton beboButton = new JButton("Listar Papudim");
 	
 	static JLabel errorMessage = new JLabel("");
+	JLabel tempoBebendoLabel = new JLabel("Informe o tempo no bar!");	
+	JLabel tempoDormindoLabel = new JLabel("Informe o tempo de soneca!");
+	static JTextField tempoBebendo = new JTextField("", 5);
+	static JTextField tempoDormindo= new JTextField("", 5);
+	JButton startButton = new JButton("Iniciar");
+	JButton beboButton = new JButton("Listar Papudim");
+	
+	
 	
 
 	//keyListener
@@ -58,7 +57,8 @@ public class Janela implements Runnable, ActionListener{
 	private int h;
 	private int w;
 	
-	public Janela(Bar bar, Semaphore mutex, Semaphore esperaAmigos, Semaphore cadSemaphore, int altura, int largura) {
+	public Janela(Bar bar, Semaphore mutex, Semaphore esperaAmigos, Semaphore cadSemaphore, int altura, int largura) 
+	{
 		this.h = altura;
 		this.w = largura;
 		this.bar = bar;
@@ -70,7 +70,8 @@ public class Janela implements Runnable, ActionListener{
 	public void run() {
 	}
 	
-	public void create() {
+	public void create() 
+	{
 		janela = new JFrame("Papudim simulator");
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		janela.setSize(w,h);
@@ -103,13 +104,16 @@ public class Janela implements Runnable, ActionListener{
 
 
 	
-	public void start() {
+	public void start() 
+	{
 		jogo.setJogando(true);
-        for (int i=0;i<bebosInseridos;i++){
+        for (int i=0;i<bebosInseridos;i++)
+        {
         	String ID=("Thread "+Integer.toString(i+1));
 			Bebos [i] = new Bebo(bar, esperaAmigos, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(i)), Integer.parseInt(threadInfo_bebendo.get(i)), ID);
         }
-        for (int i=0;i<bebosInseridos;i++) {
+        for (int i=0;i<bebosInseridos;i++) 
+        {
         	Bebos[i].start();
         	addPersonagem();
         }
@@ -160,19 +164,23 @@ public class Janela implements Runnable, ActionListener{
 	        	threadInfo_dormindo.add(tempoDormindo.getText());
 	        	bebosInseridos++;
 	        	String ID=("Thread "+Integer.toString(bebosInseridos));
+
 				Bebos[bebosInseridos-1] = new Bebo(bar, esperaAmigos, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(bebosInseridos-1)), Integer.parseInt(threadInfo_bebendo.get(bebosInseridos-1)), ID);
 				Bebos[bebosInseridos-1].start();
 				addPersonagem();
-				
+					
 				System.out.println(bebosInseridos);
-        		System.out.println(threadInfo_bebendo);
-        		System.out.println(threadInfo_dormindo);
-        		
-        	}else {
-        		
-        		System.out.println("qnt max de atores excedida");
-        		
-        	}
-        }
-    }
+				System.out.println(threadInfo_bebendo);
+				System.out.println(threadInfo_dormindo);
+	
+			}
+			else {
+				System.out.println("qnt max de atores excedida");
+			}
+		}
+	}
+	  
+	public int getbebosInseridos() {
+		return bebosInseridos;
+	}
 }
