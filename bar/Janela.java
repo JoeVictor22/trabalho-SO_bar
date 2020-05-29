@@ -120,20 +120,12 @@ public class Janela implements Runnable, ActionListener{
 	}
 	
 	public void addPersonagem() {
-		int alturaDoPersonagem = 100;
-		int larguraDoPersonagem = 50;
-
-		
-		int posX = new Random().nextInt(500) + 10;  // [10...501]
-		int posY = new Random().nextInt(500) + 10;  // [10...501]
-		int orientacao = new Random().nextInt(7);  // [0...6]
-			
-		Ator novoAtor = new Ator( posX, posY, alturaDoPersonagem, larguraDoPersonagem, 2, w, h);
-		//novoAtor.setOrientacao(orientacao);
-		novoAtor.setAcao(orientacao);
-		//System.out.println(orientacao);
+	
+		Ator novoAtor = new Ator(w, h);
 		jogo.addAtor(novoAtor);
 	}
+	
+	
 	  public void actionPerformed(ActionEvent ae) {
         String action = ae.getActionCommand();
         if (action.equals("Iniciar")) {

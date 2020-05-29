@@ -24,10 +24,13 @@ public class Canvas extends JPanel implements Runnable{
 	private int quantidadeDeAtores = 0;
 	private BufferedImage cenario;
 	private Ator[] atores = new Ator[20];
+	private Casa[] casas = new Casa[20];
+	private Balcao[] balcoes = new Balcao[20];
+	private Cadeira[] cadeiras = new Cadeira[20];
+	
 	private Bebo Bebos[] = new Bebo[20];
 	
-	private int alturaDoAtor;
-	private int larguraDoAtor;
+
 	
 	private boolean jogando;
 	private boolean pausado;
@@ -39,8 +42,7 @@ public class Canvas extends JPanel implements Runnable{
 	private String scenePath = "Data/Scenes/cenario.png";
 	
 	public Canvas(int h, int w, Janela janela,Bebo Bebos[]) {
-		alturaDoAtor = 150;
-		larguraDoAtor= 100;
+
 		pausado = false;
 		jogando = false;
 		
@@ -95,13 +97,13 @@ public class Canvas extends JPanel implements Runnable{
 		for (int i=0;i<20;i++) {
 			if (Bebos[i]!=null && atores[i] != null) {
 				if (Bebos[i].getEstadoBebendo()==true) {
-					atores[i].setAcao(5);
+					atores[i].irParaCadeira();
 				}
 				else if (Bebos[i].getEstadoCasa()==true) {
-					atores[i].setAcao(6);
+					atores[i].irParaCasa();
 				}
 				else if(Bebos[i].getEstadoNaFila()==true) {
-					atores[i].setAcao(2);
+					atores[i].irParaBalcao();
 				}
 			}else if(atores[i] != null) {
 				atores[i].setAcao(1);
@@ -143,6 +145,13 @@ public class Canvas extends JPanel implements Runnable{
 	
 	// adiciona um ator ao canvas
 	public void addAtor(Ator ator) {
+		casas[quantidadeDeAtores] = new Casa(20 + (quantidadeDeAtores * 50), 20);
+		balcoes[quantidadeDeAtores] = new Balcao(20 + (quantidadeDeAtores * 50), 120);
+		cadeiras[quantidadeDeAtores] = new Cadeira(20 + (quantidadeDeAtores * 50), 220);
+		ator.setCasa(casas[quantidadeDeAtores]);
+		ator.setBalcao(balcoes[quantidadeDeAtores]);
+		ator.setCadeira(cadeiras[quantidadeDeAtores]);
+		ator.irParaCasa();
 		atores[quantidadeDeAtores] = ator;
 		quantidadeDeAtores+=1;
 	}

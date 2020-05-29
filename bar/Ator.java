@@ -24,11 +24,13 @@ public class Ator extends Personagem {
 	private int velocidadeDasAnimacoesBebendo;
 	private int velocidadeDasAnimacoes;
 	private int quantidadeDeFrames;
-		
+	
+	private Casa casa;
+	private Balcao balcao;
+	private Cadeira cadeira;
 
-	public Ator(int posX, int posY, int altura, int largura, 
-			int velocidade,int h, int w) {
-		super(posX, posY, altura, largura, velocidade, h, w);
+	public Ator(int h, int w) {
+		super(0, 0, 100, 50, 2, h, w);
 		//variaveis que necessitam inicializacao	
 			
 		timer = 0;
@@ -136,7 +138,22 @@ public class Ator extends Personagem {
 		}
 	}
 	
-		
+	public void irParaCasa() {
+		this.acao = 6;
+		this.posX = casa.getPosX();
+		this.posY = casa.getPosY();
+	}
+	
+	public void irParaBalcao() {
+		this.acao = 0;
+		this.posX = balcao.getPosX();
+		this.posY = balcao.getPosY();
+	}
+	public void irParaCadeira() {
+		this.acao = 5;
+		this.posX = cadeira.getPosX();
+		this.posY = cadeira.getPosY();
+	}
 	
 
 	public void atualizarContadorDeImagem() {
@@ -163,7 +180,15 @@ public class Ator extends Personagem {
 	/*
 	 * setters e getters
 	 */
-
+	public void setCasa(Casa casa) {
+		this.casa = casa;
+	}
+	public void setCadeira(Cadeira cadeira) {
+		this.cadeira = cadeira;
+	}
+	public void setBalcao(Balcao balcao) {
+		this.balcao = balcao;
+	}
 
 	public BufferedImage[] getParado() {
 		return parado;
