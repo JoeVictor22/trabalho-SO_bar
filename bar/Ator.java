@@ -26,7 +26,7 @@ public class Ator extends Personagem
 	private Cadeira cadeira;
 
 	public Ator(int h, int w) {
-		super(0, 0, 100, 50, 2, h, w);
+		super(0, 0, 60, 30, 2, h, w);
 		//variaveis que necessitam inicializacao	
 
 			
@@ -143,17 +143,20 @@ public class Ator extends Personagem
 		this.acao = 6;
 		this.posX = casa.getPosX();
 		this.posY = casa.getPosY();
+		this.casa.setAcao(1);
 	}
 	
 	public void irParaBalcao() {
 		this.acao = 0;
 		this.posX = balcao.getPosX();
 		this.posY = balcao.getPosY();
+		this.casa.setAcao(0);
 	}
 	public void irParaCadeira() {
 		this.acao = 5;
 		this.posX = cadeira.getPosX();
 		this.posY = cadeira.getPosY();
+		this.casa.setAcao(0);
 	}
 	
 

@@ -74,7 +74,7 @@ public class Janela implements Runnable, ActionListener
 	{
 		janela = new JFrame("Papudim simulator");
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		janela.setSize(w,h);
+		janela.setSize(w,h+30);
 		janela.setResizable(false);
 		
 		

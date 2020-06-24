@@ -38,7 +38,7 @@ public class Canvas extends JPanel implements Runnable
 	
 	private Thread gameloop = new Thread(this);
 	
-	private String scenePath = "Data/Scenes/cenario.png";
+	private String scenePath = "Data/Scenes/background.png";
 	
 	public Canvas(int h, int w, Janela janela,Bebo Bebos[]) {
 
@@ -54,7 +54,7 @@ public class Canvas extends JPanel implements Runnable
 		//Load background
 		try {
 			cenario = ImageIO.read(new File(scenePath));
-			//cenario = resize(cenario, h, w);
+			cenario = resize(cenario, h, w);
 		}
 		catch(IOException e) {
 			Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, e);
@@ -149,13 +149,20 @@ public class Canvas extends JPanel implements Runnable
 					atores[i].pintarAtor(g2d);
 				}
 			}
+			for(int i = 0; i < quantidadeDeAtores; i++) 
+			{
+				if(casas[i] != null) {
+					casas[i].pintarCasa(g2d);
+				}
+			}
+
 		}	
 	}
 	// adiciona um ator ao canvas
 	public void addAtor(Ator ator) {
-		casas[quantidadeDeAtores] = new Casa(20 + (quantidadeDeAtores * 50), 20);
-		balcoes[quantidadeDeAtores] = new Balcao(20 + (quantidadeDeAtores * 50), 120);
-		cadeiras[quantidadeDeAtores] = new Cadeira(20 + (quantidadeDeAtores * 50), 220);
+		casas[quantidadeDeAtores] = new Casa(50 + (quantidadeDeAtores * 30), 80);
+		balcoes[quantidadeDeAtores] = new Balcao(20 + (quantidadeDeAtores * 30), 220);
+		cadeiras[quantidadeDeAtores] = new Cadeira(250 + (quantidadeDeAtores * 30), 580);
 		ator.setCasa(casas[quantidadeDeAtores]);
 		ator.setBalcao(balcoes[quantidadeDeAtores]);
 		ator.setCadeira(cadeiras[quantidadeDeAtores]);

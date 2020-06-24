@@ -1,18 +1,53 @@
 package bar;
 
-public class Casa {
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
-	private int posX;
-	private int posY;
-	
-	
+public class Casa extends Personagem{
+	private BufferedImage[] desligado;
+	private BufferedImage[] ligado;
+
 	public Casa(int posX, int posY) {
-		this.posX = posX;
-		this.posY = posY;
+		super(posX, posY, 60, 30, 2, posX, posY);
+		this.acao = 0;
 	}
 	
-	public int getPosX() {return posX;}
-	public int getPosY() {return posY;}
-	public void setPosX(int posX) {this.posX = posX;}
-	public void setPosY(int posY) {this.posY = posY;}
+	
+	public void criarAnimacoes() 
+	{
+		// Data\Sprites\shane
+		desligado = carregarImagens("Data/Sprites/shane/walk/esquerda/tile00", 4, "png");
+		ligado= carregarImagens("Data/Sprites/shane/walk/direita/tile00", 4, "png");
+
+	}
+	
+	
+	public void atualizar() 
+	{
+	}
+		
+	public void pintarCasa(Graphics2D g) 
+	{			
+		
+		int acao = getAcao();
+	
+		/* ACOES
+		 * 0 = parado
+		 * 1 = esquerda
+	
+		 *  */
+		switch(acao) 
+		{
+			case 0:
+				pintar(g, desligado, 0);
+				break;
+			case 1:
+				pintar(g, ligado, 1);
+				break;
+			default:
+				break;
+		}
+
+
+	}
 }
