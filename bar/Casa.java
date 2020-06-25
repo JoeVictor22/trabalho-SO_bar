@@ -21,7 +21,8 @@ public class Casa extends Personagem{
 
 	}
 	
-	
+	public void anda() {
+	}
 	public void atualizar() 
 	{
 	}

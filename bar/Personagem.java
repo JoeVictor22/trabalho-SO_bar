@@ -24,6 +24,9 @@ abstract public class Personagem
 	protected int posX;
 	protected int posY;
 	
+	private int gotoX;
+	private int gotoY;
+	
 	// Atributos relativos as dimensoes
 	private int largura;
 	private int altura;
@@ -41,6 +44,8 @@ abstract public class Personagem
 	{
 		this.posX = posX;
 		this.posY = posY;
+		this.gotoX = posX;
+		this.gotoY = posY;
 		this.altura = altura;
 		this.largura = largura;
 		this.velocidade = velocidade;
@@ -136,25 +141,43 @@ abstract public class Personagem
 		 * 5 = beber
 		 * 6 = dormir
 		 *  */
-		acao = getAcao();
-		// implementar limitadores da tela
-		switch(acao) 
-		{			
-			case 1:
-				posX -= velocidade;
-				break;
-			case 2:
-				posX += velocidade;
-				break;
-			case 3:
-				posY -= velocidade;
-				break;
-			case 4:
-				posY += velocidade;
-				break;
-			default:
-				break;	
+		
+		
+		
+		
+		if(gotoX > posX) {
+			setAcao(2);
+			posX += velocidade;
+			if(gotoX <= posX) {
+				setAcao(0);
+				gotoX = posX;
+			}
 		}
+		if(gotoX < posX) {
+			setAcao(1);
+			posX -= velocidade;
+			if(gotoX >= posX) {
+				setAcao(0);
+				gotoX = posX;
+			}
+		}
+		if(gotoY > posY) {
+			setAcao(4);
+			posY += velocidade;
+			if(gotoY <= posY) {
+				setAcao(0);
+				gotoY = posY;
+			}
+		}
+		if(gotoY < posY) {
+			setAcao(3);
+			posY -= velocidade;
+			if(gotoY >= posY) {
+				setAcao(0);
+				gotoY = posY;
+			}
+		}			
+		
 	}
 	
 	/*
@@ -257,6 +280,24 @@ abstract public class Personagem
 
 	public void setVelocidade(int velocidade) {
 		this.velocidade = velocidade;
+	}
+	public int getGotoX() {
+		return gotoX;
+	}
+
+
+	public void setGotoX(int gotoX) {
+		this.gotoX = gotoX;
+	}
+
+
+	public int getGotoY() {
+		return gotoY;
+	}
+
+
+	public void setGotoY(int gotoY) {
+		this.gotoY = gotoY;
 	}
 	
 }

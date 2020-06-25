@@ -22,11 +22,14 @@ public class Ator extends Personagem
 	private int quantidadeDeFrames;
 	
 
+
 	public Ator(int h, int w) {
 		super(0, 0, 60, 30, 2, h, w);
 		//variaveis que necessitam inicializacao	
 
 			
+		
+		
 		timer = 0;
 		imagemAtual = 0;
 		
@@ -120,6 +123,8 @@ public class Ator extends Personagem
 	/*
 	 * setters e getters
 	 */
+	
+
 
 	public BufferedImage[] getParado() {
 		return parado;
@@ -160,5 +165,8 @@ public class Ator extends Personagem
 	public void setQuantidadeDeFrames(int quantidadeDeFrames) {
 		this.quantidadeDeFrames = quantidadeDeFrames;
 	}
+	
+
+	
 	
 }
