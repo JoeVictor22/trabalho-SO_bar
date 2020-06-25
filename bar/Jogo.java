@@ -10,14 +10,14 @@ public class Jogo
 	
 	public static void main(String[] args) 
 	{
-		Popup popup = new Popup();
+		//Popup popup = new Popup();
 		
 		
 		Scanner ler = new Scanner(System.in);
 		
 		System.out.printf("Cadeiras\n");
 		
-		Bar bar= new Bar(ler.nextInt());
+		Bar bar= new Bar(4);
 		ler.close();
 		
 		Semaphore mutex = new Semaphore(1);

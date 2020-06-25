@@ -25,7 +25,7 @@ public class Canvas extends JPanel implements Runnable
 	private BufferedImage cenario;
 	private Ator[] atores = new Ator[20];
 	private ControleAtor[] controladores = new ControleAtor[20];
-	private Fila fila = new Fila(0,0,40,atores);
+	private Fila fila = new Fila(30,220,30, controladores);
 	private Casa[] casas = new Casa[20];
 	private Balcao[] balcoes = new Balcao[20];
 	private Cadeira[] cadeiras = new Cadeira[20];
@@ -102,6 +102,7 @@ public class Canvas extends JPanel implements Runnable
 	// atualiza o estado logico dos componentes
 	public void atualiza() 
 	{	
+		fila.atualizar();
 		for(int i = 0; i < quantidadeDeAtores; i++) 
 		{
 			if(controladores[i] != null) {
@@ -140,11 +141,11 @@ public class Canvas extends JPanel implements Runnable
 	// adiciona um ator ao canvas
 	public void addAtor(Ator ator) {
 		casas[quantidadeDeAtores] = new Casa(50 + (quantidadeDeAtores * 30), 80);
-		balcoes[quantidadeDeAtores] = new Balcao(20 + (quantidadeDeAtores * 30), 220);
+
 		cadeiras[quantidadeDeAtores] = new Cadeira(250 + (quantidadeDeAtores * 30), 580);
 		
 		
-		controladores[quantidadeDeAtores] = new ControleAtor(ator, Bebos[quantidadeDeAtores], this.fila, casas[quantidadeDeAtores], balcoes[quantidadeDeAtores], cadeiras[quantidadeDeAtores]);
+		controladores[quantidadeDeAtores] = new ControleAtor(ator, Bebos[quantidadeDeAtores], this.fila, casas[quantidadeDeAtores], cadeiras[quantidadeDeAtores]);
 
 		atores[quantidadeDeAtores] = ator;
 		quantidadeDeAtores+=1;
