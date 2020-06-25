@@ -48,21 +48,18 @@ public class ControleAtor {
 	
 	
 	
-	public void irParaCasa() {
+	public void irParaCasa() {	
 		ator.setGotoX(casa.getPosX());
 		ator.setGotoY(casa.getPosY());
-			
 		
-		ator.setAcao(6);
-		
-	
-
+		if(ator.getPosX()==casa.getPosX() && ator.getPosY()==casa.getPosY()) {
+			ator.setAcao(6);
+		}
 	}
 	
 	public void irParaBalcao() {
 		
 		fila.push(this);
-		
 		ator.setGotoX(fila.getX() + fila.getDistancia() * posFila );
 		ator.setGotoY(fila.getY());
 			
@@ -75,11 +72,10 @@ public class ControleAtor {
 		fila.pop(this);
 		ator.setGotoX(cadeira.getPosX());
 		ator.setGotoY(cadeira.getPosY());
-			
-		ator.setAcao(5);
-	
-			
 		
+		if(ator.getPosX()==cadeira.getPosX() && ator.getPosY()==cadeira.getPosY()) {
+			ator.setAcao(5);
+		}
 	}
 
 
