@@ -12,7 +12,6 @@ public class ControleAtor {
 	private Fila fila;
 	
 
-	private int estado;
 	
 	
 	public ControleAtor(Ator ator,Bebo bebo, Fila fila, Casa casa, Balcao balcao, Cadeira cadeira) {
@@ -26,7 +25,6 @@ public class ControleAtor {
 		this.balcao = balcao;
 		this.cadeira = cadeira;
 		
-		this.estado = 0;
 		
 		irParaCasa();
 	}
