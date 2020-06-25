@@ -11,63 +11,73 @@ public class ControleAtor {
 	
 	private Fila fila;
 	
+
+	private int estado;
+	
 	
 	public ControleAtor(Ator ator,Bebo bebo, Fila fila, Casa casa, Balcao balcao, Cadeira cadeira) {
 		this.ator = ator;
-	
+
+
 		this.bebo = bebo;
 		this.fila = fila;
 		
 		this.casa = casa;
 		this.balcao = balcao;
 		this.cadeira = cadeira;
+		
+		this.estado = 0;
+		
+		irParaCasa();
 	}
 	
 	
-	public void atualizar() {
-		if (bebo !=null && ator != null) 
-		{
-			if (bebo.getEstadoBebendo()==true) {
-				irParaCadeira();
-			}
-			else if (bebo.getEstadoCasa()==true) {
-				irParaCasa();
-			}
-			else if(bebo.getEstadoNaFila()==true) {
-				irParaBalcao();
-			}
+	public void atualizar() {		
+		ator.atualizar();
+		if (bebo.getEstadoBebendo()==true) {
+			irParaCadeira();
 		}
-		else if(ator != null) {
-			ator.setAcao(1);
+		else if (bebo.getEstadoCasa()==true) {
+			irParaCasa();
 		}
+		else if(bebo.getEstadoNaFila()==true) {
+			irParaBalcao();
+		}
+		
 	}
+	
 	
 	
 	public void irParaCasa() {
-		if (casa != null) {
-			ator.setAcao(6);
-			ator.setPosX(casa.getPosX());
-			ator.setPosY(casa.getPosY());			
-		}
+		ator.setGotoX(casa.getPosX());
+		ator.setGotoY(casa.getPosY());
+			
+		
+		ator.setAcao(6);
+		
+	
 
 	}
 	
 	public void irParaBalcao() {
-		if (balcao != null) {
-			ator.setAcao(0);
-			ator.setPosX(balcao.getPosX());
-			ator.setPosY(balcao.getPosY());
+		//System.out.println(balcao.getPosX() + " - " + balcao.getPosY());
+		ator.setGotoX(balcao.getPosX());
+		ator.setGotoY(balcao.getPosY());
 			
-		}
+		
 
 	}
 	public void irParaCadeira() {
-		if (cadeira != null) {
-			ator.setAcao(5);
-			ator.setPosX(cadeira.getPosX());
-			ator.setPosY(cadeira.getPosY());
+		ator.setGotoX(cadeira.getPosX());
+		ator.setGotoY(cadeira.getPosY());
 			
-		}
+		ator.setAcao(5);
+	
+			
+		
 	}
+
+
+
 	
 }
