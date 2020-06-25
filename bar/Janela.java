@@ -126,6 +126,7 @@ public class Janela implements Runnable, ActionListener
 	public void addPersonagem() {
 	
 		Ator novoAtor = new Ator(w, h);
+		Bebos[bebosInseridos-1].setAtor(novoAtor);
 		jogo.addAtor(novoAtor);
 	}
 	

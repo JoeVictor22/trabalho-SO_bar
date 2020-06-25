@@ -13,6 +13,7 @@ public class Bebo extends Thread
 	//Tempo Registrado em cada estado//
 	private int timeCasa;
 	private int timeBebendo;
+	private Ator ator;
 
 	//Estado da Thread//
 	private boolean estadoCasa=false;
@@ -149,4 +150,13 @@ public class Bebo extends Thread
 	public void setEstadoNaFila(boolean estadoNaFila) {
 		this.estadoNaFila = estadoNaFila;
 	}
+	
+	public Ator getAtor() {
+		return ator;
+	}
+
+	public void setAtor(Ator ator) {
+		this.ator = ator;
+	}
 }
+
