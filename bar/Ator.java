@@ -21,9 +21,6 @@ public class Ator extends Personagem
 	private int velocidadeDasAnimacoes;
 	private int quantidadeDeFrames;
 	
-	private Casa casa;
-	private Balcao balcao;
-	private Cadeira cadeira;
 
 	public Ator(int h, int w) {
 		super(0, 0, 60, 30, 2, h, w);
@@ -56,47 +53,10 @@ public class Ator extends Personagem
 	
 	public void atualizar() 
 	{
-		if(posX >= h ) {
-			andar(1);
-		}else if(posX <= 0) {
-			andar(2);
-		}else if(posY >= w) {
-			andar(3);
-		}else if(posY <= 0) {
-			andar(4);
-		}
-		
-		acao();
 		anda();
 		atualizarContadorDeImagem();	
 	}
-		
-	public void acao() 
-	{
-		/* ACOES
-		 * 0 = parado
-		 * 1 = esquerda
-		 * 2 = direita
-		 * 3 = cima
-		 * 4 = baixo
-		 * 5 = beber
-		 * 6 = dormir
-		 *  */
-		acao = getAcao();
-		
-		switch(acao) 
-		{
-			case 5:
-				break;
-			case 6:
-				break;
-			default:
-				break;
-		}
-		
-		
-	}
-	
+
 	public void pintarAtor(Graphics2D g) 
 	{		
 		int acao = getAcao();
@@ -139,26 +99,7 @@ public class Ator extends Personagem
 		}
 	}
 	
-	public void irParaCasa() {
-		this.acao = 6;
-		this.posX = casa.getPosX();
-		this.posY = casa.getPosY();
-		this.casa.setAcao(1);
-	}
-	
-	public void irParaBalcao() {
-		this.acao = 0;
-		this.posX = balcao.getPosX();
-		this.posY = balcao.getPosY();
-		this.casa.setAcao(0);
-	}
-	public void irParaCadeira() {
-		this.acao = 5;
-		this.posX = cadeira.getPosX();
-		this.posY = cadeira.getPosY();
-		this.casa.setAcao(0);
-	}
-	
+
 
 	public void atualizarContadorDeImagem() {
 
@@ -179,16 +120,6 @@ public class Ator extends Personagem
 	/*
 	 * setters e getters
 	 */
-	public void setCasa(Casa casa) {
-		this.casa = casa;
-	}
-	public void setCadeira(Cadeira cadeira) {
-		this.cadeira = cadeira;
-	}
-	public void setBalcao(Balcao balcao) {
-		this.balcao = balcao;
-	}
-
 
 	public BufferedImage[] getParado() {
 		return parado;

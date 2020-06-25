@@ -24,6 +24,8 @@ public class Canvas extends JPanel implements Runnable
 
 	private BufferedImage cenario;
 	private Ator[] atores = new Ator[20];
+	private ControleAtor[] controladores = new ControleAtor[20];
+	private Fila fila = new Fila(0,0,40,atores);
 	private Casa[] casas = new Casa[20];
 	private Balcao[] balcoes = new Balcao[20];
 	private Cadeira[] cadeiras = new Cadeira[20];
@@ -81,10 +83,8 @@ public class Canvas extends JPanel implements Runnable
 		
 		while(true) 
 		{
-			if(jogando) {
-				atualiza();	
-			}
-			updateAction();
+			atualiza();	
+			
 			repaint();
 			// mantem o refresh rate a 60 e conta os frames
 			sleep();
@@ -98,35 +98,14 @@ public class Canvas extends JPanel implements Runnable
 		}
 	}
 	
-	public void updateAction() 
-	{
-		for (int i=0;i<20;i++) 
-		{
-			if (Bebos[i]!=null && atores[i] != null) 
-			{
-				if (Bebos[i].getEstadoBebendo()==true) {
-					atores[i].irParaCadeira();
-				}
-				else if (Bebos[i].getEstadoCasa()==true) {
-					atores[i].irParaCasa();
-				}
-				else if(Bebos[i].getEstadoNaFila()==true) {
-					atores[i].irParaBalcao();
-				}
-			}
-			else if(atores[i] != null) {
-				atores[i].setAcao(1);
-			}
-		}
-	}
 	
 	// atualiza o estado logico dos componentes
 	public void atualiza() 
 	{	
 		for(int i = 0; i < quantidadeDeAtores; i++) 
 		{
-			if(atores[i] != null) {
-				atores[i].atualizar();
+			if(controladores[i] != null) {
+				controladores[i].atualizar();
 			}
 		}		
 	}
@@ -152,7 +131,7 @@ public class Canvas extends JPanel implements Runnable
 			for(int i = 0; i < quantidadeDeAtores; i++) 
 			{
 				if(casas[i] != null) {
-					casas[i].pintarCasa(g2d);
+					//casas[i].pintarCasa(g2d);
 				}
 			}
 
@@ -163,10 +142,9 @@ public class Canvas extends JPanel implements Runnable
 		casas[quantidadeDeAtores] = new Casa(50 + (quantidadeDeAtores * 30), 80);
 		balcoes[quantidadeDeAtores] = new Balcao(20 + (quantidadeDeAtores * 30), 220);
 		cadeiras[quantidadeDeAtores] = new Cadeira(250 + (quantidadeDeAtores * 30), 580);
-		ator.setCasa(casas[quantidadeDeAtores]);
-		ator.setBalcao(balcoes[quantidadeDeAtores]);
-		ator.setCadeira(cadeiras[quantidadeDeAtores]);
-		ator.irParaCasa();
+		
+		
+		controladores[quantidadeDeAtores] = new ControleAtor(ator, Bebos[quantidadeDeAtores], this.fila, casas[quantidadeDeAtores], balcoes[quantidadeDeAtores], cadeiras[quantidadeDeAtores]);
 
 		atores[quantidadeDeAtores] = ator;
 		quantidadeDeAtores+=1;
