@@ -68,15 +68,15 @@ public class Bebo extends Thread
 	
 	public void sairBar() throws InterruptedException 
 	{
-		if(bar.getCadeiras()!=0) 
-		{
+//		if(bar.getCadeiras()!=0) 
+//		{
 			mutex.acquire();
 			bar.setCadeiras(bar.getCadeiras()+1);
 			cadSemaphore.release();
 			mutex.release();
-		}else{
-			esperarAmigos();
-		}
+//		}else{
+//			esperarAmigos();
+//		}
 	}
 	
 	public void esperarAmigos() throws InterruptedException 
