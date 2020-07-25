@@ -19,10 +19,17 @@ public class Popup{
 		this.numero = numero;
 	}
 
-	public void receber() {
-		final JFrame parent = new JFrame();
-        String cadeira = JOptionPane.showInputDialog(parent,
-                "Informa a quantidade de cadeiras", null);
-        this.setNumero(Integer.parseInt(cadeira));
+	public void receber() 
+	{
+		while(true)
+		{
+			final JFrame parent = new JFrame();
+	        String cadeira = JOptionPane.showInputDialog(parent,
+	                "Informa a quantidade de cadeiras", null);
+	        
+	        this.setNumero(Integer.parseInt(cadeira));
+	        
+	        if(this.getNumero() > 0) break;
+		}
     }
 }
