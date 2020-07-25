@@ -1,22 +1,16 @@
 package bar;
 
-import java.awt.BorderLayout;
-import java.util.Random;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
-import java.awt.BorderLayout;
 
 import bar.Canvas;
 
@@ -123,8 +117,8 @@ public class Janela implements Runnable, ActionListener
 		//start();
 	}
 	
-	public void addPersonagem() {
-	
+	public void addPersonagem() 
+	{	
 		Ator novoAtor = new Ator(w, h);
 		Bebos[bebosInseridos-1].setAtor(novoAtor);
 		jogo.addAtor(novoAtor);

@@ -41,6 +41,7 @@ public class Fila {
 			controlador.setPosFila(-1);
 		}
 	}
+	
 	public void push(ControleAtor controlador) {
 		if(controlador.getPosFila() == -1) {
 			int ultimoDaFila = 0;

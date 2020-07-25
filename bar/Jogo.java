@@ -1,6 +1,5 @@
 package bar;
 
-import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
 import bar.Janela;
@@ -11,7 +10,6 @@ public class Jogo
 	public static void main(String[] args) 
 	{
 		Popup popup = new Popup();
-		
 
 		Bar bar= new Bar(popup.getNumero());
 		

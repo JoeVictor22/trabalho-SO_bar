@@ -26,8 +26,6 @@ public class ControleAtor {
 		this.casa = casa;
 		this.cadeira = cadeira;
 		
-		
-		
 		irParaCasa();
 	}
 	
