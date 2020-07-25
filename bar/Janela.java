@@ -151,7 +151,6 @@ public class Janela implements Runnable, ActionListener
     	        	threadInfo_dormindo.add(tempoDormindo.getText());
     	        	bebosInseridos++;
 
-	        		System.out.println(tempoBebendo.getText() + " OH CARAI");
 	        		System.out.println(bebosInseridos);
 	        		System.out.println(threadInfo_bebendo);
 	        		System.out.println(threadInfo_dormindo);
