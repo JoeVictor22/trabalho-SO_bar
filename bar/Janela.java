@@ -139,44 +139,53 @@ public class Janela implements Runnable, ActionListener
     		beboButton.setText("Adiconar Papudim");
         }
         else if (action.equals("Listar Papudim")) {
-        	if(bebosInseridos <= 19){
-	        	System.out.println("listou");
-	        	
-	        	threadInfo_bebendo.add(tempoBebendo.getText());
-	        	threadInfo_dormindo.add(tempoDormindo.getText());
-	        	bebosInseridos++;
-	        	
-	        	if(/*to do*/1!=1){
-	        		System.out.printf("Campo vazio!\n");
-	        	}else {
+        	if(bebosInseridos <= 19)
+        	{
+        		if(tempoBebendo.getText().isEmpty() && tempoDormindo.getText().isEmpty()) {
+        			System.out.println("Campo(s) Vazio(s)");
+        		}
+        		else {
+        			System.out.println("listou");
+    	        	
+    	        	threadInfo_bebendo.add(tempoBebendo.getText());
+    	        	threadInfo_dormindo.add(tempoDormindo.getText());
+    	        	bebosInseridos++;
+
+	        		System.out.println(tempoBebendo.getText() + " OH CARAI");
 	        		System.out.println(bebosInseridos);
 	        		System.out.println(threadInfo_bebendo);
 	        		System.out.println(threadInfo_dormindo);
-	        	}
+
+        		}
         	}else {
-        		System.out.println("qnt max de atores excedida");
+        		System.out.println("Quantidade maxima de atores excedida");
         	}
         }
         
         else if(action.equals("Adiconar Papudim")) {
-        	if(bebosInseridos <= 19) {
-        		System.out.println("Inseriu");
-	        	threadInfo_bebendo.add(tempoBebendo.getText());
-	        	threadInfo_dormindo.add(tempoDormindo.getText());
-	        	bebosInseridos++;
-	        	String ID=("Thread "+Integer.toString(bebosInseridos));
+        	if(bebosInseridos <= 19)
+        	{
+        		if(tempoBebendo.getText().isEmpty() && tempoDormindo.getText().isEmpty()) {
+        			System.out.println("Campo(s) Vazio(s)");
+        		}
+        		else {
+        			System.out.println("Inseriu");
+    	        	threadInfo_bebendo.add(tempoBebendo.getText());
+    	        	threadInfo_dormindo.add(tempoDormindo.getText());
+    	        	bebosInseridos++;
+    	        	String ID=("Thread "+Integer.toString(bebosInseridos));
 
-				Bebos[bebosInseridos-1] = new Bebo(bar, esperaAmigos, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(bebosInseridos-1)), Integer.parseInt(threadInfo_bebendo.get(bebosInseridos-1)), ID);
-				Bebos[bebosInseridos-1].start();
-				addPersonagem();
-					
-				System.out.println(bebosInseridos);
-				System.out.println(threadInfo_bebendo);
-				System.out.println(threadInfo_dormindo);
-	
+    				Bebos[bebosInseridos-1] = new Bebo(bar, esperaAmigos, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(bebosInseridos-1)), Integer.parseInt(threadInfo_bebendo.get(bebosInseridos-1)), ID);
+    				Bebos[bebosInseridos-1].start();
+    				addPersonagem();
+    					
+    				System.out.println(bebosInseridos);
+    				System.out.println(threadInfo_bebendo);
+    				System.out.println(threadInfo_dormindo);
+        		}
 			}
 			else {
-				System.out.println("qnt max de atores excedida");
+				System.out.println("Quantidade maxima de atores excedida");
 			}
 		}
 	}
