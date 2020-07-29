@@ -42,7 +42,7 @@ public class Fila {
 	
 			
 	public void pop(ControleAtor controlador) {
-		if(controlador.getPosFila() == 0) {
+		if(controlador.getPosFila() != -1) {
 			flags[controlador.getPosFila()] = false;
 			controlador.setPosFila(-1);
 		}
