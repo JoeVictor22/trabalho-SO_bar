@@ -108,7 +108,7 @@ public class Bebo extends Thread
 	public void noBar() throws InterruptedException
 	{
 		entrarBar();
-		System.out.printf("--%s Estou a beber por %d segundos--\n", getName(),this.timeBebendo);
+		//System.out.printf("--%s Estou a beber por %d segundos--\n", getName(),this.timeBebendo);
 		sleep(this.timeBebendo*1000);
 		sairBar();
 		this.estadoBebendo=false;
@@ -117,14 +117,14 @@ public class Bebo extends Thread
 	
 	public void emCasa() throws InterruptedException
 	{
-		System.out.printf("**%s Estou em casa por %d segundos**\n", getName(),this.timeCasa);
+		//System.out.printf("**%s Estou em casa por %d segundos**\n", getName(),this.timeCasa);
 		sleep(this.timeCasa*1000);
 		this.estadoCasa=false;
 		this.estadoNaFila=true;
 	}
 	
 	public void saida () throws InterruptedException {
-		System.out.printf("%s %d-%s %d-%s\n", getName(), this.timeCasa,getEstadoCasa(), this.timeBebendo,getEstadoBebendo());
+		//System.out.printf("%s %d-%s %d-%s\n", getName(), this.timeCasa,getEstadoCasa(), this.timeBebendo,getEstadoBebendo());
 	}
 	
 	

@@ -9,6 +9,7 @@ public class Fila {
 	private int distancia;
 	private int maxFila = 50;
 	private boolean[] flags = new boolean[maxFila];
+	// a_a_a_a_ _ _ _ _ _ _ _ _ _ _ _ _
 	
 	public Fila(int x, int y, int distancia, ControleAtor[] controladores) {
 		this.x = x;
@@ -23,27 +24,34 @@ public class Fila {
 
 	
 	public void atualizar() {
-		for(int i = 1; i < 20; i++) {
+	
+		for(int i = 0; i < 20; i++) {
+			
 			if (controladores[i] != null && controladores[i].getPosFila() > 0) {
-				if (flags[controladores[i].getPosFila()-1] == false) {
+				if (flags[controladores[i].getPosFila()-1] == false ) {
 					flags[controladores[i].getPosFila()] = false;
 					flags[controladores[i].getPosFila()-1] = true;
 					controladores[i].setPosFila(controladores[i].getPosFila()-1);
-
 				}
+				
 			}
-		}
+		}	
+		
 	}
 	
+	
+			
 	public void pop(ControleAtor controlador) {
-		if(controlador.getPosFila() != -1) {
+		if(controlador.getPosFila() == 0) {
 			flags[controlador.getPosFila()] = false;
 			controlador.setPosFila(-1);
 		}
 	}
 	
+	
 	public void push(ControleAtor controlador) {
 		if(controlador.getPosFila() == -1) {
+			
 			int ultimoDaFila = 0;
 			for(int i = 0; i < maxFila ; i++) {
 				if(flags[i] == true) {
@@ -51,6 +59,7 @@ public class Fila {
 				}
 			}
 			flags[ultimoDaFila] = true;
+			// 
 			controlador.setPosFila(ultimoDaFila);
 		}
 	}
