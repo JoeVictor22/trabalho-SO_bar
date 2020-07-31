@@ -4,10 +4,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
@@ -33,7 +37,8 @@ public class Janela implements Runnable, ActionListener
 	private Canvas jogo;
 	// componentes IO do user
 	JPanel inputUser = new JPanel();
-	
+	JPanel output = new JPanel();
+
 	static JLabel errorMessage = new JLabel("");
 	JLabel tempoBebendoLabel = new JLabel("Informe o tempo no bar!");	
 	JLabel tempoDormindoLabel = new JLabel("Informe o tempo de soneca!");
@@ -42,6 +47,10 @@ public class Janela implements Runnable, ActionListener
 	JButton startButton = new JButton("Iniciar");
 	JButton beboButton = new JButton("Listar Papudim");
 	
+	JLabel consoleLabel = new JLabel("Console\nConsole\nConsole\nConsole\nConsole\n");
+	private JTextArea textAreaConsole = new JTextArea(5,60);
+	private TextAreaOutputStream consoleStream = new TextAreaOutputStream(textAreaConsole, "Console");
+		
 	
 	
 
@@ -73,12 +82,14 @@ public class Janela implements Runnable, ActionListener
 		
 		
 		/*
-		 * Adicionar todo IO aqui
+		 * Adicionar todo a inteface aqui
 		 * */
 		
+		// acoes para os butoes
 		startButton.addActionListener(this);
 		beboButton.addActionListener(this);
-
+ 
+		// add componentes de tela ao jpanel correspondente
 		inputUser.add(startButton);
 		inputUser.add(tempoBebendoLabel);
 		inputUser.add(tempoBebendo);
@@ -87,11 +98,19 @@ public class Janela implements Runnable, ActionListener
 		inputUser.add(beboButton);
 
 		
-		/* TODO: tratar o tamanho do canvas e da criacao 
-		*dos personagens de acordo com o tamanho da janela
-		*/
+		// console redirect implementation
+		output.setLayout(new BorderLayout());
+		output.add(new JScrollPane(textAreaConsole, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
+		System.setOut(new PrintStream(consoleStream));
+		
+		
+		
+		// criacao de instancia principal do jogo
 		jogo = new Canvas(w, h, this, Bebos);
+		// add jogo ao jframe
 		janela.add(jogo);
+		// add jpanels ao jogo
+		jogo.add(output);
 		jogo.add(inputUser);
 		janela.setVisible(true);
 	}
