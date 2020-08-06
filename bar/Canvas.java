@@ -24,7 +24,7 @@ public class Canvas extends JPanel implements Runnable
 	private BufferedImage cenario;
 	private Ator[] atores = new Ator[20];
 	private ControleAtor[] controladores = new ControleAtor[20];
-	private Fila fila = new Fila(30,220,30, controladores);
+	private Fila fila = new Fila(30,320,40, controladores);
 	private Casa[] casas = new Casa[20];
 	private Balcao[] balcoes = new Balcao[20];
 	private Cadeira[] cadeiras = new Cadeira[20];
@@ -130,7 +130,7 @@ public class Canvas extends JPanel implements Runnable
 			for(int i = 0; i < quantidadeDeAtores; i++) 
 			{
 				if(casas[i] != null) {
-					//casas[i].pintarCasa(g2d);
+					casas[i].pintarCasa(g2d);
 				}
 			}
 
@@ -138,7 +138,7 @@ public class Canvas extends JPanel implements Runnable
 	}
 	// adiciona um ator ao canvas
 	public void addAtor(Ator ator) {
-		casas[quantidadeDeAtores] = new Casa(50 + (quantidadeDeAtores * 30), 80);
+		casas[quantidadeDeAtores] = new Casa(20 + (quantidadeDeAtores * 60), 160);
 
 		cadeiras[quantidadeDeAtores] = new Cadeira(250 + (quantidadeDeAtores * 30), 580);
 		

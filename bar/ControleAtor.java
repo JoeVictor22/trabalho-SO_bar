@@ -16,8 +16,8 @@ public class ControleAtor {
 	public ControleAtor(Ator ator,Bebo bebo, Fila fila, Casa casa, Cadeira cadeira) {
 		this.ator = ator;
 
-		this.ator.setPosX(casa.getPosX());
-		this.ator.setPosY(casa.getPosY());
+		this.ator.setPosX(casa.getPosX() + 30);
+		this.ator.setPosY(casa.getPosY()+ 20);
 		
 		this.posFila = -1;
 		this.bebo = bebo;
@@ -51,7 +51,9 @@ public class ControleAtor {
 		ator.setGotoY(casa.getPosY());
 		
 		if(ator.getPosX()==casa.getPosX() && ator.getPosY()==casa.getPosY()) {
+			ator.setPosX(ator.getPosX());
 			ator.setAcao(6);
+			casa.setAcao(1);
 		}
 	}
 	
@@ -60,7 +62,7 @@ public class ControleAtor {
 		fila.push(this);
 		ator.setGotoX(fila.getX() + fila.getDistancia() * posFila );
 		ator.setGotoY(fila.getY());
-			
+		casa.setAcao(0);			
 		
 
 	}

@@ -40,7 +40,7 @@ abstract public class Personagem
 	
 	
 	public Personagem(int posX, int posY, int altura, int largura, 
-					  int velocidade, int h, int w) 
+					  int velocidade) 
 	{
 		this.posX = posX;
 		this.posY = posY;
@@ -61,8 +61,7 @@ abstract public class Personagem
 		 *  */
 		this.acao = 0;
 		this.orientacao = 1;
-		this.w = w;
-		this.h = h;
+	
 		
 		/*
 		 * Instanciacao das animacoes

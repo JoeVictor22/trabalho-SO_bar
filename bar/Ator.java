@@ -24,7 +24,7 @@ public class Ator extends Personagem
 
 
 	public Ator(int h, int w) {
-		super(0, 0, 60, 30, 2, h, w);
+		super(0, 0, 60, 30, 2);
 		//variaveis que necessitam inicializacao	
 		
 		timer = 0;
