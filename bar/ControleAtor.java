@@ -113,6 +113,36 @@ public class ControleAtor {
 	}
 
 
+	public boolean isFlagBebendo() {
+		return flagBebendo;
+	}
+
+
+	public void setFlagBebendo(boolean flagBebendo) {
+		this.flagBebendo = flagBebendo;
+	}
+
+
+	public boolean isFlagEsperando() {
+		return flagEsperando;
+	}
+
+
+	public void setFlagEsperando(boolean flagEsperando) {
+		this.flagEsperando = flagEsperando;
+	}
+
+
+	public boolean isFlagDormindo() {
+		return flagDormindo;
+	}
+
+
+	public void setFlagDormindo(boolean flagDormindo) {
+		this.flagDormindo = flagDormindo;
+	}
+
+
 
 	
 }
