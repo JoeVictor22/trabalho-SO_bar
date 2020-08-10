@@ -75,6 +75,8 @@ public class ControleAtor {
 		
 		if(ator.getPosX()==cadeira.getPosX() && ator.getPosY()==cadeira.getPosY()) {
 			ator.setAcao(5);
+			casa.setAcao(0);
+
 		}
 	}
 
