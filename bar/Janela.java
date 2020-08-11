@@ -205,4 +205,7 @@ public class Janela implements Runnable, ActionListener
 	public int getbebosInseridos() {
 		return bebosInseridos;
 	}
+	public int getQuantidadeCadeiras() {
+		return this.bar.getCadeiras();
+	}
 }

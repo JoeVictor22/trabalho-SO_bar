@@ -6,19 +6,20 @@ public class ControleAtor {
 	private Bebo bebo;
 
 	private Casa casa;
-	private Balcao balcao;
+	
 	private Cadeira cadeira;
+	private Cadeiras cadeiras;
+	private int posCadeira;
 	
 	private Fila fila;
 	private int posFila;
 
-	
 	private boolean flagBebendo = false;
 	private boolean flagEsperando = false;
 	private boolean flagDormindo = false;
 	
 	
-	public ControleAtor(Ator ator,Bebo bebo, Fila fila, Casa casa, Cadeira cadeira) {
+	public ControleAtor(Ator ator,Bebo bebo, Fila fila, Casa casa, Cadeiras cadeiras) {
 		this.ator = ator;
 
 		this.ator.setPosX(casa.getPosX() + 30);
@@ -29,8 +30,11 @@ public class ControleAtor {
 		this.fila = fila;
 		
 		this.casa = casa;
-		this.cadeira = cadeira;
+		this.cadeiras = cadeiras;
 		
+		
+		this.cadeira = new Cadeira(0,0);
+		this.posCadeira = -1;
 		irParaCasa();
 	}
 	
@@ -51,13 +55,11 @@ public class ControleAtor {
 		
 		// checar se o ator chegou em casa ou na cadeira para trocar de animacao
 		if(ator.getPosX()==casa.getPosX() && ator.getPosY()==casa.getPosY()) {
-			//ator.setPosX(ator.getPosX());
 			ator.setAcao(6);
 			casa.setAcao(1);
 		}else if(ator.getPosX()==cadeira.getPosX() && ator.getPosY()==cadeira.getPosY()) {
 			ator.setAcao(5);
 			casa.setAcao(0);
-			//cadeiras.sentar();
 		}
 		
 		
@@ -67,6 +69,7 @@ public class ControleAtor {
 	
 	
 	public void irParaCasa() {	
+		
 		this.flagDormindo = true;
 		this.flagBebendo = false;
 		this.flagEsperando= false;
@@ -74,6 +77,9 @@ public class ControleAtor {
 		ator.setGotoX(casa.getPosX());
 		ator.setGotoY(casa.getPosY());
 		
+		cadeiras.liberarCadeira(this);
+		System.out.println("fui pra cadeira");
+
 	}
 	
 	public void irParaBalcao() {
@@ -86,13 +92,16 @@ public class ControleAtor {
 
 	}
 	public void irParaCadeira() {
+
 		this.flagBebendo = true;
 		this.flagDormindo = false;
 		this.flagEsperando = false;
 		
 		fila.pop(this);
-		ator.setGotoX(cadeira.getPosX());
-		ator.setGotoY(cadeira.getPosY());
+		cadeiras.ocuparCadeira(this);
+
+		ator.setGotoX(this.cadeira.getPosX());
+		ator.setGotoY(this.cadeira.getPosY());
 
 	}
 
@@ -140,6 +149,26 @@ public class ControleAtor {
 
 	public void setFlagDormindo(boolean flagDormindo) {
 		this.flagDormindo = flagDormindo;
+	}
+
+
+	public int getPosCadeira() {
+		return posCadeira;
+	}
+
+
+	public void setPosCadeira(int posCadeira) {
+		this.posCadeira = posCadeira;
+	}
+
+
+	public Cadeira getCadeira() {
+		return cadeira;
+	}
+
+
+	public void setCadeira(Cadeira cadeira) {
+		this.cadeira = cadeira;
 	}
 
 
