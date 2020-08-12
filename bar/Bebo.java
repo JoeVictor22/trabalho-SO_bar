@@ -1,5 +1,6 @@
 package bar;
 
+import java.text.SimpleDateFormat;
 import java.util.concurrent.Semaphore;
 
 public class Bebo extends Thread
@@ -9,7 +10,7 @@ public class Bebo extends Thread
 	Semaphore esperaAmigos;
 	Semaphore mutex;
 	Bar bar;
-	
+		
 	//Tempo Registrado em cada estado//
 	private int timeCasa;
 	private int timeBebendo;
@@ -109,7 +110,8 @@ public class Bebo extends Thread
 	{
 		entrarBar();
 		//System.out.printf("--%s Estou a beber por %d segundos--\n", getName(),this.timeBebendo);
-		sleep(this.timeBebendo*1000);
+		//sleep(this.timeBebendo*1000);
+		timeHolder(this.timeBebendo);
 		sairBar();
 		this.estadoBebendo=false;
 		this.estadoCasa=true;
@@ -118,16 +120,24 @@ public class Bebo extends Thread
 	public void emCasa() throws InterruptedException
 	{
 		//System.out.printf("**%s Estou em casa por %d segundos**\n", getName(),this.timeCasa);
-		sleep(this.timeCasa*1000);
+		//sleep(this.timeCasa*1000);
+		timeHolder(this.timeCasa);
 		this.estadoCasa=false;
 		this.estadoNaFila=true;
+	}
+	
+	public void timeHolder(int tempo) {
+		SimpleDateFormat tempoAtual = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		long tempoInicial = tempoAtual.getCalendar().getTimeInMillis();
+		while ((tempoAtual.getCalendar().getTimeInMillis() - tempoInicial) <  tempo*1000 ) {  	
+			tempoAtual = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+	    }
 	}
 	
 	public void saida () throws InterruptedException {
 		//System.out.printf("%s %d-%s %d-%s\n", getName(), this.timeCasa,getEstadoCasa(), this.timeBebendo,getEstadoBebendo());
 	}
-	
-	
+
 	public boolean getEstadoCasa() {
 		return estadoCasa;
 	}
