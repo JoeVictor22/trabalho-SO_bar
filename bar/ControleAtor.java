@@ -55,11 +55,20 @@ public class ControleAtor {
 		
 		// checar se o ator chegou em casa ou na cadeira para trocar de animacao
 		if(ator.getPosX()==casa.getPosX() && ator.getPosY()==casa.getPosY()) {
-			ator.setAcao(6);
-			casa.setAcao(1);
+			if(ator.getAcao() != 6) {
+				bebo.setPosicaoCasa(true);
+				bebo.setPosicaoBar(false);
+				ator.setAcao(6);
+				casa.setAcao(1);
+			
+			}
 		}else if(ator.getPosX()==cadeira.getPosX() && ator.getPosY()==cadeira.getPosY()) {
-			ator.setAcao(5);
-			casa.setAcao(0);
+			if(ator.getAcao() != 5) {
+				bebo.setPosicaoBar(true);
+				bebo.setPosicaoCasa(false);
+				ator.setAcao(5);
+				casa.setAcao(0);				
+			}
 		}
 		
 		
@@ -78,7 +87,6 @@ public class ControleAtor {
 		ator.setGotoY(casa.getPosY());
 		
 		cadeiras.liberarCadeira(this);
-		System.out.println("fui pra cadeira");
 
 	}
 	
@@ -87,9 +95,10 @@ public class ControleAtor {
 		this.flagDormindo = false;
 		this.flagBebendo= false;
 		
+
+		
 		fila.push(this);
 		
-
 	}
 	public void irParaCadeira() {
 

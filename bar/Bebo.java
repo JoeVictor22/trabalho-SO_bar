@@ -21,32 +21,48 @@ public class Bebo extends Thread
 	private boolean estadoBebendo=false;
 	private boolean estadoNaFila=true;
 	
-	public Bebo(Bar bar, Semaphore esperaAmigos, Semaphore mutex, Semaphore cadSemaphore, 
+	private boolean posicaoCasa=false;
+	private boolean posicaoBar=false;
+	
+	public Bebo(Ator ator, Bar bar, Semaphore esperaAmigos, Semaphore mutex, Semaphore cadSemaphore, 
 				int timeCasa, int timeBebendo, String nome)
 	{
 		super(nome);		//getName(); Recebe o nome da Thread
 		this.bar = bar;
+		this.ator = ator;
 		this.esperaAmigos = esperaAmigos;
 		this.mutex = mutex;
 		this.cadSemaphore = cadSemaphore;
 		this.timeCasa = timeCasa;
 		this.timeBebendo = timeBebendo;	
+		this.posicaoCasa = false;
+		this.posicaoBar = false;
 	}
 	
 	public void run()
 	{
 		while(true) 
 		{
-			if(this.estadoNaFila)
-			{
+			System.out.print(this.posicaoCasa);
+			//System.out.print(" / ");
+			System.out.println(this.posicaoBar);
+			if(this.estadoNaFila){
 				try {
 					noBar();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
-			else if(this.estadoCasa)
-			{
+			else if(this.posicaoBar) {
+				System.out.println("estou enchendo o bucho");
+				try {
+					encherCara();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}	
+			}
+			else if(this.posicaoCasa){
+				System.out.println("estou em casa");
 				try {
 					emCasa();
 				} catch (InterruptedException e) {
@@ -71,10 +87,10 @@ public class Bebo extends Thread
 	{
 //		if(bar.getCadeiras()!=0) 
 //		{
-			mutex.acquire();
-			bar.setCadeiras(bar.getCadeiras()+1);
-			cadSemaphore.release();
-			mutex.release();
+		mutex.acquire();
+		bar.setCadeiras(bar.getCadeiras()+1);
+		cadSemaphore.release();
+		mutex.release();
 //		}else{
 //			esperarAmigos();
 //		}
@@ -110,20 +126,35 @@ public class Bebo extends Thread
 	{
 		entrarBar();
 		//System.out.printf("--%s Estou a beber por %d segundos--\n", getName(),this.timeBebendo);
-		//sleep(this.timeBebendo*1000);
-		timeHolder(this.timeBebendo);
+	
+	}
+	
+	public void encherCara() throws InterruptedException
+	{
+		//System.out.printf("--%s Estou a beber por %d segundos--\n", getName(),this.timeBebendo);
+		//timeHolder(this.timeBebendo);
+		sleep(this.timeBebendo*1000);
+
 		sairBar();
 		this.estadoBebendo=false;
-		this.estadoCasa=true;
+		this.estadoCasa=true;		
+		this.posicaoBar = false;
+		
+		
 	}
 	
 	public void emCasa() throws InterruptedException
 	{
 		//System.out.printf("**%s Estou em casa por %d segundos**\n", getName(),this.timeCasa);
-		//sleep(this.timeCasa*1000);
-		timeHolder(this.timeCasa);
+		//timeHolder(this.timeCasa);
+		sleep(this.timeCasa*1000);
+		
 		this.estadoCasa=false;
 		this.estadoNaFila=true;
+
+		this.posicaoCasa = false;
+		
+		
 	}
 	
 	public void timeHolder(int tempo) {
@@ -168,6 +199,29 @@ public class Bebo extends Thread
 
 	public void setAtor(Ator ator) {
 		this.ator = ator;
+	}
+
+	public boolean isPosicaoCasa() {
+		return posicaoCasa;
+	}
+
+	public void setPosicaoCasa(boolean posicaoCasa) {
+		this.posicaoCasa = posicaoCasa;
+	}
+
+	public boolean isPosicaoBar() {
+		return posicaoBar;
+	}
+
+	public void setPosicaoBar(boolean posicaoBar) {
+		this.posicaoBar = posicaoBar;
+	}
+	
+	public void printarBar() {
+		System.out.println("sentei");
+	}
+	public void printarCasa() {
+		System.out.println("dormi");
 	}
 }
 

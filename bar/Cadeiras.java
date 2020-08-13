@@ -30,7 +30,6 @@ public class Cadeiras {
 	}
 	
 	public void liberarCadeira(ControleAtor ator) {
-		System.out.println("pos: " + ator.getPosCadeira());
 		if (ator.getPosCadeira() > -1) {
 			flag_cadeiras[ator.getPosCadeira()] = false; 
 			ator.setPosCadeira(-1);
