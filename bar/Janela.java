@@ -119,7 +119,10 @@ public class Janela implements Runnable, ActionListener
         		try {
 					tmpBebendo=Integer.parseInt(tempoBebendo.getText());
 					tmpDormindo=Integer.parseInt(tempoDormindo.getText());
-				} catch (NumberFormatException e) {
+					if(tmpBebendo==0 || tmpDormindo==0) {
+						throw new NumberFormatException();
+					}
+				} catch (NumberFormatException entradaInvalida) {
 					System.out.println("Entrada(s) invalida(s)");
 					tempoBebendo.setText(null);
 					tempoDormindo.setText(null);
