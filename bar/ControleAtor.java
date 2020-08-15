@@ -19,14 +19,6 @@ public class ControleAtor {
 	private boolean flagDormindo = false;
 	
 	
-	
-	private Coordenada[] caminhoCasa = {
-			new Coordenada(180, 180),
-			new Coordenada(250, 180),
-			new Coordenada(350, 200)
-			};
-
-	
 	public ControleAtor(Ator ator,Bebo bebo, Fila fila, Casa casa, Cadeiras cadeiras) {
 		this.ator = ator;
 
@@ -48,52 +40,14 @@ public class ControleAtor {
 	
 	
 	public void atualizar() {		
-		// atualizar movimentacao
 		ator.atualizar();
 
-		// checar se o ator chegou em casa ou na cadeira para trocar de animacao
-
-		if (bebo.getEstadoBebendo()==true) {
-
-			if(this.flagBebendo == false) {
-				irParaCadeira();	
-				resetarCaminhos(this.caminhoCasa);
-			
-			}else if(segueCaminho(this.caminhoCasa)) {
-				ator.setGotoX(this.cadeira.getPosX());
-				ator.setGotoY(this.cadeira.getPosY());
-				
-				if(ator.getPosX()==cadeira.getPosX() && ator.getPosY()==cadeira.getPosY()) {
-					if(ator.getAcao() != 5) {
-						bebo.setPosicaoBar(true);
-						bebo.setPosicaoCasa(false);
-						ator.setAcao(5);
-						casa.setAcao(0);				
-					}
-				} 	
-			}
-			
+		if (bebo.getEstadoBebendo()==true && this.flagBebendo == false) {
+			System.out.println("bebe");
+			irParaCadeira();
 		}
-		else if (bebo.getEstadoCasa()==true) {
-			if(this.flagDormindo == false) {
-				irParaCasa();				
-				resetarCaminhos(this.caminhoCasa);
-
-			}else if(segueCaminho(this.caminhoCasa)) {
-				
-				ator.setGotoX(casa.getPosX());
-				ator.setGotoY(casa.getPosY());
-				
-				if(ator.getPosX()==casa.getPosX() && ator.getPosY()==casa.getPosY()) {
-					if(ator.getAcao() != 6) {
-						bebo.setPosicaoCasa(true);
-						bebo.setPosicaoBar(false);
-						ator.setAcao(6);
-						casa.setAcao(1);
-					}			
-				}
-			}
-			
+		else if (bebo.getEstadoCasa()==true && this.flagDormindo == false) {
+			irParaCasa();
 		}
 		else if(bebo.getEstadoNaFila()==true && this.flagEsperando == false) {
 			irParaBalcao();
@@ -101,35 +55,29 @@ public class ControleAtor {
 		
 		
 		
+		// checar se o ator chegou em casa ou na cadeira para trocar de animacao
+		if(ator.getPosX()==casa.getPosX() && ator.getPosY()==casa.getPosY()) {
+			if(ator.getAcao() != 6) {
+				bebo.setPosicaoCasa(true);
+				bebo.setPosicaoBar(false);
+				ator.setAcao(6);
+				casa.setAcao(1);
+			
+			}
+		}else if(ator.getPosX()==cadeira.getPosX() && ator.getPosY()==cadeira.getPosY()) {
+			if(ator.getAcao() != 5) {
+				bebo.setPosicaoBar(true);
+				bebo.setPosicaoCasa(false);
+				ator.setAcao(5);
+				casa.setAcao(0);				
+			}
+		}
 		
 		
 		
 	}
 	
-	public void resetarCaminhos(Coordenada[] caminho) {
-		for(int j = 0; j < caminho.length; j++) {
-			caminho[j].setChegou(false);
-		}
-	}
-	public boolean segueCaminho(Coordenada[] caminho) {
-		int i;
-		
-		for(i = 0; i < caminho.length; i++) {
-			if(caminho[i].isChegou() == false) {
-				break;
-			}
-		}
-		if (i == caminho.length) {
-			return true;
-		}
-		
-		if(!caminho[i].chegou(ator)) {
-			ator.setGotoX(caminho[i].getPosX());
-			ator.setGotoY(caminho[i].getPosY());	
-		}
-		
-		return false;
-	}
+	
 	
 	public void irParaCasa() {	
 		
@@ -137,7 +85,8 @@ public class ControleAtor {
 		this.flagBebendo = false;
 		this.flagEsperando= false;
 		
-	
+		ator.setGotoX(casa.getPosX());
+		ator.setGotoY(casa.getPosY());
 		
 		cadeiras.liberarCadeira(this);
 
@@ -160,7 +109,8 @@ public class ControleAtor {
 		fila.pop(this);
 		cadeiras.ocuparCadeira(this);
 
-
+		ator.setGotoX(this.cadeira.getPosX());
+		ator.setGotoY(this.cadeira.getPosY());
 
 	}
 
