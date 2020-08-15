@@ -116,10 +116,11 @@ public class Janela implements Runnable, ActionListener
         	if(bebosInseridos <= 19) {
         		int tmpBebendo=0;
         		int tmpDormindo=0;
+        		
         		try {
 					tmpBebendo=Integer.parseInt(tempoBebendo.getText());
 					tmpDormindo=Integer.parseInt(tempoDormindo.getText());
-					if(tmpBebendo==0 || tmpDormindo==0) {
+					if(tmpBebendo<=0 || tmpDormindo<=0) {
 						throw new NumberFormatException();
 					}
 				} catch (NumberFormatException entradaInvalida) {
