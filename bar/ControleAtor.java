@@ -25,7 +25,7 @@ public class ControleAtor {
 		this.ator.setPosX(casa.getPosX() + 30);
 		this.ator.setPosY(casa.getPosY()+ 20);
 		
-		this.posFila = -1;
+		this.posFila = 21;
 		this.bebo = bebo;
 		this.fila = fila;
 		
@@ -41,7 +41,9 @@ public class ControleAtor {
 	
 	public void atualizar() {		
 		ator.atualizar();
+
 		if (bebo.getEstadoBebendo()==true && this.flagBebendo == false) {
+			System.out.println("bebe");
 			irParaCadeira();
 		}
 		else if (bebo.getEstadoCasa()==true && this.flagDormindo == false) {
@@ -94,8 +96,6 @@ public class ControleAtor {
 		this.flagEsperando = true;
 		this.flagDormindo = false;
 		this.flagBebendo= false;
-		
-
 		
 		fila.push(this);
 		

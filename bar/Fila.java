@@ -42,7 +42,7 @@ public class Fila {
 	
 			
 	public void pop(ControleAtor controlador) {
-		if(controlador.getPosFila() == 0) {
+		if(controlador.getPosFila() > -1) {
 			flags[controlador.getPosFila()] = false;
 			controlador.setPosFila(-1);
 		}
@@ -51,15 +51,8 @@ public class Fila {
 	
 	public void push(ControleAtor controlador) {
 		if(controlador.getPosFila() == -1) {
-			
-			int ultimoDaFila = 0;
-			for(int i = 0; i < maxFila ; i++) {
-				if(flags[i] == true) {
-					ultimoDaFila = i+1;
-				}
-			}
+			int ultimoDaFila = 21;
 			flags[ultimoDaFila] = true;
-			// 
 			controlador.setPosFila(ultimoDaFila);
 		}
 	}

@@ -2,6 +2,8 @@ package bar;
 
 import java.text.SimpleDateFormat;
 import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Bebo extends Thread
 {
@@ -43,9 +45,7 @@ public class Bebo extends Thread
 	{
 		while(true) 
 		{
-			System.out.print(this.posicaoCasa);
-			//System.out.print(" / ");
-			System.out.println(this.posicaoBar);
+			sleep();
 			if(this.estadoNaFila){
 				try {
 					noBar();
@@ -54,7 +54,6 @@ public class Bebo extends Thread
 				}
 			}
 			else if(this.posicaoBar) {
-				System.out.println("estou enchendo o bucho");
 				try {
 					encherCara();
 				} catch (InterruptedException e) {
@@ -62,7 +61,6 @@ public class Bebo extends Thread
 				}	
 			}
 			else if(this.posicaoCasa){
-				System.out.println("estou em casa");
 				try {
 					emCasa();
 				} catch (InterruptedException e) {
@@ -71,7 +69,17 @@ public class Bebo extends Thread
 			}
 		}
 	}
-	
+	// para manter o refreshRate a 60fps => 1000ms/16 = 62 e nao sobrecarregar a cpu
+		public void sleep() 
+		{
+			try {
+				Thread.sleep(16);
+			} 
+			catch(InterruptedException e) {
+				Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, e);
+			}
+		}
+		
 	public void entrarBar() throws InterruptedException 
 	{
 		cadSemaphore.acquire();
