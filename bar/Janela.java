@@ -26,7 +26,6 @@ public class Janela implements Runnable, ActionListener
     
     Bar bar;
     Semaphore mutex;
-    Semaphore esperaAmigos;
     Semaphore cadSemaphore;
     
     int bebosInseridos=0;
@@ -60,13 +59,12 @@ public class Janela implements Runnable, ActionListener
 	private int h;
 	private int w;
 	
-	public Janela(Bar bar, Semaphore mutex, Semaphore esperaAmigos, Semaphore cadSemaphore, int altura, int largura) 
+	public Janela(Bar bar, Semaphore mutex, Semaphore cadSemaphore, int altura, int largura) 
 	{
 		this.h = altura;
 		this.w = largura;
 		this.bar = bar;
 		this.mutex = mutex;
-		this.esperaAmigos = esperaAmigos;
 		this.cadSemaphore = cadSemaphore;
 	}
 	
@@ -125,7 +123,7 @@ public class Janela implements Runnable, ActionListener
         {
         	String ID=("Thread "+Integer.toString(i+1));
     		Ator novoAtor = new Ator(w, h);
-			Bebos [i] = new Bebo(novoAtor, bar, esperaAmigos, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(i)), Integer.parseInt(threadInfo_bebendo.get(i)), ID);
+			Bebos [i] = new Bebo(novoAtor, bar, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(i)), Integer.parseInt(threadInfo_bebendo.get(i)), ID);
         }
         for (int i=0;i<bebosInseridos;i++) 
         {
@@ -189,7 +187,7 @@ public class Janela implements Runnable, ActionListener
     	        	String ID=("Thread "+Integer.toString(bebosInseridos));
     	    		Ator novoAtor = new Ator(w, h);
 
-    				Bebos[bebosInseridos-1] = new Bebo(novoAtor, bar, esperaAmigos, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(bebosInseridos-1)), Integer.parseInt(threadInfo_bebendo.get(bebosInseridos-1)), ID);
+    				Bebos[bebosInseridos-1] = new Bebo(novoAtor, bar, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(bebosInseridos-1)), Integer.parseInt(threadInfo_bebendo.get(bebosInseridos-1)), ID);
     				Bebos[bebosInseridos-1].start();
     				addPersonagem();
     					

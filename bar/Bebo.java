@@ -9,7 +9,6 @@ public class Bebo extends Thread
 {
 	
 	Semaphore cadSemaphore;
-	Semaphore esperaAmigos;
 	Semaphore mutex;
 	Bar bar;
 		
@@ -26,13 +25,12 @@ public class Bebo extends Thread
 	private boolean posicaoCasa=false;
 	private boolean posicaoBar=false;
 	
-	public Bebo(Ator ator, Bar bar, Semaphore esperaAmigos, Semaphore mutex, Semaphore cadSemaphore, 
+	public Bebo(Ator ator, Bar bar, Semaphore mutex, Semaphore cadSemaphore, 
 				int timeCasa, int timeBebendo, String nome)
 	{
 		super(nome);
 		this.bar = bar;
 		this.ator = ator;
-		this.esperaAmigos = esperaAmigos;
 		this.mutex = mutex;
 		this.cadSemaphore = cadSemaphore;
 		this.timeCasa = timeCasa;
