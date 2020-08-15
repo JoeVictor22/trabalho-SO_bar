@@ -13,7 +13,6 @@ public class Coordenada {
 	public boolean chegou(Ator ator) {
 		if(this.chegou == false) {
 			if (this.posX == ator.getPosX() && this.posY == ator.getPosY()) {
-				System.out.println("chegou");
 				this.chegou = true;
 				return true;
 			}

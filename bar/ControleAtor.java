@@ -25,7 +25,17 @@ public class ControleAtor {
 			new Coordenada(250, 180),
 			new Coordenada(350, 200)
 			};
-
+	
+	private Coordenada[] caminhoBar = {
+			new Coordenada(180, 180),
+			new Coordenada(250, 180),
+			new Coordenada(350, 200)
+			};
+	
+	// casa.getPosX();
+	// casa.getPosY();
+	// ator.getPosX();
+	// ator.getPosY();
 	
 	public ControleAtor(Ator ator,Bebo bebo, Fila fila, Casa casa, Cadeiras cadeiras) {
 		this.ator = ator;
@@ -54,12 +64,12 @@ public class ControleAtor {
 		// checar se o ator chegou em casa ou na cadeira para trocar de animacao
 
 		if (bebo.getEstadoBebendo()==true) {
-
+			// caminho ate o bar
 			if(this.flagBebendo == false) {
 				irParaCadeira();	
-				resetarCaminhos(this.caminhoCasa);
+				resetarCaminhos(this.caminhoBar);
 			
-			}else if(segueCaminho(this.caminhoCasa)) {
+			}else if(segueCaminho(this.caminhoBar)) {
 				ator.setGotoX(this.cadeira.getPosX());
 				ator.setGotoY(this.cadeira.getPosY());
 				
@@ -75,6 +85,7 @@ public class ControleAtor {
 			
 		}
 		else if (bebo.getEstadoCasa()==true) {
+			// caminho ate a casa
 			if(this.flagDormindo == false) {
 				irParaCasa();				
 				resetarCaminhos(this.caminhoCasa);
@@ -119,6 +130,7 @@ public class ControleAtor {
 				break;
 			}
 		}
+		
 		if (i == caminho.length) {
 			return true;
 		}
