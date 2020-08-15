@@ -1,18 +1,11 @@
 package bar;
 
 import java.awt.Graphics2D;
-
 import java.awt.image.BufferedImage;
 
-public class Ator extends Personagem 
-{
-	private BufferedImage[] andandoEsquerda;
-	private BufferedImage[] andandoDireita;
-	private BufferedImage[] andandoCima;
-	private BufferedImage[] andandoBaixo;
+public class Bartender extends Personagem{
+
 	private BufferedImage[] parado;
-	private BufferedImage[] bebendo;
-	private BufferedImage[] dormindo;
 	
 	private int imagemAtual;	
 	private int timer;
@@ -23,7 +16,7 @@ public class Ator extends Personagem
 	
 
 
-	public Ator(int h, int w) {
+	public Bartender(int h, int w) {
 		super(0, 0, 60, 30, 2);
 		//variaveis que necessitam inicializacao	
 		
@@ -41,13 +34,7 @@ public class Ator extends Personagem
 	public void criarAnimacoes() 
 	{
 		// Data\Sprites\shane
-		andandoEsquerda = carregarImagens("Data/Sprites/shane/walk/esquerda/tile00", 4, "png");
-		andandoDireita = carregarImagens("Data/Sprites/shane/walk/direita/tile00", 4, "png");
-		andandoCima = carregarImagens("Data/Sprites/shane/walk/cima/tile00", 4, "png");
-		andandoBaixo = carregarImagens("Data/Sprites/shane/walk/baixo/tile00", 4, "png");
 		parado= carregarImagens("Data/Sprites/shane/idle/normal/tile00", 4, "png");
-		bebendo= carregarImagens("Data/Sprites/shane/drinking/cima/tile00", 4, "png");
-		dormindo= carregarImagens("Data/Sprites/shane/sleep/shane-caido", 4, "png");
 	}
 	
 	
@@ -75,24 +62,6 @@ public class Ator extends Personagem
 		{
 			case 0:
 				pintar(g, parado, orientacao-1);
-				break;
-			case 1:
-				pintar(g, andandoEsquerda, imagemAtual);
-				break;
-			case 2:
-				pintar(g, andandoDireita, imagemAtual);
-				break;
-			case 3:
-				pintar(g, andandoCima, imagemAtual);
-				break;
-			case 4:
-				pintar(g, andandoBaixo, imagemAtual);
-				break;
-			case 5:
-				pintar(g, bebendo, imagemAtual);
-				break;
-			case 6:
-				pintar(g, dormindo, imagemAtual);
 				break;
 			default:
 				break;

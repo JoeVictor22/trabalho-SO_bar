@@ -25,6 +25,7 @@ public class Canvas extends JPanel implements Runnable
 
 	private BufferedImage cenario;
 	private Ator[] atores = new Ator[20];
+	private Bartender bartender;
 	private ControleAtor[] controladores = new ControleAtor[20];
 	private Fila fila = new Fila(30,320,40, controladores);
 	private Casa[] casas = new Casa[20];
@@ -54,6 +55,10 @@ public class Canvas extends JPanel implements Runnable
 		this.Bebos = Bebos;
 		this.h = h;
 		this.w = w;
+		
+		this.bartender = new Bartender(h,w);
+		this.bartender.setPosX(324);
+		this.bartender.setPosY(500);
 		
 		//Load background
 		try {
@@ -127,6 +132,7 @@ public class Canvas extends JPanel implements Runnable
 		// pinta os atores
 		if(jogando) 
 		{
+			bartender.pintarAtor(g2d);
 			for(int i = 0; i < quantidadeDeAtores; i++) 
 			{
 				if(atores[i] != null) {
