@@ -3,6 +3,8 @@ package bar;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -83,6 +85,8 @@ public class Canvas extends JPanel implements Runnable
 		
 		while(true) 
 		{
+			Point mouse = MouseInfo.getPointerInfo().getLocation();
+			System.out.println("x:" + mouse.x + ", y: " + mouse.y);
 			atualiza();	
 			
 			repaint();
