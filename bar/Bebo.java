@@ -29,7 +29,7 @@ public class Bebo extends Thread
 	public Bebo(Ator ator, Bar bar, Semaphore esperaAmigos, Semaphore mutex, Semaphore cadSemaphore, 
 				int timeCasa, int timeBebendo, String nome)
 	{
-		super(nome);		//getName(); Recebe o nome da Thread
+		super(nome);
 		this.bar = bar;
 		this.ator = ator;
 		this.esperaAmigos = esperaAmigos;
@@ -48,7 +48,7 @@ public class Bebo extends Thread
 			sleep();
 			if(this.estadoNaFila){
 				try {
-					noBar();
+					entrarBar();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -70,15 +70,15 @@ public class Bebo extends Thread
 		}
 	}
 	// para manter o refreshRate a 60fps => 1000ms/16 = 62 e nao sobrecarregar a cpu
-		public void sleep() 
-		{
-			try {
-				Thread.sleep(16);
-			} 
-			catch(InterruptedException e) {
-				Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, e);
-			}
+	public void sleep() 
+	{
+		try {
+			Thread.sleep(16);
+		} 
+		catch(InterruptedException e) {
+			Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, e);
 		}
+	}
 		
 	public void entrarBar() throws InterruptedException 
 	{
@@ -88,95 +88,42 @@ public class Bebo extends Thread
 		this.estadoNaFila=false;
 		this.estadoBebendo=true;
 		mutex.release();
-		//System.out.printf("%d\n",bar.getCadeiras());
 	}
 	
 	public void sairBar() throws InterruptedException 
 	{
-//		if(bar.getCadeiras()!=0) 
-//		{
 		mutex.acquire();
 		bar.setCadeiras(bar.getCadeiras()+1);
 		cadSemaphore.release();
 		mutex.release();
-//		}else{
-//			esperarAmigos();
-//		}
-	}
-	
-	public void esperarAmigos() throws InterruptedException 
-	{
-		mutex.acquire();
-		esperaAmigos.drainPermits();
-		bar.setTerminados(bar.getTerminados()+1);
-		if (bar.getTerminados() != bar.getCadBKP()) 
-		{
-			//System.out.println(esperaAmigos.availablePermits()+" "+bar.getTerminados()+" "+getName());
-			mutex.release();
-			esperaAmigos.acquire();
-			//System.out.println(esperaAmigos.availablePermits()+" "+bar.getTerminados()+" "+getName());
-		}
-		else if (bar.getTerminados() == bar.getCadBKP()) 
-		{
-			
-			bar.setTerminados(0);
-			bar.setCadeiras(bar.getCadBKP());
-			cadSemaphore.release(bar.getCadeiras());
-			esperaAmigos.release(bar.getCadeiras()-1);
-			//System.out.println("Sai por ultimo " + getName());
-			//System.out.println(esperaAmigos.availablePermits()+" "+bar.getTerminados()+" "+getName());
-			//System.out.println(esperaAmigos.toString());
-			mutex.release();
-		}
-	}
-	
-	public void noBar() throws InterruptedException
-	{
-		entrarBar();
-		//System.out.printf("--%s Estou a beber por %d segundos--\n", getName(),this.timeBebendo);
-	
+		this.estadoBebendo=false;
+		this.estadoCasa=true;		
+		this.posicaoBar = false;
 	}
 	
 	public void encherCara() throws InterruptedException
 	{
-		//System.out.printf("--%s Estou a beber por %d segundos--\n", getName(),this.timeBebendo);
-		//timeHolder(this.timeBebendo);
-		sleep(this.timeBebendo*1000);
-
+		timeHolder(this.timeBebendo);
 		sairBar();
-		this.estadoBebendo=false;
-		this.estadoCasa=true;		
-		this.posicaoBar = false;
-		
-		
 	}
 	
 	public void emCasa() throws InterruptedException
 	{
-		//System.out.printf("**%s Estou em casa por %d segundos**\n", getName(),this.timeCasa);
-		//timeHolder(this.timeCasa);
-		sleep(this.timeCasa*1000);
-		
+		timeHolder(this.timeCasa);
 		this.estadoCasa=false;
 		this.estadoNaFila=true;
-
 		this.posicaoCasa = false;
-		
-		
 	}
 	
 	public void timeHolder(int tempo) {
 		SimpleDateFormat tempoAtual = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		long tempoInicial = tempoAtual.getCalendar().getTimeInMillis();
-		while ((tempoAtual.getCalendar().getTimeInMillis() - tempoInicial) <  tempo*1000 ) {  	
+		tempo=tempo*1000;
+		while ((tempoAtual.getCalendar().getTimeInMillis() - tempoInicial) < tempo ) {  	
 			tempoAtual = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 	    }
 	}
 	
-	public void saida () throws InterruptedException {
-		//System.out.printf("%s %d-%s %d-%s\n", getName(), this.timeCasa,getEstadoCasa(), this.timeBebendo,getEstadoBebendo());
-	}
-
 	public boolean getEstadoCasa() {
 		return estadoCasa;
 	}
