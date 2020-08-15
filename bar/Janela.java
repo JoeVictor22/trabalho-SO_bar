@@ -43,9 +43,7 @@ public class Janela implements Runnable, ActionListener
 	JLabel tempoDormindoLabel = new JLabel("Informe o tempo de soneca!");
 	static JTextField tempoBebendo = new JTextField("", 5);
 	static JTextField tempoDormindo= new JTextField("", 5);
-	JButton startButton = new JButton("Iniciar");
-	JButton beboButton = new JButton("Listar Papudim");
-	
+	JButton beboButton = new JButton("Adicionar Papudim");
 	JLabel consoleLabel = new JLabel("Console\nConsole\nConsole\nConsole\nConsole\n");
 	private JTextArea textAreaConsole = new JTextArea(5,60);
 	private TextAreaOutputStream consoleStream = new TextAreaOutputStream(textAreaConsole, "Console");
@@ -67,10 +65,7 @@ public class Janela implements Runnable, ActionListener
 		this.mutex = mutex;
 		this.cadSemaphore = cadSemaphore;
 	}
-	
-	public void run() {
-	}
-	
+
 	public void create() 
 	{
 		janela = new JFrame("Papudim simulator");
@@ -78,17 +73,10 @@ public class Janela implements Runnable, ActionListener
 		janela.setSize(w,h+30);
 		janela.setResizable(false);
 		
-		
-		/*
-		 * Adicionar todo a inteface aqui
-		 * */
-		
 		// acoes para os butoes
-		startButton.addActionListener(this);
 		beboButton.addActionListener(this);
  
 		// add componentes de tela ao jpanel correspondente
-		inputUser.add(startButton);
 		inputUser.add(tempoBebendoLabel);
 		inputUser.add(tempoBebendo);
 		inputUser.add(tempoDormindoLabel);
@@ -112,68 +100,17 @@ public class Janela implements Runnable, ActionListener
 		jogo.add(output);
 		jogo.add(inputUser);
 		janela.setVisible(true);
-	}
-
-
-	
-	public void start() 
-	{
 		jogo.setJogando(true);
-        for (int i=0;i<bebosInseridos;i++)
-        {
-        	String ID=("Thread "+Integer.toString(i+1));
-    		Ator novoAtor = new Ator(w, h);
-			Bebos [i] = new Bebo(novoAtor, bar, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(i)), Integer.parseInt(threadInfo_bebendo.get(i)), ID);
-        }
-        for (int i=0;i<bebosInseridos;i++) 
-        {
-        	Bebos[i].start();
-        	addPersonagem();
-        }
-	}
-	
-	public void restart() {
-		//start();
 	}
 	
 	public void addPersonagem() 
-	{	
-
+	{
 		jogo.addAtor(Bebos[bebosInseridos-1].getAtor());
 	}
-	
-	
-	  public void actionPerformed(ActionEvent ae) {
+
+	public void actionPerformed(ActionEvent ae) {
         String action = ae.getActionCommand();
-        if (action.equals("Iniciar")) {
-       		start();
-       		startButton.setVisible(false);
-    		beboButton.setText("Adiconar Papudim");
-        }
-        else if (action.equals("Listar Papudim")) {
-        	if(bebosInseridos <= 19)
-        	{
-        		if(tempoBebendo.getText().isEmpty() && tempoDormindo.getText().isEmpty()) {
-        			System.out.println("Campo(s) Vazio(s)");
-        		}
-        		else {
-        			System.out.println("listou");
-    	        	
-    	        	threadInfo_bebendo.add(tempoBebendo.getText());
-    	        	threadInfo_dormindo.add(tempoDormindo.getText());
-    	        	bebosInseridos++;
-
-	        		System.out.println(bebosInseridos);
-	        		System.out.println(threadInfo_bebendo);
-	        		System.out.println(threadInfo_dormindo);
-
-        		}
-        	}else {
-        		System.out.println("Quantidade maxima de atores excedida");
-        	}
-        }
-        
-        else if(action.equals("Adiconar Papudim")) {
+        if(action.equals("Adicionar Papudim")) {
         	if(bebosInseridos <= 19)
         	{
         		if(tempoBebendo.getText().isEmpty() && tempoDormindo.getText().isEmpty()) {
@@ -207,5 +144,9 @@ public class Janela implements Runnable, ActionListener
 	}
 	public int getQuantidadeCadeiras() {
 		return this.bar.getCadeiras();
+	}
+	public void run() {
+	}
+	public void restart() {
 	}
 }
