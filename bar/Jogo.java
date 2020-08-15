@@ -13,7 +13,7 @@ public class Jogo
 
 		Bar bar= new Bar(popup.getNumero());
 		
-		Semaphore mutex = new Semaphore(1);
+		Semaphore mutex = new Semaphore(1,true);
 		Semaphore esperaAmigos = new Semaphore(0,true);
 		Semaphore cadSemaphore = new Semaphore(bar.getCadeiras(),true);
 		

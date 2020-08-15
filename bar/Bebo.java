@@ -39,6 +39,7 @@ public class Bebo extends Thread
 		this.timeBebendo = timeBebendo;	
 		this.posicaoCasa = false;
 		this.posicaoBar = false;
+		this.setPriority(1);
 	}
 	
 	public void run()
@@ -104,12 +105,14 @@ public class Bebo extends Thread
 	public void encherCara() throws InterruptedException
 	{
 		timeHolder(this.timeBebendo);
+		//sleep(this.timeBebendo*1000);
 		sairBar();
 	}
 	
 	public void emCasa() throws InterruptedException
 	{
 		timeHolder(this.timeCasa);
+		//sleep(this.timeCasa*1000); 
 		this.estadoCasa=false;
 		this.estadoNaFila=true;
 		this.posicaoCasa = false;
