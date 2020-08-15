@@ -111,34 +111,46 @@ public class Janela implements Runnable, ActionListener
 	public void actionPerformed(ActionEvent ae) {
         String action = ae.getActionCommand();
         if(action.equals("Adicionar Papudim")) {
-        	if(bebosInseridos <= 19)
-        	{
-        		if(tempoBebendo.getText().isEmpty() && tempoDormindo.getText().isEmpty()) {
-        			System.out.println("Campo(s) Vazio(s)");
-        		}
-        		else {
+        	if(bebosInseridos <= 19) {
+        		int tmpBebendo=0;
+        		int tmpDormindo=0;
+        		try {
+					tmpBebendo=Integer.parseInt(tempoBebendo.getText());
+					tmpDormindo=Integer.parseInt(tempoDormindo.getText());
+				} catch (NumberFormatException e) {
+					System.out.println("Entrada(s) invalida(s)");
+					tempoBebendo.setText(null);
+					tempoDormindo.setText(null);
+				}
+        		
+        		if(tmpBebendo>0 && tmpDormindo>0) {
+					//SOMENTE PARA CONTROLE//
         			System.out.println("Inseriu");
-    	        	threadInfo_bebendo.add(tempoBebendo.getText());
-    	        	threadInfo_dormindo.add(tempoDormindo.getText());
-    	        	bebosInseridos++;
-    	        	String ID=("Thread "+Integer.toString(bebosInseridos));
-    	    		Ator novoAtor = new Ator(w, h);
-
-    				Bebos[bebosInseridos-1] = new Bebo(novoAtor, bar, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(bebosInseridos-1)), Integer.parseInt(threadInfo_bebendo.get(bebosInseridos-1)), ID);
-    				Bebos[bebosInseridos-1].start();
-    				addPersonagem();
-    					
-    				System.out.println(bebosInseridos);
-    				System.out.println(threadInfo_bebendo);
-    				System.out.println(threadInfo_dormindo);
+					//SOMENTE PARA CONTROLE//
+        			
+		        	threadInfo_bebendo.add(tempoBebendo.getText());
+		        	threadInfo_dormindo.add(tempoDormindo.getText());
+		        	bebosInseridos++;
+		        	String ID=("Thread "+Integer.toString(bebosInseridos));
+		    		Ator novoAtor = new Ator(w, h);
+					Bebos[bebosInseridos-1] = new Bebo(novoAtor, bar, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(bebosInseridos-1)), Integer.parseInt(threadInfo_bebendo.get(bebosInseridos-1)), ID);
+					Bebos[bebosInseridos-1].start();
+					addPersonagem();
+					
+					//SOMENTE PARA CONTROLE//
+					System.out.println(bebosInseridos);
+					System.out.println(threadInfo_bebendo);
+					System.out.println(threadInfo_dormindo);
+					//SOMENTE PARA CONTROLE//
         		}
+        		
 			}
 			else {
 				System.out.println("Quantidade maxima de atores excedida");
 			}
 		}
 	}
-	  
+	
 	public int getbebosInseridos() {
 		return bebosInseridos;
 	}
