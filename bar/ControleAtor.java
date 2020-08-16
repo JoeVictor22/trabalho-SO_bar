@@ -9,6 +9,8 @@ public class ControleAtor {
 	
 	private Cadeira cadeira;
 	private Cadeiras cadeiras;
+	
+	private Balcao balcao;
 	private int posCadeira;
 	
 	private Fila fila;
@@ -37,7 +39,7 @@ public class ControleAtor {
 	// ator.getPosX();
 	// ator.getPosY();
 	
-	public ControleAtor(Ator ator,Bebo bebo, Fila fila, Casa casa, Cadeiras cadeiras) {
+	public ControleAtor(Ator ator,Bebo bebo, Fila fila, Casa casa, Balcao balcao) {
 		this.ator = ator;
 
 		this.ator.setPosX(casa.getPosX() + 30);
@@ -48,7 +50,7 @@ public class ControleAtor {
 		this.fila = fila;
 		
 		this.casa = casa;
-		this.cadeiras = cadeiras;
+		this.balcao = balcao;
 		
 		
 		this.cadeira = new Cadeira(0,0);
@@ -70,10 +72,15 @@ public class ControleAtor {
 				resetarCaminhos(this.caminhoBar);
 			
 			}else if(segueCaminho(this.caminhoBar)) {
-				ator.setGotoX(this.cadeira.getPosX());
-				ator.setGotoY(this.cadeira.getPosY());
+
 				
-				if(ator.getPosX()==cadeira.getPosX() && ator.getPosY()==cadeira.getPosY()) {
+				int cadeiraX = balcao.getX() - balcao.getDistancia() * posCadeira;
+				int cadeiraY = balcao.getY();
+				
+				ator.setGotoX(cadeiraX);
+				ator.setGotoY(cadeiraY);
+				
+				if(ator.getPosX()==cadeiraX && ator.getPosY()==cadeiraY) {
 					if(ator.getAcao() != 5) {
 						bebo.setPosicaoBar(true);
 						bebo.setPosicaoCasa(false);
@@ -151,7 +158,7 @@ public class ControleAtor {
 		
 	
 		
-		cadeiras.liberarCadeira(this);
+		balcao.pop(this);
 
 	}
 	
@@ -170,7 +177,7 @@ public class ControleAtor {
 		this.flagEsperando = false;
 		
 		fila.pop(this);
-		cadeiras.ocuparCadeira(this);
+		balcao.push(this);
 
 
 

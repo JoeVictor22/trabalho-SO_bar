@@ -28,8 +28,10 @@ public class Canvas extends JPanel implements Runnable
 	private Bartender bartender;
 	private ControleAtor[] controladores = new ControleAtor[20];
 	private Fila fila = new Fila(30,320,40, controladores);
+	private Balcao balcao = new Balcao(750,580,40, controladores);
+	
 	private Casa[] casas = new Casa[20];
-	private Balcao[] balcoes = new Balcao[20];
+	
 	private Cadeiras cadeiras;
 	
 	private Bebo Bebos[] = new Bebo[20];
@@ -49,7 +51,6 @@ public class Canvas extends JPanel implements Runnable
 		pausado = false;
 		jogando = false;
 		
-		this.cadeiras = new Cadeiras(janela.getQuantidadeCadeiras());
 		
 		this.janela = janela;
 		this.Bebos = Bebos;
@@ -91,7 +92,7 @@ public class Canvas extends JPanel implements Runnable
 		while(true) 
 		{
 			Point mouse = MouseInfo.getPointerInfo().getLocation();
-			System.out.println("x:" + mouse.x + ", y: " + mouse.y);
+			//System.out.println("x:" + mouse.x + ", y: " + mouse.y);
 			atualiza();	
 			
 			repaint();
@@ -112,6 +113,7 @@ public class Canvas extends JPanel implements Runnable
 	public void atualiza() 
 	{	
 		fila.atualizar();
+		balcao.atualizar();
 		for(int i = 0; i < quantidadeDeAtores; i++) 
 		{
 			if(controladores[i] != null) {
@@ -152,7 +154,7 @@ public class Canvas extends JPanel implements Runnable
 	public void addAtor(Ator ator) {
 		casas[quantidadeDeAtores] = new Casa(20 + (quantidadeDeAtores * 60), 160);		
 		
-		controladores[quantidadeDeAtores] = new ControleAtor(ator, Bebos[quantidadeDeAtores], this.fila, casas[quantidadeDeAtores], cadeiras);
+		controladores[quantidadeDeAtores] = new ControleAtor(ator, Bebos[quantidadeDeAtores], this.fila, casas[quantidadeDeAtores], this.balcao);
 
 		atores[quantidadeDeAtores] = ator;
 		quantidadeDeAtores+=1;
