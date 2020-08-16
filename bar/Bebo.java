@@ -14,6 +14,7 @@ public class Bebo extends Thread {
 	//Tempo Registrado em cada estado//
 	private int timeCasa;
 	private int timeBebendo;
+	private long timeRestante;
 	private Ator ator;
 
 	//Estado da Thread//
@@ -32,7 +33,8 @@ public class Bebo extends Thread {
 		this.mutex = mutex;
 		this.cadSemaphore = cadSemaphore;
 		this.timeCasa = timeCasa;
-		this.timeBebendo = timeBebendo;	
+		this.timeBebendo = timeBebendo;
+		this.timeRestante = 0;
 		this.posicaoCasa = false;
 		this.posicaoBar = false;
 		this.setPriority(1);
@@ -110,8 +112,8 @@ public class Bebo extends Thread {
 	
 	public void emCasa() throws InterruptedException {
 		timeHolder(this.timeCasa);
-		this.estadoCasa=false;
-		this.estadoNaFila=true;
+		this.estadoCasa = false;
+		this.estadoNaFila = true;
 		this.posicaoCasa = false;
 	}
 	
@@ -119,8 +121,9 @@ public class Bebo extends Thread {
 		SimpleDateFormat tempoAtual = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		long tempoInicial = tempoAtual.getCalendar().getTimeInMillis();
 		tempo=tempo*1000;
-		while ((tempoAtual.getCalendar().getTimeInMillis() - tempoInicial) < tempo ) {  	
+		while ((tempoAtual.getCalendar().getTimeInMillis() - tempoInicial) < tempo ) {
 			tempoAtual = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+			this.timeRestante = 1+(tempo-(tempoAtual.getCalendar().getTimeInMillis() - tempoInicial))/1000;
 	    }
 	}
 	
@@ -183,13 +186,13 @@ public class Bebo extends Thread {
 	}
 	public String status() {
 		if(this.estadoBebendo && this.posicaoBar) {
-			return(getName()+" esta Bebendo!");
+			return(getName()+" esta Bebendo!"+"   Tempo restante: "+this.timeRestante);
 		}
 		else if(this.estadoBebendo && this.posicaoBar==false) {
 			return(getName()+" pegando uma cadeira!");
 		}
 		else if(this.estadoCasa && this.posicaoCasa) {
-			return(getName()+" esta Dormindo!");
+			return(getName()+" esta Dormindo!"+"   Tempo restante: "+this.timeRestante);
 		}
 		else if(this.estadoCasa && this.posicaoCasa==false) {
 			return(getName()+" esta indo para Casa!");
