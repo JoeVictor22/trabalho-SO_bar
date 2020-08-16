@@ -29,8 +29,8 @@ public class Canvas extends JPanel implements Runnable
 	private Bartender bartender;
 	private ControleAtor[] controladores = new ControleAtor[20];
 	private int espacamentoEntreAtor = 30;
-	private Fila fila = new Fila(174,320,espacamentoEntreAtor, controladores);
-	private Balcao balcao = new Balcao(750,580,espacamentoEntreAtor, controladores);
+	private Fila fila = new Fila(190,300,espacamentoEntreAtor, controladores);
+	private Balcao balcao = new Balcao(750,550,espacamentoEntreAtor, controladores);
 	
 	
 	
@@ -188,7 +188,14 @@ public class Canvas extends JPanel implements Runnable
 	}
 	// adiciona um ator ao canvas
 	public void addAtor(Ator ator) {
-		casas[quantidadeDeAtores] = new Casa(20 + (quantidadeDeAtores * 60), 160);		
+		int casaY = 140;
+		int reset = 0;
+		if(this.quantidadeDeAtores > 9) {
+			casaY -= 100;
+			reset = 10;
+		}
+		
+		casas[quantidadeDeAtores] = new Casa(20 + ((quantidadeDeAtores - reset) * 60), casaY);		
 		
 		controladores[quantidadeDeAtores] = new ControleAtor(ator, Bebos[quantidadeDeAtores], this.fila, casas[quantidadeDeAtores], this.balcao);
 
