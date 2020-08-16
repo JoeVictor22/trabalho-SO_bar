@@ -58,8 +58,7 @@ public class Canvas extends JPanel implements Runnable
 		this.w = w;
 		
 		this.bartender = new Bartender(h,w);
-		this.bartender.setPosX(324);
-		this.bartender.setPosY(500);
+	
 		
 		//Load background
 		try {
@@ -114,6 +113,7 @@ public class Canvas extends JPanel implements Runnable
 	{	
 		fila.atualizar();
 		balcao.atualizar();
+		bartender.atualizar();
 		for(int i = 0; i < quantidadeDeAtores; i++) 
 		{
 			if(controladores[i] != null) {

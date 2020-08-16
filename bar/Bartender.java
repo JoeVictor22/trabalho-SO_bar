@@ -26,7 +26,8 @@ public class Bartender extends Personagem{
 		//velocidadeDasAnimacoes; quanto menor mais rapido
 		velocidadeDasAnimacoes= 12;
 		velocidadeDasAnimacoesBebendo = velocidadeDasAnimacoes + 15;
-
+		posX = 324;
+		posY = 500;
 		//quantidadeDeFrames deve ser igual ao tamanho das animacoes usado no criar imagens - 1
 		quantidadeDeFrames = 4;
 	}
@@ -34,34 +35,24 @@ public class Bartender extends Personagem{
 	public void criarAnimacoes() 
 	{
 		// Data\Sprites\shane
-		parado= carregarImagens("Data/Sprites/shane/idle/normal/tile00", 4, "png");
+		parado= carregarImagens("Data/Sprites/gus/idle/gus-copo", 4, "png");
 	}
 	
 	
 	public void atualizar() 
 	{
-		anda();
+		//anda();
 		atualizarContadorDeImagem();	
 	}
 
 	public void pintarAtor(Graphics2D g) 
 	{		
 		int acao = getAcao();
-		int orientacao = getOrientacao();
 	
-		/* ACOES
-		 * 0 = parado
-		 * 1 = esquerda
-		 * 2 = direita
-		 * 3 = cima
-		 * 4 = baixo
-		 * 5 = beber
-		 * 6 = dormir
-		 *  */
 		switch(acao) 
 		{
 			case 0:
-				pintar(g, parado, orientacao-1);
+				pintar(g, parado, imagemAtual);
 				break;
 			default:
 				break;
@@ -72,9 +63,8 @@ public class Bartender extends Personagem{
 
 	public void atualizarContadorDeImagem() {
 
-		int velocidade = 0;
-		velocidade = (acao == 5 ? velocidadeDasAnimacoesBebendo: velocidadeDasAnimacoes );
-
+		int velocidade = velocidadeDasAnimacoes;
+		
 		if(timer >= velocidade)
 		{
 			imagemAtual++;
