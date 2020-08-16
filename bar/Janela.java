@@ -104,10 +104,14 @@ public class Janela implements Runnable, ActionListener
 		//textAreaStatus.setCaretColor(Color.WHITE);
 		//textAreaLog.setCaretColor(Color.WHITE);
 
-		textAreaClientes.setBorder(new TitledBorder(new EtchedBorder(), "Clientes"));
-		textAreaStatus.setBorder(new TitledBorder(new EtchedBorder(), "Status"));
-		textAreaLog.setBorder(new TitledBorder(new EtchedBorder(), "Log"));
+		
+		
+		
+		//textAreaClientes.setBorder(new TitledBorder("Clientes"));
+		//textAreaStatus.setBorder(new TitledBorder("Status"));
+		//textAreaLog.setBorder(new TitledBorder("Log"));
 
+		
 		output.add(new JScrollPane(textAreaClientes, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.LINE_START);
 		output.add(new JScrollPane(textAreaStatus, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
 		output.add(new JScrollPane(textAreaLog, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.LINE_END);
