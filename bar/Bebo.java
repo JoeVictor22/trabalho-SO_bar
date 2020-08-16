@@ -116,6 +116,9 @@ public class Bebo extends Thread {
 	
 	public void encherCara() throws InterruptedException {
 		timeHolder(this.timeBebendo);
+		this.ator.setOrientacao(4);
+		this.ator.setAcao(0);
+
 		sairBar();
 	}
 	
