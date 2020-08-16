@@ -74,9 +74,10 @@ public class Janela implements Runnable, ActionListener
 	{
 		janela = new JFrame("Papudim simulator");
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		janela.setSize(w,h+30);
+		janela.setSize(w,h+200);
 		janela.setResizable(false);
 		
+		janela.setLayout(new BorderLayout());
 		// acoes para os butoes
 		beboButton.addActionListener(this);
  
@@ -91,20 +92,21 @@ public class Janela implements Runnable, ActionListener
 
 		
 		// console redirect implementation
-		
-		output.setLayout(new BorderLayout());
+		//output.setLayout(new BorderLayout());
 		output.add(new JScrollPane(textAreaConsole, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
 		//System.setOut(new PrintStream(consoleStream));
 		
-		
+	
 		
 		// criacao de instancia principal do jogo
 		jogo = new Canvas(w, h, this, Bebos, bar.getCadeiras());
-		// add jogo ao jframe
-		janela.add(jogo);
-		// add jpanels ao jogo
-		jogo.add(output);
-		jogo.add(inputUser);
+		
+		janela.add(jogo, BorderLayout.CENTER);
+		janela.add(inputUser, BorderLayout.PAGE_START);
+
+		janela.add(output, BorderLayout.PAGE_END);
+		
+		
 		janela.setVisible(true);
 		jogo.setJogando(true);
 	}
