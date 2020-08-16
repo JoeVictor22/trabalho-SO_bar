@@ -95,7 +95,7 @@ public class Janela implements Runnable, ActionListener
 		
 		
 		// criacao de instancia principal do jogo
-		jogo = new Canvas(w, h, this, Bebos);
+		jogo = new Canvas(w, h, this, Bebos, bar.getCadeiras());
 		// add jogo ao jframe
 		janela.add(jogo);
 		// add jpanels ao jogo

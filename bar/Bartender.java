@@ -52,7 +52,6 @@ public class Bartender extends Personagem{
 		andandoBaixo = carregarImagens("Data/Sprites/gus/gus-f", 4, "png");
 	}
 	
-	
 	public void atualizar() 
 	{
 		if(System.currentTimeMillis() - timerParado > tempoParado) 
@@ -65,7 +64,6 @@ public class Bartender extends Personagem{
 				this.setGotoX(650);
 			}
 			
-			System.out.println("troquei");
 		}	
 		anda();
 		atualizarContadorDeImagem();	
