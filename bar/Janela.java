@@ -43,8 +43,10 @@ public class Janela implements Runnable, ActionListener
 	static JLabel errorMessage = new JLabel("");
 	JLabel tempoBebendoLabel = new JLabel("Informe o tempo no bar!");	
 	JLabel tempoDormindoLabel = new JLabel("Informe o tempo de soneca!");
+	JLabel nomeDaThreadLabel = new JLabel("Nomeie o seu Papudim!");
 	static JTextField tempoBebendo = new JTextField("", 5);
-	static JTextField tempoDormindo= new JTextField("", 5);
+	static JTextField tempoDormindo = new JTextField("", 5);
+	static JTextField nomeDaThread = new JTextField("", 5);
 	JButton beboButton = new JButton("Adicionar Papudim");
 	JLabel consoleLabel = new JLabel("Console\nConsole\nConsole\nConsole\nConsole\n");
 	private JTextArea textAreaConsole = new JTextArea(5,60);
@@ -79,6 +81,8 @@ public class Janela implements Runnable, ActionListener
 		beboButton.addActionListener(this);
  
 		// add componentes de tela ao jpanel correspondente
+		inputUser.add(nomeDaThreadLabel);
+		inputUser.add(nomeDaThread);
 		inputUser.add(tempoBebendoLabel);
 		inputUser.add(tempoBebendo);
 		inputUser.add(tempoDormindoLabel);
@@ -116,20 +120,21 @@ public class Janela implements Runnable, ActionListener
         	if(bebosInseridos <= 19) {
         		int tmpBebendo=0;
         		int tmpDormindo=0;
-        		
         		try {
 					tmpBebendo=Integer.parseInt(tempoBebendo.getText());
 					tmpDormindo=Integer.parseInt(tempoDormindo.getText());
-					if(tmpBebendo<=0 || tmpDormindo<=0) {
+					nomeDaThread.setText(nomeDaThread.getText().strip());
+					if(tmpBebendo<=0 || tmpDormindo<=0 || nomeDaThread.getText().isEmpty()) {
 						throw new NumberFormatException();
 					}
 				} catch (NumberFormatException entradaInvalida) {
 					System.out.println("Entrada(s) invalida(s)");
 					tempoBebendo.setText(null);
 					tempoDormindo.setText(null);
+					nomeDaThread.setText(null);
 				}
         		
-        		if(tmpBebendo>0 && tmpDormindo>0) {
+        		if(tmpBebendo>0 && tmpDormindo>0 && nomeDaThread.getText().isEmpty()!=true) {
 					//SOMENTE PARA CONTROLE//
         			System.out.println("Inseriu");
 					//SOMENTE PARA CONTROLE//
@@ -137,10 +142,11 @@ public class Janela implements Runnable, ActionListener
 		        	threadInfo_bebendo.add(tempoBebendo.getText());
 		        	threadInfo_dormindo.add(tempoDormindo.getText());
 		        	bebosInseridos++;
-		        	String ID=("Thread "+Integer.toString(bebosInseridos));
+		        	String ID=("Bebo "+nomeDaThread.getText());
 		    		Ator novoAtor = new Ator(w, h);
 					Bebos[bebosInseridos-1] = new Bebo(novoAtor, bar, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(bebosInseridos-1)), Integer.parseInt(threadInfo_bebendo.get(bebosInseridos-1)), ID);
 					Bebos[bebosInseridos-1].start();
+					System.out.println(Bebos[bebosInseridos-1].getName());
 					addPersonagem();
 					
 					//SOMENTE PARA CONTROLE//
