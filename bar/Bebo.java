@@ -5,8 +5,7 @@ import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Bebo extends Thread
-{
+public class Bebo extends Thread {
 	
 	Semaphore cadSemaphore;
 	Semaphore mutex;
@@ -21,13 +20,13 @@ public class Bebo extends Thread
 	private boolean estadoCasa=false;
 	private boolean estadoBebendo=false;
 	private boolean estadoNaFila=true;
+	private boolean pagaConta=false;
 	
 	private boolean posicaoCasa=false;
 	private boolean posicaoBar=false;
 	
 	public Bebo(Ator ator, Bar bar, Semaphore mutex, Semaphore cadSemaphore, 
-				int timeCasa, int timeBebendo, String nome)
-	{
+				int timeCasa, int timeBebendo, String nome) {
 		super(nome);
 		this.bar = bar;
 		this.ator = ator;
@@ -40,12 +39,10 @@ public class Bebo extends Thread
 		this.setPriority(1);
 	}
 	
-	public void run()
-	{
-		while(true) 
-		{
+	public void run() {
+		while(true) {
 			sleep();
-			if(this.estadoNaFila){
+			if(this.estadoNaFila) {
 				try {
 					entrarBar();
 				} catch (InterruptedException e) {
@@ -59,7 +56,7 @@ public class Bebo extends Thread
 					e.printStackTrace();
 				}	
 			}
-			else if(this.posicaoCasa){
+			else if(this.posicaoCasa) {
 				try {
 					emCasa();
 				} catch (InterruptedException e) {
@@ -68,9 +65,8 @@ public class Bebo extends Thread
 			}
 		}
 	}
-	// para manter o refreshRate a 60fps => 1000ms/16 = 62 e nao sobrecarregar a cpu
-	public void sleep() 
-	{
+
+	public void sleep() {
 		try {
 			Thread.sleep(16);
 		} 
@@ -79,8 +75,7 @@ public class Bebo extends Thread
 		}
 	}
 		
-	public void entrarBar() throws InterruptedException 
-	{
+	public void entrarBar() throws InterruptedException {
 		cadSemaphore.acquire();
 		mutex.acquire();
 		bar.setCadeiras(bar.getCadeiras()-1);
@@ -89,28 +84,43 @@ public class Bebo extends Thread
 		mutex.release();
 	}
 	
-	public void sairBar() throws InterruptedException 
-	{
+	public void sairBar() throws InterruptedException {
+		if(bar.getCadeiras()==0) {
+			pagandoConta();
+		}
 		mutex.acquire();
 		bar.setCadeiras(bar.getCadeiras()+1);
 		cadSemaphore.release();
 		mutex.release();
 		this.estadoBebendo=false;
 		this.estadoCasa=true;		
-		this.posicaoBar = false;
+		this.posicaoBar=false;		
 	}
 	
-	public void encherCara() throws InterruptedException
-	{
+	public void pagandoConta() throws InterruptedException {
+		mutex.acquire();
+		bar.setTerminados(bar.getTerminados()+1);
+		if(bar.getTerminados()>=bar.getCadBKP()) {
+			this.pagaConta=true;
+		}
+		mutex.release();
+		
+		while(bar.getTerminados()!=0) {
+			Thread.yield();
+			if(this.pagaConta) {
+				bar.setTerminados(0);
+				this.pagaConta=false;
+			}
+		}
+	}
+	
+	public void encherCara() throws InterruptedException {
 		timeHolder(this.timeBebendo);
-		//sleep(this.timeBebendo*1000);
 		sairBar();
 	}
 	
-	public void emCasa() throws InterruptedException
-	{
+	public void emCasa() throws InterruptedException {
 		timeHolder(this.timeCasa);
-		//sleep(this.timeCasa*1000); 
 		this.estadoCasa=false;
 		this.estadoNaFila=true;
 		this.posicaoCasa = false;
