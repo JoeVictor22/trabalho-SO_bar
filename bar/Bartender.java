@@ -5,8 +5,12 @@ import java.awt.image.BufferedImage;
 
 public class Bartender extends Personagem{
 
+	private BufferedImage[] andandoEsquerda;
+	private BufferedImage[] andandoDireita;
+	private BufferedImage[] andandoCima;
+	private BufferedImage[] andandoBaixo;
 	private BufferedImage[] parado;
-	
+
 	private int imagemAtual;	
 	private int timer;
 	
@@ -14,6 +18,8 @@ public class Bartender extends Personagem{
 	private int velocidadeDasAnimacoes;
 	private int quantidadeDeFrames;
 	
+	private int tempoParado = 8000;
+	private long timerParado;
 
 
 	public Bartender(int h, int w) {
@@ -26,20 +32,39 @@ public class Bartender extends Personagem{
 		//velocidadeDasAnimacoes; quanto menor mais rapido
 		velocidadeDasAnimacoes= 12;
 		velocidadeDasAnimacoesBebendo = velocidadeDasAnimacoes + 15;
+		posX = 324;
+		posY = 500;
+		this.setGotoX(324);
+		this.setGotoY(500);
 
 		//quantidadeDeFrames deve ser igual ao tamanho das animacoes usado no criar imagens - 1
 		quantidadeDeFrames = 4;
+		timerParado = System.currentTimeMillis();
 	}
 	
 	public void criarAnimacoes() 
 	{
 		// Data\Sprites\shane
-		parado= carregarImagens("Data/Sprites/shane/idle/normal/tile00", 4, "png");
+		parado= carregarImagens("Data/Sprites/gus/gus-copo", 4, "png");
+		andandoEsquerda = carregarImagens("Data/Sprites/gus/gus-e", 4, "png");
+		andandoDireita = carregarImagens("Data/Sprites/gus/gus-d", 4, "png");
+		andandoCima = carregarImagens("Data/Sprites/gus/gus-t", 4, "png");
+		andandoBaixo = carregarImagens("Data/Sprites/gus/gus-f", 4, "png");
 	}
-	
 	
 	public void atualizar() 
 	{
+		if(System.currentTimeMillis() - timerParado > tempoParado) 
+		{
+			timerParado += tempoParado;
+		
+			if (this.getGotoX() == 650) {
+				this.setGotoX(324);
+			}else {
+				this.setGotoX(650);
+			}
+			
+		}	
 		anda();
 		atualizarContadorDeImagem();	
 	}
@@ -47,21 +72,23 @@ public class Bartender extends Personagem{
 	public void pintarAtor(Graphics2D g) 
 	{		
 		int acao = getAcao();
-		int orientacao = getOrientacao();
 	
-		/* ACOES
-		 * 0 = parado
-		 * 1 = esquerda
-		 * 2 = direita
-		 * 3 = cima
-		 * 4 = baixo
-		 * 5 = beber
-		 * 6 = dormir
-		 *  */
 		switch(acao) 
 		{
 			case 0:
-				pintar(g, parado, orientacao-1);
+				pintar(g, parado, imagemAtual);
+				break;
+			case 1:
+				pintar(g, andandoEsquerda, imagemAtual);
+				break;
+			case 2:
+				pintar(g, andandoDireita, imagemAtual);
+				break;
+			case 3:
+				pintar(g, andandoCima, imagemAtual);
+				break;
+			case 4:
+				pintar(g, andandoBaixo, imagemAtual);
 				break;
 			default:
 				break;
@@ -72,9 +99,8 @@ public class Bartender extends Personagem{
 
 	public void atualizarContadorDeImagem() {
 
-		int velocidade = 0;
-		velocidade = (acao == 5 ? velocidadeDasAnimacoesBebendo: velocidadeDasAnimacoes );
-
+		int velocidade = velocidadeDasAnimacoes;
+		
 		if(timer >= velocidade)
 		{
 			imagemAtual++;

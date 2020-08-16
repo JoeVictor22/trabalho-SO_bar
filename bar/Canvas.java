@@ -22,17 +22,21 @@ public class Canvas extends JPanel implements Runnable
 	private int w;
 		
 	private int quantidadeDeAtores = 0;
+	private int quantidadeDeCadeiras = 0;
 
 	private BufferedImage cenario;
 	private Ator[] atores = new Ator[20];
 	private Bartender bartender;
 	private ControleAtor[] controladores = new ControleAtor[20];
-	private Fila fila = new Fila(30,320,40, controladores);
-	private Balcao balcao = new Balcao(750,580,40, controladores);
+	private int espacamentoEntreAtor = 30;
+	private Fila fila = new Fila(30,320,espacamentoEntreAtor, controladores);
+	private Balcao balcao = new Balcao(750,580,espacamentoEntreAtor, controladores);
+	
+	
 	
 	private Casa[] casas = new Casa[20];
 	
-	private Cadeiras cadeiras;
+	private Cadeira[] cadeiras = new Cadeira[21];
 	
 	private Bebo Bebos[] = new Bebo[20];
 	
@@ -46,7 +50,7 @@ public class Canvas extends JPanel implements Runnable
 	
 	private String scenePath = "Data/Scenes/background.png";
 	
-	public Canvas(int h, int w, Janela janela,Bebo Bebos[]) 
+	public Canvas(int h, int w, Janela janela,Bebo Bebos[], int quantidadeDeCadeiras) 
 	{
 		pausado = false;
 		jogando = false;
@@ -57,9 +61,15 @@ public class Canvas extends JPanel implements Runnable
 		this.h = h;
 		this.w = w;
 		
+		this.quantidadeDeCadeiras = quantidadeDeCadeiras + 1;
 		this.bartender = new Bartender(h,w);
-		this.bartender.setPosX(324);
-		this.bartender.setPosY(500);
+	
+		for(int i = 0; i < quantidadeDeCadeiras+1; i++) {
+			cadeiras[i] = new Cadeira(h,w);
+			cadeiras[i].setGotoX(balcao.getX() - (i * espacamentoEntreAtor));
+			cadeiras[i].setGotoY(balcao.getY() + 40);
+			
+		}
 		
 		//Load background
 		try {
@@ -114,6 +124,16 @@ public class Canvas extends JPanel implements Runnable
 	{	
 		fila.atualizar();
 		balcao.atualizar();
+		bartender.atualizar();
+		
+
+		for(int i = 0; i < quantidadeDeCadeiras; i++) 
+		{
+			if(cadeiras[i] != null) {
+				cadeiras[i].atualizar();
+			}
+		}
+		
 		for(int i = 0; i < quantidadeDeAtores; i++) 
 		{
 			if(controladores[i] != null) {
@@ -135,14 +155,19 @@ public class Canvas extends JPanel implements Runnable
 		if(jogando) 
 		{
 			bartender.pintarAtor(g2d);
+			for(int i = 0; i < quantidadeDeCadeiras; i++) 
+			{
+				if(cadeiras[i] != null) {
+					cadeiras[i].pintarAtor(g2d);
+				}
+			}
+			
 			for(int i = 0; i < quantidadeDeAtores; i++) 
 			{
 				if(atores[i] != null) {
 					atores[i].pintarAtor(g2d);
 				}
-			}
-			for(int i = 0; i < quantidadeDeAtores; i++) 
-			{
+		
 				if(casas[i] != null) {
 					casas[i].pintarCasa(g2d);
 				}
