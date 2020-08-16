@@ -56,8 +56,7 @@ public class Janela implements Runnable, ActionListener
 	private JTextArea textAreaStatus = new JTextArea(5,33);
 	private JTextArea textAreaLog = new JTextArea(5,33);
 
-	//private JTextArea textAreaConsole = new JTextArea(5,33);
-	//private TextAreaOutputStream consoleStream = new TextAreaOutputStream(textAreaConsole, "Console");
+	private TextAreaOutputStream consoleStream = new TextAreaOutputStream(textAreaLog, "/");
 		
 	
 	
@@ -113,7 +112,7 @@ public class Janela implements Runnable, ActionListener
 		output.add(new JScrollPane(textAreaStatus, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
 		output.add(new JScrollPane(textAreaLog, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.LINE_END);
 
-		//System.setOut(new PrintStream(consoleStream));
+		System.setOut(new PrintStream(consoleStream));
 		
 
 		// criacao de instancia principal do jogo
