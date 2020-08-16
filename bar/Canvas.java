@@ -101,6 +101,8 @@ public class Canvas extends JPanel implements Runnable
 		
 		while(true) 
 		{
+			
+			atualizaConsoles();
 			Point mouse = MouseInfo.getPointerInfo().getLocation();
 			//System.out.println("x:" + mouse.x + ", y: " + mouse.y);
 			atualiza();	
@@ -118,6 +120,15 @@ public class Canvas extends JPanel implements Runnable
 		}
 	}
 	
+	
+	public void atualizaConsoles() {
+		String saida1 = "";
+		for(int i = 0; i < this.quantidadeDeAtores; i++) {
+			saida1 += Bebos[i].status() + "\n";
+		}
+		this.janela.setOutpuText(saida1);
+		
+	}
 	
 	// atualiza o estado logico dos componentes
 	public void atualiza() 
