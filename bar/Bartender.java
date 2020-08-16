@@ -35,7 +35,7 @@ public class Bartender extends Personagem{
 		posX = 324;
 		posY = 500;
 		this.setGotoX(324);
-		this.setGotoY(500);
+		this.setGotoY(460);
 
 		//quantidadeDeFrames deve ser igual ao tamanho das animacoes usado no criar imagens - 1
 		quantidadeDeFrames = 4;
