@@ -20,6 +20,8 @@ public class ControleAtor {
 	private boolean flagEsperando = false;
 	private boolean flagDormindo = false;
 	
+	private boolean flagEsperandoOutros = false;
+	
 	
 	
 	private Coordenada[] caminhoCasa = {
@@ -81,7 +83,8 @@ public class ControleAtor {
 				ator.setGotoY(cadeiraY);
 				
 				if(ator.getPosX()==cadeiraX && ator.getPosY()==cadeiraY) {
-					if(ator.getAcao() != 5) {
+					if(ator.getAcao() != 5 && flagEsperandoOutros==false) {
+						flagEsperandoOutros=true;
 						bebo.setPosicaoBar(true);
 						bebo.setPosicaoCasa(false);
 						ator.setAcao(5);
@@ -104,6 +107,9 @@ public class ControleAtor {
 				
 				if(ator.getPosX()==casa.getPosX() && ator.getPosY()==casa.getPosY()) {
 					if(ator.getAcao() != 6) {
+						
+						flagEsperandoOutros=false;
+						
 						bebo.setPosicaoCasa(true);
 						bebo.setPosicaoBar(false);
 						ator.setAcao(6);
@@ -167,6 +173,7 @@ public class ControleAtor {
 		this.flagDormindo = false;
 		this.flagBebendo= false;
 		
+		this.ator.setOrientacao(1);
 		fila.push(this);
 		
 	}
@@ -247,6 +254,16 @@ public class ControleAtor {
 
 	public void setCadeira(Cadeira cadeira) {
 		this.cadeira = cadeira;
+	}
+
+
+	public boolean isFlagEsperandoOutros() {
+		return flagEsperandoOutros;
+	}
+
+
+	public void setFlagEsperandoOutros(boolean flagEsperandoOutros) {
+		this.flagEsperandoOutros = flagEsperandoOutros;
 	}
 
 
