@@ -7,8 +7,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.PointerInfo;
 import java.awt.event.ActionEvent;
@@ -49,8 +52,12 @@ public class Janela implements Runnable, ActionListener
 	static JTextField nomeDaThread = new JTextField("", 5);
 	JButton beboButton = new JButton("Adicionar Papudim");
 	JLabel consoleLabel = new JLabel("Console\nConsole\nConsole\nConsole\nConsole\n");
-	private JTextArea textAreaConsole = new JTextArea(5,60);
-	private TextAreaOutputStream consoleStream = new TextAreaOutputStream(textAreaConsole, "Console");
+	private JTextArea textAreaClientes = new JTextArea(5,33);
+	private JTextArea textAreaStatus = new JTextArea(5,33);
+	private JTextArea textAreaLog = new JTextArea(5,33);
+
+	//private JTextArea textAreaConsole = new JTextArea(5,33);
+	//private TextAreaOutputStream consoleStream = new TextAreaOutputStream(textAreaConsole, "Console");
 		
 	
 	
@@ -92,12 +99,22 @@ public class Janela implements Runnable, ActionListener
 
 		
 		// console redirect implementation
-		//output.setLayout(new BorderLayout());
-		output.add(new JScrollPane(textAreaConsole, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
+		output.setLayout(new BorderLayout());
+		//textAreaClientes.setCaretColor(Color.WHITE);
+		//textAreaStatus.setCaretColor(Color.WHITE);
+		//textAreaLog.setCaretColor(Color.WHITE);
+
+		textAreaClientes.setBorder(new TitledBorder(new EtchedBorder(), "Clientes"));
+		textAreaStatus.setBorder(new TitledBorder(new EtchedBorder(), "Status"));
+		textAreaLog.setBorder(new TitledBorder(new EtchedBorder(), "Log"));
+
+		output.add(new JScrollPane(textAreaClientes, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.LINE_START);
+		output.add(new JScrollPane(textAreaStatus, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
+		output.add(new JScrollPane(textAreaLog, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.LINE_END);
+
 		//System.setOut(new PrintStream(consoleStream));
 		
-	
-		
+
 		// criacao de instancia principal do jogo
 		jogo = new Canvas(w, h, this, Bebos, bar.getCadeiras());
 		
@@ -111,8 +128,14 @@ public class Janela implements Runnable, ActionListener
 		jogo.setJogando(true);
 	}
 	
-	public void setOutpuText(String texto) {
-		this.textAreaConsole.setText(texto);
+	public void setOutpuClientes(String texto) {
+		this.textAreaClientes.setText(texto);
+	}
+	public void setOutpuStatus(String texto) {
+		this.textAreaStatus.setText(texto);
+	}
+	public void setOutpuLog(String texto) {
+		this.textAreaLog.setText(texto);
 	}
 	
 	public void addPersonagem() 

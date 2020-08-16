@@ -102,7 +102,6 @@ public class Canvas extends JPanel implements Runnable
 		while(true) 
 		{
 			
-			atualizaConsoles();
 			Point mouse = MouseInfo.getPointerInfo().getLocation();
 			//System.out.println("x:" + mouse.x + ", y: " + mouse.y);
 			atualiza();	
@@ -113,6 +112,8 @@ public class Canvas extends JPanel implements Runnable
 			frames++;
 			if(System.currentTimeMillis() - timer > 1000) 
 			{
+				atualizaConsoles();
+
 				timer+= 1000;
 				//System.out.println("frames = " + frames);
 				frames = 0;
@@ -126,7 +127,7 @@ public class Canvas extends JPanel implements Runnable
 		for(int i = 0; i < this.quantidadeDeAtores; i++) {
 			saida1 += Bebos[i].status() + "\n";
 		}
-		this.janela.setOutpuText(saida1);
+		this.janela.setOutpuStatus(saida1);
 		
 	}
 	
