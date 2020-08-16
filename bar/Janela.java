@@ -103,9 +103,6 @@ public class Janela implements Runnable, ActionListener
 		//textAreaClientes.setCaretColor(Color.WHITE);
 		//textAreaStatus.setCaretColor(Color.WHITE);
 		//textAreaLog.setCaretColor(Color.WHITE);
-
-		
-		
 		
 		//textAreaClientes.setBorder(new TitledBorder("Clientes"));
 		//textAreaStatus.setBorder(new TitledBorder("Status"));
@@ -133,13 +130,14 @@ public class Janela implements Runnable, ActionListener
 	}
 	
 	public void setOutpuClientes(String texto) {
-		this.textAreaClientes.setText(texto);
+		
+		this.textAreaClientes.setText("<>CLIENTES</>\n" + texto);
 	}
 	public void setOutpuStatus(String texto) {
-		this.textAreaStatus.setText(texto);
+		this.textAreaStatus.setText("<>STATUS</>\n" + texto);
 	}
 	public void setOutpuLog(String texto) {
-		this.textAreaLog.setText(texto);
+		this.textAreaLog.setText("<>LOG</>\n" + texto);
 	}
 	
 	public void addPersonagem() 
