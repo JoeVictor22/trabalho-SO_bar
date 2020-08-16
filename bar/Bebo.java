@@ -179,7 +179,19 @@ public class Bebo extends Thread {
 		System.out.println("dormi");
 	}
 	public String toString() {
-		return("Nome: "+getName()+"\tTempo Bebendo: "+this.timeBebendo+"\tTempo Em Casa: "+this.timeCasa);
+		return("Nome: "+getName()+"   Tempo Bebendo: "+this.timeBebendo+"   Tempo Em Casa: "+this.timeCasa);
+	}
+	public String status() {
+		if(this.estadoBebendo) {
+			return(getName()+" esta Bebendo!");
+		}
+		else if(this.estadoCasa) {
+			return(getName()+" esta Dormindo!");
+		}
+		else if(this.estadoNaFila) {
+			return(getName()+" esta na Fila!");
+		}
+		return null;	
 	}
 }
 

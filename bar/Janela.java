@@ -157,6 +157,9 @@ public class Janela implements Runnable, ActionListener
 					System.out.println(bebosInseridos);
 					System.out.println(threadInfo_bebendo);
 					System.out.println(threadInfo_dormindo);
+					for(int i=0;i<bebosInseridos;i++) {
+						System.out.println(Bebos[i].status());
+					}
 					System.out.println(Bebos[bebosInseridos-1].toString());
 					//SOMENTE PARA CONTROLE//
         		}
