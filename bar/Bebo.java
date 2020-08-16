@@ -179,7 +179,7 @@ public class Bebo extends Thread {
 		System.out.println("dormi");
 	}
 	public String toString() {
-		return("String");
+		return("Nome: "+getName()+"\tTempo Bebendo: "+this.timeBebendo+"\tTempo Em Casa: "+this.timeCasa);
 	}
 }
 

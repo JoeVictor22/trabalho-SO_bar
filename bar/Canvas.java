@@ -102,7 +102,7 @@ public class Canvas extends JPanel implements Runnable
 		while(true) 
 		{
 			Point mouse = MouseInfo.getPointerInfo().getLocation();
-			System.out.println("x:" + mouse.x + ", y: " + mouse.y);
+			//System.out.println("x:" + mouse.x + ", y: " + mouse.y);
 			atualiza();	
 			
 			repaint();
