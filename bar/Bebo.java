@@ -182,14 +182,20 @@ public class Bebo extends Thread {
 		return("Nome: "+getName()+"   Tempo Bebendo: "+this.timeBebendo+"   Tempo Em Casa: "+this.timeCasa);
 	}
 	public String status() {
-		if(this.estadoBebendo) {
+		if(this.estadoBebendo && this.posicaoBar) {
 			return(getName()+" esta Bebendo!");
 		}
-		else if(this.estadoCasa) {
+		else if(this.estadoBebendo && this.posicaoBar==false) {
+			return(getName()+" pegando uma cadeira!");
+		}
+		else if(this.estadoCasa && this.posicaoCasa) {
 			return(getName()+" esta Dormindo!");
 		}
+		else if(this.estadoCasa && this.posicaoCasa==false) {
+			return(getName()+" esta indo para Casa!");
+		}
 		else if(this.estadoNaFila) {
-			return(getName()+" esta na Fila!");
+			return(getName()+" foi para Fila!");
 		}
 		return null;	
 	}
