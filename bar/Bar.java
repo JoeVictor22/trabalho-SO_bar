@@ -3,15 +3,15 @@ package bar;
 public class Bar 
 {
 	private int cadeiras;
-	private int terminados;
 	private int cadBKP;
+	private boolean barReservadoParaAmigos;
 	
 	
 	public Bar(int cadeiras) 
 	{
 		this.cadeiras=cadeiras;
 		this.cadBKP=cadeiras;
-		this.terminados=0;
+		this.setbarReservadoParaAmigos(true);
 	}	
 	
 	public int getCadeiras() {
@@ -21,21 +21,21 @@ public class Bar
 	public void setCadeiras(int cadeiras) {
 		this.cadeiras = cadeiras;
 	}
-
-	public int getTerminados() {
-		return terminados;
-	}
-
-	public void setTerminados(int terminados) {
-		this.terminados = terminados;
-	}
-
+	
 	public int getCadBKP() {
 		return cadBKP;
 	}
 
 	public void setCadBKP(int cadBKP) {
 		this.cadBKP = cadBKP;
+	}
+
+	public boolean isbarReservadoParaAmigos() {
+		return barReservadoParaAmigos;
+	}
+
+	public void setbarReservadoParaAmigos(boolean barReservadoParaAmigos) {
+		this.barReservadoParaAmigos = barReservadoParaAmigos;
 	}
 	
 }

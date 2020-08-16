@@ -20,7 +20,6 @@ public class Bebo extends Thread {
 	private boolean estadoCasa=false;
 	private boolean estadoBebendo=false;
 	private boolean estadoNaFila=true;
-	private boolean pagaConta=false;
 	
 	private boolean posicaoCasa=false;
 	private boolean posicaoBar=false;
@@ -44,7 +43,9 @@ public class Bebo extends Thread {
 			sleep();
 			if(this.estadoNaFila) {
 				try {
+					if(bar.isbarReservadoParaAmigos()) {
 					entrarBar();
+					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -79,46 +80,31 @@ public class Bebo extends Thread {
 		cadSemaphore.acquire();
 		mutex.acquire();
 		bar.setCadeiras(bar.getCadeiras()-1);
+		if(bar.getCadeiras()==0) {
+			bar.setbarReservadoParaAmigos(false);
+		}
 		this.estadoNaFila=false;
 		this.estadoBebendo=true;
 		mutex.release();
 	}
 	
 	public void sairBar() throws InterruptedException {
-		if(bar.getCadeiras()==0) {
-			pagandoConta();
-		}
 		mutex.acquire();
 		bar.setCadeiras(bar.getCadeiras()+1);
 		cadSemaphore.release();
+		if(bar.getCadBKP()==bar.getCadeiras()) {
+			bar.setbarReservadoParaAmigos(true);
+		}
 		mutex.release();
 		this.estadoBebendo=false;
 		this.estadoCasa=true;		
-		this.posicaoBar=false;		
-	}
-	
-	public void pagandoConta() throws InterruptedException {
-		mutex.acquire();
-		bar.setTerminados(bar.getTerminados()+1);
-		if(bar.getTerminados()>=bar.getCadBKP()) {
-			this.pagaConta=true;
-		}
-		mutex.release();
-		
-		while(bar.getTerminados()!=0) {
-			Thread.yield();
-			if(this.pagaConta) {
-				bar.setTerminados(0);
-				this.pagaConta=false;
-			}
-		}
+		this.posicaoBar=false;
 	}
 	
 	public void encherCara() throws InterruptedException {
 		timeHolder(this.timeBebendo);
 		this.ator.setOrientacao(4);
 		this.ator.setAcao(0);
-
 		sairBar();
 	}
 	
