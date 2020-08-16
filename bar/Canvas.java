@@ -114,6 +114,9 @@ public class Canvas extends JPanel implements Runnable
 		fila.atualizar();
 		balcao.atualizar();
 		bartender.atualizar();
+		
+		
+		
 		for(int i = 0; i < quantidadeDeAtores; i++) 
 		{
 			if(controladores[i] != null) {
