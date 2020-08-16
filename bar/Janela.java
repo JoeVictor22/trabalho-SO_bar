@@ -91,11 +91,11 @@ public class Janela implements Runnable, ActionListener
 
 		
 		// console redirect implementation
-		/*
+		
 		output.setLayout(new BorderLayout());
 		output.add(new JScrollPane(textAreaConsole, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
-		System.setOut(new PrintStream(consoleStream));
-		*/
+		//System.setOut(new PrintStream(consoleStream));
+		
 		
 		
 		// criacao de instancia principal do jogo
@@ -107,6 +107,10 @@ public class Janela implements Runnable, ActionListener
 		jogo.add(inputUser);
 		janela.setVisible(true);
 		jogo.setJogando(true);
+	}
+	
+	public void setOutpuText(String texto) {
+		this.textAreaConsole.setText(texto);
 	}
 	
 	public void addPersonagem() 

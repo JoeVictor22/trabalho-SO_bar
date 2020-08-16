@@ -192,5 +192,8 @@ public class Bebo extends Thread {
 	public void printarCasa() {
 		System.out.println("dormi");
 	}
+	public String toString() {
+		return("String");
+	}
 }
 
