@@ -24,6 +24,7 @@ public class Bebo extends Thread {
 	
 	private boolean posicaoCasa=false;
 	private boolean posicaoBar=false;
+	private boolean posicaoPrimeiro=false;
 	
 	public Bebo(Ator ator, Bar bar, Semaphore mutex, Semaphore cadSemaphore, 
 				int timeCasa, int timeBebendo, String nome) {
@@ -35,8 +36,6 @@ public class Bebo extends Thread {
 		this.timeCasa = timeCasa;
 		this.timeBebendo = timeBebendo;
 		this.timeRestante = 0;
-		this.posicaoCasa = false;
-		this.posicaoBar = false;
 		this.setPriority(1);
 	}
 	
@@ -45,8 +44,8 @@ public class Bebo extends Thread {
 			sleep();
 			if(this.estadoNaFila) {
 				try {
-					if(bar.isbarReservadoParaAmigos()) {
-					entrarBar();
+					if(bar.isbarReservadoParaAmigos()!=true && this.isPosicaoPrimeiro()) {
+						entrarBar();
 					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -80,10 +79,11 @@ public class Bebo extends Thread {
 		
 	public void entrarBar() throws InterruptedException {
 		cadSemaphore.acquire();
+		this.setPosicaoPrimeiro(false);
 		mutex.acquire();
 		bar.setCadeiras(bar.getCadeiras()-1);
 		if(bar.getCadeiras()==0) {
-			bar.setbarReservadoParaAmigos(false);
+			bar.setbarReservadoParaAmigos(true);
 		}
 		this.estadoNaFila=false;
 		this.estadoBebendo=true;
@@ -95,7 +95,7 @@ public class Bebo extends Thread {
 		bar.setCadeiras(bar.getCadeiras()+1);
 		cadSemaphore.release();
 		if(bar.getCadBKP()==bar.getCadeiras()) {
-			bar.setbarReservadoParaAmigos(true);
+			bar.setbarReservadoParaAmigos(false);
 		}
 		mutex.release();
 		this.estadoBebendo=false;
@@ -201,6 +201,14 @@ public class Bebo extends Thread {
 			return(getName()+" foi para Fila!");
 		}
 		return null;	
+	}
+
+	public boolean isPosicaoPrimeiro() {
+		return posicaoPrimeiro;
+	}
+
+	public void setPosicaoPrimeiro(boolean posicaoPrimeiro) {
+		this.posicaoPrimeiro = posicaoPrimeiro;
 	}
 }
 

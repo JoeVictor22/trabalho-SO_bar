@@ -218,7 +218,9 @@ public class ControleAtor {
 
 	public void setPosFila(int posFila) {
 		this.posFila = posFila;
-		
+		if(posFila==0) {
+			bebo.setPosicaoPrimeiro(true);
+		}
 		// sempre que a posFila mudar o personagem vai andar ate aquela pos
 		ator.setGotoX(fila.getX() + fila.getDistancia() * posFila );
 		ator.setGotoY(fila.getY());

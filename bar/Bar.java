@@ -11,7 +11,7 @@ public class Bar
 	{
 		this.cadeiras=cadeiras;
 		this.cadBKP=cadeiras;
-		this.setbarReservadoParaAmigos(true);
+		this.setbarReservadoParaAmigos(false);
 	}	
 	
 	public int getCadeiras() {
