@@ -64,6 +64,8 @@ public class Canvas extends JPanel implements Runnable
 		this.h = h;
 		this.w = w;
 		
+		criarCasas();
+		
 		this.quantidadeDeCadeiras = quantidadeDeCadeiras;
 		this.bartender = new Bartender(h,w);
 		this.carro = new Carro(h,w,0,1100);
@@ -85,6 +87,30 @@ public class Canvas extends JPanel implements Runnable
 			Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, e);
 		}
 		gameloop.start();
+	}
+	
+	
+	public void criarCasas(){
+		int quantidadeDeCasas = 20;
+		int i;
+		for(i = 0; i < quantidadeDeCasas; i++) {
+			
+			int casaY = 60;
+			int casaX = 640;
+			int reset = 0;
+			if(i > 17) {
+				reset = 21;
+				casaY -= 180;
+			}else if(i > 15) {
+				reset = 19;
+				casaY = 60;
+			}else if(i > 7) {
+				casaY -= 180;
+				reset = 8;
+			}
+			casas[i] = new Casa(640- ((i - reset) * 90), casaY);	
+
+		}
 	}
 	
 	// para manter o refreshRate a 60fps => 1000ms/16 = 62
@@ -184,7 +210,7 @@ public class Canvas extends JPanel implements Runnable
 				}
 			}
 			
-			for(int i = 0; i < quantidadeDeAtores; i++) 
+			for(int i = 0; i < 20; i++) 
 			{
 			
 				if(casas[i] != null) {
@@ -203,21 +229,7 @@ public class Canvas extends JPanel implements Runnable
 	}
 	// adiciona um ator ao canvas
 	public void addAtor(Ator ator) {
-		int casaY = 60;
-		int casaX = 640;
-		int reset = 0;
-		if(this.quantidadeDeAtores > 17) {
-			reset = 21;
-			casaY -= 180;
-		}else if(this.quantidadeDeAtores > 15) {
-			reset = 19;
-			casaY = 60;
-		}else if(this.quantidadeDeAtores > 7) {
-			casaY -= 180;
-			reset = 8;
-		}
 		
-		casas[quantidadeDeAtores] = new Casa(640- ((quantidadeDeAtores - reset) * 90), casaY);		
 		
 		controladores[quantidadeDeAtores] = new ControleAtor(ator, Bebos[quantidadeDeAtores], this.fila, casas[quantidadeDeAtores], this.balcao);
 
