@@ -1,7 +1,7 @@
 package bar;
 
 public class Balcao {
-	private ControleAtor[] controladores = new ControleAtor[20];
+	//private ControleAtor[] controladores = new ControleAtor[20];
 	private int x;
 	private int y;
 	private int distancia;
@@ -15,7 +15,7 @@ public class Balcao {
 		this.x = x;
 		this.y = y;
 		this.distancia = distancia;
-		this.controladores = controladores;
+		//this.controladores = controladores;
 		
 		for( int i = 0; i < maxFila; i++) {
 			cadeiras[i] = new Cadeira(x - (i * 30), y);

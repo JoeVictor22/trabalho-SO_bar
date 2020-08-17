@@ -5,21 +5,16 @@ import java.awt.image.BufferedImage;
 
 public class Cadeira extends Personagem{
 
-	private BufferedImage[] andandoEsquerda;
-	private BufferedImage[] andandoDireita;
-	private BufferedImage[] andandoCima;
-	private BufferedImage[] andandoBaixo;
+
 	private BufferedImage[] parado;
 
 	private int imagemAtual;	
 	private int timer;
 	
-	private int velocidadeDasAnimacoesBebendo;
 	private int velocidadeDasAnimacoes;
 	private int quantidadeDeFrames;
 	
-	private int tempoParado = 8000;
-	private long timerParado;
+
 
 
 	public Cadeira(int h, int w) {
@@ -31,7 +26,6 @@ public class Cadeira extends Personagem{
 		
 		//velocidadeDasAnimacoes; quanto menor mais rapido
 		velocidadeDasAnimacoes= 12;
-		velocidadeDasAnimacoesBebendo = velocidadeDasAnimacoes + 15;
 
 		//quantidadeDeFrames deve ser igual ao tamanho das animacoes usado no criar imagens - 1
 		quantidadeDeFrames = 4;

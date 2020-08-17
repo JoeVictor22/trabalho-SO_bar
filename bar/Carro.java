@@ -4,10 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Carro  extends Personagem{
-	private BufferedImage[] andandoEsquerda;
-	private BufferedImage[] andandoDireita;
-	private BufferedImage[] andandoCima;
-	private BufferedImage[] andandoBaixo;
+
 	private BufferedImage[] parado;
 
 	private int imagemAtual;	

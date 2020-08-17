@@ -15,7 +15,6 @@ public class Bartender extends Personagem{
 	private int imagemAtual;	
 	private int timer;
 	
-	private int velocidadeDasAnimacoesBebendo;
 	private int velocidadeDasAnimacoes;
 	private int quantidadeDeFrames;
 	
@@ -32,7 +31,6 @@ public class Bartender extends Personagem{
 		
 		//velocidadeDasAnimacoes; quanto menor mais rapido
 		velocidadeDasAnimacoes= 12;
-		velocidadeDasAnimacoesBebendo = velocidadeDasAnimacoes + 15;
 		posX = 324;
 		posY = 482;
 		this.setGotoX(324);

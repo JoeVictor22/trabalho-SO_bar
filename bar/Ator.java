@@ -12,7 +12,7 @@ public class Ator extends Personagem
 	private BufferedImage[] andandoBaixo;
 	private BufferedImage[] parado;
 	private BufferedImage[] bebendo;
-	private BufferedImage[] dormindo;
+	//private BufferedImage[] dormindo;
 	
 	private int imagemAtual;	
 	private int timer;
@@ -47,7 +47,7 @@ public class Ator extends Personagem
 		andandoBaixo = carregarImagens("Data/Sprites/shane/walk/baixo/tile00", 4, "png");
 		parado= carregarImagens("Data/Sprites/shane/idle/normal/tile00", 4, "png");
 		bebendo= carregarImagens("Data/Sprites/shane/drinking/cima/tile00", 4, "png");
-		dormindo= carregarImagens("Data/Sprites/shane/sleep/shane-caido", 4, "png");
+		//dormindo= carregarImagens("Data/Sprites/shane/sleep/shane-caido", 4, "png");
 	}
 	
 	

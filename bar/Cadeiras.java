@@ -1,7 +1,6 @@
 package bar;
 
 public class Cadeiras {
-	private int cadeiras_ocupadas = 0;
 	private int quantidade_cadeiras = 0;
 	
 	private Cadeira[] cadeiras = new Cadeira[20];
@@ -9,7 +8,6 @@ public class Cadeiras {
 	
 	public Cadeiras(int quantidade_cadeiras){
 		this.quantidade_cadeiras = quantidade_cadeiras;
-		this.cadeiras_ocupadas = 1;
 		
 		for(int i = 0; i < 20; i++) {
 			cadeiras[i] = new Cadeira(250 + (i * 30), 580);

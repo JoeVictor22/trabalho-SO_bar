@@ -8,7 +8,6 @@ public class ControleAtor {
 	private Casa casa;
 	
 	private Cadeira cadeira;
-	private Cadeiras cadeiras;
 	
 	private Balcao balcao;
 	private int posCadeira;
