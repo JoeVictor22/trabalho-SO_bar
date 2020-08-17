@@ -38,6 +38,7 @@ public class ControleAtor {
 	
 	 	 */
 	private Coordenada[] caminhoCasa = new Coordenada[6];
+	private Coordenada[] caminhoFila = new Coordenada[3];
 
 
 	
@@ -67,6 +68,11 @@ public class ControleAtor {
 		
 		this.casa = casa;
 		this.balcao = balcao;
+		
+		caminhoFila[0] = new Coordenada(casa.getPosX(), casa.getPosY()+70);
+		caminhoFila[1] = new Coordenada(760, casa.getPosY()+70);
+		caminhoFila[2] = new Coordenada(760, 300);
+
 		
 		caminhoCasa[0] = new Coordenada(922, 570);
 		caminhoCasa[1] = new Coordenada(922, 540);
@@ -140,7 +146,7 @@ public class ControleAtor {
 			
 		}
 		else if(bebo.getEstadoNaFila()==true && this.flagEsperando == false) {
-			irParaBalcao();
+			irParaBalcao();				
 		}
 		
 		
@@ -225,7 +231,7 @@ public class ControleAtor {
 		casa.setAcao(0);			
 
 	}
-
+	
 
 	public boolean isFlagBebendo() {
 		return flagBebendo;
