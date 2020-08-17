@@ -30,7 +30,7 @@ public class Canvas extends JPanel implements Runnable
 	private ControleAtor[] controladores = new ControleAtor[20];
 	private int espacamentoEntreAtor = 30;
 	private Fila fila = new Fila(190,300,espacamentoEntreAtor, controladores);
-	private Balcao balcao = new Balcao(750,550,espacamentoEntreAtor, controladores);
+	private Balcao balcao = new Balcao(86,550,espacamentoEntreAtor, controladores);
 	
 	
 	
@@ -61,10 +61,10 @@ public class Canvas extends JPanel implements Runnable
 		this.h = h;
 		this.w = w;
 		
-		this.quantidadeDeCadeiras = quantidadeDeCadeiras + 1;
+		this.quantidadeDeCadeiras = quantidadeDeCadeiras;
 		this.bartender = new Bartender(h,w);
 	
-		for(int i = 0; i < quantidadeDeCadeiras+1; i++) {
+		for(int i = 0; i <= quantidadeDeCadeiras; i++) {
 			cadeiras[i] = new Cadeira(h,w);
 			cadeiras[i].setGotoX(balcao.getX() - (i * espacamentoEntreAtor));
 			cadeiras[i].setGotoY(balcao.getY() + 40);
@@ -103,7 +103,7 @@ public class Canvas extends JPanel implements Runnable
 		{
 			
 			Point mouse = MouseInfo.getPointerInfo().getLocation();
-			//System.out.println("x:" + mouse.x + ", y: " + mouse.y);
+			System.out.println("x:" + mouse.x + ", y: " + mouse.y);
 			atualiza();	
 			
 			repaint();

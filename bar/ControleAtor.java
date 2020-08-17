@@ -22,18 +22,33 @@ public class ControleAtor {
 	
 	private boolean flagEsperandoOutros = false;
 	
+	/*
+	 * caminho p/ fila
+	  700, 270
+	  700, 300	  	 
+	 */
 	
-	
+	/*
+	922, 590
+	922, 580
+	1012, 580 
+	1012, 300
+	 	 */
 	private Coordenada[] caminhoCasa = {
-			new Coordenada(180, 180),
-			new Coordenada(250, 180),
-			new Coordenada(350, 200)
+			new Coordenada(922, 570),
+			new Coordenada(922, 540),
+			new Coordenada(1012, 540),
+			new Coordenada(1012, 300)
+
 			};
 	
 	private Coordenada[] caminhoBar = {
-			new Coordenada(180, 180),
-			new Coordenada(250, 180),
-			new Coordenada(350, 200)
+			new Coordenada(150, 300),
+			new Coordenada(150, 510),
+			new Coordenada(240, 510),
+			new Coordenada(240, 640),
+			new Coordenada(510, 640),
+			new Coordenada(550, 590)
 			};
 	
 	// casa.getPosX();
