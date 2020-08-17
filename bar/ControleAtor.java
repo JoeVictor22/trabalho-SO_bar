@@ -37,7 +37,7 @@ public class ControleAtor {
 	casa.getPosX, casa.getPosY() - 60
 	
 	 	 */
-	private Coordenada[] caminhoCasa = new Coordenada[6];
+	private Coordenada[] caminhoCasa = new Coordenada[7];
 	private Coordenada[] caminhoFila = new Coordenada[3];
 
 
@@ -78,8 +78,9 @@ public class ControleAtor {
 		caminhoCasa[1] = new Coordenada(922, 540);
 		caminhoCasa[2] = new Coordenada(1012, 540);
 		caminhoCasa[3] = new Coordenada(1012, 300);
-		caminhoCasa[4] = new Coordenada(1012, casa.getPosY()+70);
-		caminhoCasa[5] = new Coordenada(casa.getPosX(), casa.getPosY()+70);
+		caminhoCasa[4] = new Coordenada(840, 300);
+		caminhoCasa[5] = new Coordenada(840, casa.getPosY()+66);
+		caminhoCasa[6] = new Coordenada(casa.getPosX(), casa.getPosY()+66);
 		
 		this.cadeira = new Cadeira(0,0);
 		this.posCadeira = -1;
@@ -145,8 +146,11 @@ public class ControleAtor {
 			}
 			
 		}
-		else if(bebo.getEstadoNaFila()==true && this.flagEsperando == false) {
-			irParaBalcao();				
+		else if(bebo.getEstadoNaFila()==true) {
+			if(segueCaminho(this.caminhoFila)) {
+			}
+			irParaBalcao();
+			
 		}
 		
 		
