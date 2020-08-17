@@ -28,6 +28,8 @@ public class Canvas extends JPanel implements Runnable
 	private Ator[] atores = new Ator[20];
 	private Bartender bartender;
 	private Carro carro;
+	private Carro caminhao;
+
 	private ControleAtor[] controladores = new ControleAtor[20];
 	private int espacamentoEntreAtor = 30;
 	private Fila fila = new Fila(190,300,espacamentoEntreAtor, controladores);
@@ -64,8 +66,9 @@ public class Canvas extends JPanel implements Runnable
 		
 		this.quantidadeDeCadeiras = quantidadeDeCadeiras;
 		this.bartender = new Bartender(h,w);
-		this.carro = new Carro(h,w,0);
-	
+		this.carro = new Carro(h,w,0,1100);
+		this.caminhao = new Carro(h,w,1,1190);
+
 		for(int i = 0; i <= quantidadeDeCadeiras; i++) {
 			cadeiras[i] = new Cadeira(h,w);
 			cadeiras[i].setGotoX(balcao.getX() + (i * espacamentoEntreAtor));
@@ -140,7 +143,8 @@ public class Canvas extends JPanel implements Runnable
 		balcao.atualizar();
 		bartender.atualizar();
 		carro.atualizar();
-		
+		caminhao.atualizar();
+
 		for(int i = 0; i < quantidadeDeAtores; i++) 
 		{
 			if(controladores[i] != null) {
@@ -172,6 +176,7 @@ public class Canvas extends JPanel implements Runnable
 		{
 			bartender.pintarAtor(g2d);
 			carro.pintarAtor(g2d);
+			caminhao.pintarAtor(g2d);
 			for(int i = 0; i < quantidadeDeCadeiras; i++) 
 			{
 				if(cadeiras[i] != null) {

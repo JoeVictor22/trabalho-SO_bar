@@ -23,7 +23,7 @@ public class Carro  extends Personagem{
 	private int resetY2 = 800;
 
 	private int carro = 0;
-	public Carro(int h, int w, int carro) {
+	public Carro(int h, int w, int carro, int posX) {
 		super(0, 0, 120, 70, 2);
 		//variaveis que necessitam inicializacao	
 		
@@ -32,9 +32,9 @@ public class Carro  extends Personagem{
 		this.carro = carro;
 		//velocidadeDasAnimacoes; quanto menor mais rapido
 		velocidadeDasAnimacoes= 12;
-		posX = 1100;
+		this.posX = posX;
 		posY = resetY1;
-		this.setGotoX(1100);
+		this.setGotoX(posX);
 		this.setGotoY(resetY2);
 
 		//quantidadeDeFrames deve ser igual ao tamanho das animacoes usado no criar imagens - 1
@@ -45,7 +45,7 @@ public class Carro  extends Personagem{
 	public void criarAnimacoes() 
 	{
 		// Data\Sprites\shane
-		parado= carregarImagens("Data/Sprites/outros/carro", 1, "png");
+		parado= carregarImagens("Data/Sprites/outros/carro", 2, "png");
 	
 	}
 	
@@ -57,7 +57,8 @@ public class Carro  extends Personagem{
 				timerParado += tempoParado;
 				this.setPosY(resetY1);
 
-				tempoParado = (int) (Math.random() * ( 60000 - 22000 ));
+				this.tempoParado = (int) (Math.random() * ( 60000 - 22000 ));
+				this.carro = (int) (Math.random() * (2 - 0));
 			}
 		}
 		
