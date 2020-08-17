@@ -2,8 +2,6 @@ package bar;
 
 import java.util.concurrent.Semaphore;
 
-import bar.Janela;
- 
 public class Jogo 
 {
 	
