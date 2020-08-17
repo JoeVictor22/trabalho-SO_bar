@@ -30,7 +30,7 @@ public class Canvas extends JPanel implements Runnable
 	private ControleAtor[] controladores = new ControleAtor[20];
 	private int espacamentoEntreAtor = 30;
 	private Fila fila = new Fila(190,300,espacamentoEntreAtor, controladores);
-	private Balcao balcao = new Balcao(86,550,espacamentoEntreAtor, controladores);
+	private Balcao balcao = new Balcao(862,550,espacamentoEntreAtor, controladores);
 	
 	
 	

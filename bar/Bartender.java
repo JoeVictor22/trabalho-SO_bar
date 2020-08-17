@@ -2,6 +2,7 @@ package bar;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.lang.Math;
 
 public class Bartender extends Personagem{
 
@@ -18,7 +19,7 @@ public class Bartender extends Personagem{
 	private int velocidadeDasAnimacoes;
 	private int quantidadeDeFrames;
 	
-	private int tempoParado = 8000;
+	private int tempoParado;
 	private long timerParado;
 
 
@@ -33,9 +34,9 @@ public class Bartender extends Personagem{
 		velocidadeDasAnimacoes= 12;
 		velocidadeDasAnimacoesBebendo = velocidadeDasAnimacoes + 15;
 		posX = 324;
-		posY = 500;
+		posY = 482;
 		this.setGotoX(324);
-		this.setGotoY(460);
+		this.setGotoY(482);
 
 		//quantidadeDeFrames deve ser igual ao tamanho das animacoes usado no criar imagens - 1
 		quantidadeDeFrames = 4;
@@ -63,8 +64,9 @@ public class Bartender extends Personagem{
 			}else {
 				this.setGotoX(650);
 			}
-			
-		}	
+			tempoParado = (int) (Math.random() * ( 45000 - 22000 ));
+		}
+		
 		anda();
 		atualizarContadorDeImagem();	
 	}
