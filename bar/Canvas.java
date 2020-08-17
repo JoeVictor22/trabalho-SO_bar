@@ -3,8 +3,6 @@ package bar;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.MouseInfo;
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,8 +16,6 @@ public class Canvas extends JPanel implements Runnable
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int h;
-	private int w;
 		
 	private int quantidadeDeAtores = 0;
 	private int quantidadeDeCadeiras = 0;
@@ -45,7 +41,6 @@ public class Canvas extends JPanel implements Runnable
 	
 
 	private boolean jogando;
-	private boolean pausado;
 	
 	private Janela janela;
 	
@@ -55,14 +50,14 @@ public class Canvas extends JPanel implements Runnable
 	
 	public Canvas(int h, int w, Janela janela,Bebo Bebos[], int quantidadeDeCadeiras) 
 	{
-		pausado = false;
+		//pausado = false;
 		jogando = false;
 		
 		
 		this.janela = janela;
 		this.Bebos = Bebos;
-		this.h = h;
-		this.w = w;
+		//this.h = h;
+		//this.w = w;
 		
 		criarCasas();
 		
@@ -96,7 +91,6 @@ public class Canvas extends JPanel implements Runnable
 		for(i = 0; i < quantidadeDeCasas; i++) {
 			
 			int casaY = 60;
-			int casaX = 640;
 			int reset = 0;
 			if(i > 17) {
 				reset = 21;
@@ -128,26 +122,21 @@ public class Canvas extends JPanel implements Runnable
 	public void run() 
 	{
 		long timer = System.currentTimeMillis();
-		int frames = 0;
 		
 		while(true) 
 		{
 			
-			Point mouse = MouseInfo.getPointerInfo().getLocation();
-			//System.out.println("x:" + mouse.x + ", y: " + mouse.y);
 			atualiza();	
 			
 			repaint();
 			// mantem o refresh rate a 60 e conta os frames
 			sleep();
-			frames++;
 			if(System.currentTimeMillis() - timer > 1000) 
 			{
 				atualizaConsoles();
 
 				timer+= 1000;
 				//System.out.println("frames = " + frames);
-				frames = 0;
 			}			
 		}
 	}

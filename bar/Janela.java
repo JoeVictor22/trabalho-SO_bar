@@ -7,13 +7,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.MouseInfo;
-import java.awt.PointerInfo;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
@@ -21,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import bar.Canvas;
 
 public class Janela implements Runnable, ActionListener
 {
@@ -100,8 +96,8 @@ public class Janela implements Runnable, ActionListener
 		// console redirect implementation
 		output.setLayout(new BorderLayout());
 		//textAreaClientes.setCaretColor(Color.WHITE);
-		//textAreaStatus.setCaretColor(Color.WHITE);
-		//textAreaLog.setCaretColor(Color.WHITE);
+		textAreaStatus.setCaretColor(Color.WHITE);
+		textAreaLog.setCaretColor(Color.WHITE);
 		
 		//textAreaClientes.setBorder(new TitledBorder("Clientes"));
 		//textAreaStatus.setBorder(new TitledBorder("Status"));
