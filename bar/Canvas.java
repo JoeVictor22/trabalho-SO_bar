@@ -191,7 +191,7 @@ public class Canvas extends JPanel implements Runnable
 		int casaY = 140;
 		int reset = 0;
 		if(this.quantidadeDeAtores > 9) {
-			casaY -= 100;
+			casaY -= 120;
 			reset = 10;
 		}
 		

@@ -33,14 +33,13 @@ public class ControleAtor {
 	922, 580
 	1012, 580 
 	1012, 300
+	1012, casa.getPosY() - 60
+	casa.getPosX, casa.getPosY() - 60
+	
 	 	 */
-	private Coordenada[] caminhoCasa = {
-			new Coordenada(922, 570),
-			new Coordenada(922, 540),
-			new Coordenada(1012, 540),
-			new Coordenada(1012, 300)
+	private Coordenada[] caminhoCasa = new Coordenada[6];
 
-			};
+
 	
 	private Coordenada[] caminhoBar = {
 			new Coordenada(150, 300),
@@ -60,7 +59,7 @@ public class ControleAtor {
 		this.ator = ator;
 
 		this.ator.setPosX(casa.getPosX() + 30);
-		this.ator.setPosY(casa.getPosY()+ 20);
+		this.ator.setPosY(casa.getPosY() + 20);
 		
 		this.posFila = 21;
 		this.bebo = bebo;
@@ -69,6 +68,12 @@ public class ControleAtor {
 		this.casa = casa;
 		this.balcao = balcao;
 		
+		caminhoCasa[0] = new Coordenada(922, 570);
+		caminhoCasa[1] = new Coordenada(922, 540);
+		caminhoCasa[2] = new Coordenada(1012, 540);
+		caminhoCasa[3] = new Coordenada(1012, 300);
+		caminhoCasa[4] = new Coordenada(1012, casa.getPosY()+70);
+		caminhoCasa[5] = new Coordenada(casa.getPosX(), casa.getPosY()+70);
 		
 		this.cadeira = new Cadeira(0,0);
 		this.posCadeira = -1;
