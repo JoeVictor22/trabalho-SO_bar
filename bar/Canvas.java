@@ -195,7 +195,7 @@ public class Canvas extends JPanel implements Runnable
 			reset = 10;
 		}
 		
-		casas[quantidadeDeAtores] = new Casa(20 + ((quantidadeDeAtores - reset) * 60), casaY);		
+		casas[quantidadeDeAtores] = new Casa(560 - ((quantidadeDeAtores - reset) * 60), casaY);		
 		
 		controladores[quantidadeDeAtores] = new ControleAtor(ator, Bebos[quantidadeDeAtores], this.fila, casas[quantidadeDeAtores], this.balcao);
 
