@@ -30,7 +30,7 @@ public class Canvas extends JPanel implements Runnable
 	private ControleAtor[] controladores = new ControleAtor[20];
 	private int espacamentoEntreAtor = 30;
 	private Fila fila = new Fila(190,300,espacamentoEntreAtor, controladores);
-	private Balcao balcao = new Balcao(862,550,espacamentoEntreAtor, controladores);
+	private Balcao balcao = new Balcao(294,550,espacamentoEntreAtor, controladores);
 	
 	
 	
@@ -66,7 +66,7 @@ public class Canvas extends JPanel implements Runnable
 	
 		for(int i = 0; i <= quantidadeDeCadeiras; i++) {
 			cadeiras[i] = new Cadeira(h,w);
-			cadeiras[i].setGotoX(balcao.getX() - (i * espacamentoEntreAtor));
+			cadeiras[i].setGotoX(balcao.getX() + (i * espacamentoEntreAtor));
 			cadeiras[i].setGotoY(balcao.getY() + 40);
 			
 		}
