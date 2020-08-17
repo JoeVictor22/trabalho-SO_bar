@@ -25,6 +25,7 @@ public class Bebo extends Thread {
 	private boolean posicaoCasa=false;
 	private boolean posicaoBar=false;
 	private boolean posicaoPrimeiro=false;
+	private boolean inicio=true;
 	
 	public Bebo(Ator ator, Bar bar, Semaphore mutex, Semaphore cadSemaphore, 
 				int timeCasa, int timeBebendo, String nome) {
@@ -44,7 +45,7 @@ public class Bebo extends Thread {
 			sleep();
 			if(this.estadoNaFila) {
 				try {
-					if(bar.isbarReservadoParaAmigos()!=true && this.isPosicaoPrimeiro()) {
+					if(bar.isbarReservadoParaAmigos()!=true && this.isPosicaoPrimeiro() && this.isInicio()!=true) {
 						entrarBar();
 					}
 				} catch (InterruptedException e) {
@@ -113,6 +114,7 @@ public class Bebo extends Thread {
 	public void emCasa() throws InterruptedException {
 		timeHolder(this.timeCasa);
 		this.estadoCasa = false;
+		this.inicio= true;
 		this.estadoNaFila = true;
 		this.posicaoCasa = false;
 	}
@@ -209,6 +211,14 @@ public class Bebo extends Thread {
 
 	public void setPosicaoPrimeiro(boolean posicaoPrimeiro) {
 		this.posicaoPrimeiro = posicaoPrimeiro;
+	}
+
+	public boolean isInicio() {
+		return inicio;
+	}
+
+	public void setInicio(boolean inicio) {
+		this.inicio = inicio;
 	}
 }
 

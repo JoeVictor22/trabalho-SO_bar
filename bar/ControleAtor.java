@@ -70,9 +70,9 @@ public class ControleAtor {
 		this.casa = casa;
 		this.balcao = balcao;
 		
-		caminhoFila[0] = new Coordenada(casa.getPosX(), casa.getPosY()+70);
-		caminhoFila[1] = new Coordenada(760, casa.getPosY()+70);
-		caminhoFila[2] = new Coordenada(760, 300);
+		caminhoFila[0] = new Coordenada(casa.getPosX()+30, casa.getPosY()+66);
+		caminhoFila[1] = new Coordenada(810, casa.getPosY()+66);
+		caminhoFila[2] = new Coordenada(820, 300);
 
 		
 		caminhoCasa[0] = new Coordenada(922, 570);
@@ -154,6 +154,7 @@ public class ControleAtor {
 			}else if(segueCaminho(this.caminhoFila)) {
 				this.setPosFila(this.posFila);
 				this.chegouNaFila = true;
+				bebo.setInicio(false);
 			}
 			
 		}
