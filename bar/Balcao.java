@@ -28,6 +28,7 @@ public class Balcao {
 	
 	public void atualizar() {
 	
+		/*
 		for(int i = 0; i < 20; i++) {
 			
 			if (controladores[i] != null && controladores[i].getPosCadeira() > 0) {
@@ -42,7 +43,8 @@ public class Balcao {
 					
 				}
 			}
-		}	
+		}
+		*/	
 		
 	}
 	
@@ -58,9 +60,14 @@ public class Balcao {
 	
 	public void push(ControleAtor controlador) {
 		if(controlador.getPosCadeira() == -1) {
-			int ultimoDaFila = 21;
-			flags[ultimoDaFila] = true;
-			controlador.setPosCadeira(ultimoDaFila);
+			int i;
+			for(i = 0; i < 21; i++) {
+				if (flags[i] == false) {
+					break;
+				}
+			}
+			flags[i] = true;
+			controlador.setPosCadeira(i);
 			//controlador.setCadeira(cadeiras[ultimoDaFila]);
 
 		}
