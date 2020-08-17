@@ -10,17 +10,34 @@ import javax.imageio.ImageIO;
 
 public class Casa extends Personagem{
 	private BufferedImage[] cabana;
+	private BufferedImage[] cabanaDormindo;
 
+	private int imagemAtual;	
+	private int timer;
+	
+	private int velocidadeDasAnimacoes;
+	private int quantidadeDeFrames;
+	
 	public Casa(int posX, int posY) {
-		super(posX, posY, 73, 60, 2);
+		super(posX, posY, 350, 280, 2);
 		this.acao = 0;
+		timer = 0;
+		imagemAtual = 0;
+		
+		//velocidadeDasAnimacoes; quanto menor mais rapido
+		velocidadeDasAnimacoes= 12;
+
+		//quantidadeDeFrames deve ser igual ao tamanho das animacoes usado no criar imagens - 1
+		quantidadeDeFrames = 5;
 	}
 	
 	
 	public void criarAnimacoes() 
 	{
 		// Data\Sprites\shane
-		cabana = carregarImagens("Data/Sprites/casa/cabana", 2, "png");
+		cabana = carregarImagens("Data/Sprites/casa/1Elliott_s_Cabin", 1, "png");
+		cabanaDormindo = carregarImagens("Data/Sprites/casa/Elliott_s_Cabin", 5, "png");
+
 	
 	}
 	
@@ -28,8 +45,23 @@ public class Casa extends Personagem{
 	}
 	public void atualizar() 
 	{
+		atualizarContadorDeImagem();	
 	}
-		
+
+	public void atualizarContadorDeImagem() {
+
+		int velocidade = velocidadeDasAnimacoes;
+
+		if(timer >= velocidade)
+		{
+			imagemAtual++;
+			if(imagemAtual == quantidadeDeFrames){
+				imagemAtual = 0;
+			}
+			timer = 0;
+		}
+		timer++;
+	}
 	public void pintarCasa(Graphics2D g) 
 	{			
 		
@@ -46,7 +78,7 @@ public class Casa extends Personagem{
 				pintar(g, cabana, 0);
 				break;
 			case 1:
-				pintar(g, cabana, 1);
+				pintar(g, cabanaDormindo, imagemAtual);
 				break;
 			default:
 				break;

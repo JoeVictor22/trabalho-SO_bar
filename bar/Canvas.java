@@ -138,6 +138,13 @@ public class Canvas extends JPanel implements Runnable
 		balcao.atualizar();
 		bartender.atualizar();
 		
+		for(int i = 0; i < quantidadeDeAtores; i++) 
+		{
+			if(controladores[i] != null) {
+				controladores[i].atualizar();
+				casas[i].atualizar();
+			}
+		}	
 		for(int i = 0; i < quantidadeDeCadeiras; i++) 
 		{
 			if(cadeiras[i] != null) {
@@ -145,12 +152,7 @@ public class Canvas extends JPanel implements Runnable
 			}
 		}
 		
-		for(int i = 0; i < quantidadeDeAtores; i++) 
-		{
-			if(controladores[i] != null) {
-				controladores[i].atualizar();
-			}
-		}		
+			
 	}
 
 	// desenha os componentes na tela
@@ -175,27 +177,38 @@ public class Canvas extends JPanel implements Runnable
 			
 			for(int i = 0; i < quantidadeDeAtores; i++) 
 			{
-				if(atores[i] != null) {
-					atores[i].pintarAtor(g2d);
-				}
-		
+			
 				if(casas[i] != null) {
 					casas[i].pintarCasa(g2d);
 				}
 			}
+			for(int i = 0; i < quantidadeDeAtores; i++) 
+			{
+				if(atores[i] != null) {
+					atores[i].pintarAtor(g2d);
+				}
+			}
+			
 
 		}	
 	}
 	// adiciona um ator ao canvas
 	public void addAtor(Ator ator) {
-		int casaY = 140;
+		int casaY = 60;
+		int casaX = 640;
 		int reset = 0;
-		if(this.quantidadeDeAtores > 9) {
-			casaY -= 120;
-			reset = 10;
+		if(this.quantidadeDeAtores > 17) {
+			reset = 21;
+			casaY -= 180;
+		}else if(this.quantidadeDeAtores > 15) {
+			reset = 19;
+			casaY = 60;
+		}else if(this.quantidadeDeAtores > 7) {
+			casaY -= 180;
+			reset = 8;
 		}
 		
-		casas[quantidadeDeAtores] = new Casa(560 - ((quantidadeDeAtores - reset) * 60), casaY);		
+		casas[quantidadeDeAtores] = new Casa(640- ((quantidadeDeAtores - reset) * 90), casaY);		
 		
 		controladores[quantidadeDeAtores] = new ControleAtor(ator, Bebos[quantidadeDeAtores], this.fila, casas[quantidadeDeAtores], this.balcao);
 

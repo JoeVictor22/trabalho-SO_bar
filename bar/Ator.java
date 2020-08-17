@@ -92,7 +92,7 @@ public class Ator extends Personagem
 				pintar(g, bebendo, imagemAtual);
 				break;
 			case 6:
-				pintar(g, dormindo, imagemAtual);
+				//pintar(g, dormindo, imagemAtual);
 				break;
 			default:
 				break;

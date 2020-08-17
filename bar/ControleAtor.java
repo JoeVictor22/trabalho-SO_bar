@@ -57,11 +57,13 @@ public class ControleAtor {
 	// ator.getPosX();
 	// ator.getPosY();
 	
+	private int compensarTamCasaX = 120;
+	private int compensarTamCasaY = 140;
+	
 	public ControleAtor(Ator ator,Bebo bebo, Fila fila, Casa casa, Balcao balcao) {
 		this.ator = ator;
-
-		this.ator.setPosX(casa.getPosX() + 30);
-		this.ator.setPosY(casa.getPosY() + 20);
+		this.ator.setPosX(casa.getPosX() + compensarTamCasaX);
+		this.ator.setPosY(casa.getPosY() + compensarTamCasaY);
 		
 		this.posFila = 21;
 		this.bebo = bebo;
@@ -70,8 +72,8 @@ public class ControleAtor {
 		this.casa = casa;
 		this.balcao = balcao;
 		
-		caminhoFila[0] = new Coordenada(casa.getPosX()+30, casa.getPosY()+66);
-		caminhoFila[1] = new Coordenada(810, casa.getPosY()+66);
+		caminhoFila[0] = new Coordenada(casa.getPosX()+compensarTamCasaX, casa.getPosY()+compensarTamCasaY);
+		caminhoFila[1] = new Coordenada(810, casa.getPosY()+compensarTamCasaY);
 		caminhoFila[2] = new Coordenada(820, 300);
 
 		
@@ -80,10 +82,11 @@ public class ControleAtor {
 		caminhoCasa[2] = new Coordenada(1012, 540);
 		caminhoCasa[3] = new Coordenada(1012, 300);
 		caminhoCasa[4] = new Coordenada(840, 300);
-		caminhoCasa[5] = new Coordenada(840, casa.getPosY()+66);
-		caminhoCasa[6] = new Coordenada(casa.getPosX(), casa.getPosY()+66);
+		caminhoCasa[5] = new Coordenada(840, casa.getPosY()+compensarTamCasaY);
+		caminhoCasa[6] = new Coordenada(casa.getPosX() + compensarTamCasaX, casa.getPosY()+compensarTamCasaY);
 		
 		this.cadeira = new Cadeira(0,0);
+		this.chegouNaFila = false;
 		this.posCadeira = -1;
 		irParaCasa();
 	}
@@ -130,10 +133,12 @@ public class ControleAtor {
 
 			}else if(segueCaminho(this.caminhoCasa)) {
 				
-				ator.setGotoX(casa.getPosX());
-				ator.setGotoY(casa.getPosY());
+				int posCasaX = casa.getPosX() + compensarTamCasaX;
+				int posCasaY = casa.getPosY() + compensarTamCasaY-6;
+				ator.setGotoX(posCasaX);
+				ator.setGotoY(posCasaY);
 				
-				if(ator.getPosX()==casa.getPosX() && ator.getPosY()==casa.getPosY()) {
+				if(ator.getPosX()==posCasaX && ator.getPosY()==posCasaY) {
 					if(ator.getAcao() != 6) {
 						
 						flagEsperandoOutros=false;
@@ -149,7 +154,8 @@ public class ControleAtor {
 		}
 		else if(bebo.getEstadoNaFila()==true) {
 			if(this.flagEsperando == false) {
-				irParaBalcao();				
+				irParaBalcao();	
+				this.chegouNaFila = false;
 				resetarCaminhos(this.caminhoFila);
 			}else if(segueCaminho(this.caminhoFila)) {
 				this.setPosFila(this.posFila);
