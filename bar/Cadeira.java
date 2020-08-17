@@ -41,16 +41,11 @@ public class Cadeira extends Personagem{
 	{
 		// Data\Sprites\shane
 		parado= carregarImagens("Data/Sprites/outros/banco", 1, "png");
-		andandoEsquerda = carregarImagens("Data/Sprites/gus/gus-e", 4, "png");
-		andandoDireita = carregarImagens("Data/Sprites/gus/gus-d", 4, "png");
-		andandoCima = carregarImagens("Data/Sprites/gus/gus-t", 4, "png");
-		andandoBaixo = carregarImagens("Data/Sprites/gus/gus-f", 4, "png");
+
 	}
 	
 	public void atualizar() 
 	{
-		anda();
-		atualizarContadorDeImagem();	
 	}
 
 	public void pintarAtor(Graphics2D g) 
@@ -69,22 +64,6 @@ public class Cadeira extends Personagem{
 	}
 	
 
-
-	public void atualizarContadorDeImagem() {
-
-		int velocidade = velocidadeDasAnimacoes;
-		
-		if(timer >= velocidade)
-		{
-			imagemAtual++;
-			if(imagemAtual == quantidadeDeFrames){
-				imagemAtual = 0;
-			}
-			timer = 0;
-		}
-		timer++;
-	}
-	
 	/*
 	 * setters e getters
 	 */

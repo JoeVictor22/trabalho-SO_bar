@@ -73,8 +73,8 @@ public class Canvas extends JPanel implements Runnable
 
 		for(int i = 0; i <= quantidadeDeCadeiras; i++) {
 			cadeiras[i] = new Cadeira(h,w);
-			cadeiras[i].setGotoX(balcao.getX() + (i * espacamentoEntreAtor));
-			cadeiras[i].setGotoY(balcao.getY() + 40);
+			cadeiras[i].setPosX(balcao.getX() + (i * espacamentoEntreAtor));
+			cadeiras[i].setPosY(balcao.getY() + 40);
 			
 		}
 		
@@ -178,12 +178,7 @@ public class Canvas extends JPanel implements Runnable
 				casas[i].atualizar();
 			}
 		}	
-		for(int i = 0; i < quantidadeDeCadeiras; i++) 
-		{
-			if(cadeiras[i] != null) {
-				cadeiras[i].atualizar();
-			}
-		}
+		
 		
 			
 	}
