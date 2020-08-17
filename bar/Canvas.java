@@ -68,7 +68,7 @@ public class Canvas extends JPanel implements Runnable
 		
 		this.quantidadeDeCadeiras = quantidadeDeCadeiras;
 		this.bartender = new Bartender(h,w);
-		this.carro = new Carro(h,w,0,1100);
+		this.carro = new Carro(h,w,0,1118);
 		this.caminhao = new Carro(h,w,1,1190);
 
 		for(int i = 0; i <= quantidadeDeCadeiras; i++) {
