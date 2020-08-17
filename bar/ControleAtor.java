@@ -21,6 +21,7 @@ public class ControleAtor {
 	private boolean flagDormindo = false;
 	
 	private boolean flagEsperandoOutros = false;
+	private boolean chegouNaFila = false;
 	
 	/*
 	 * caminho p/ fila
@@ -147,9 +148,13 @@ public class ControleAtor {
 			
 		}
 		else if(bebo.getEstadoNaFila()==true) {
-			if(segueCaminho(this.caminhoFila)) {
+			if(this.flagEsperando == false) {
+				irParaBalcao();				
+				resetarCaminhos(this.caminhoFila);
+			}else if(segueCaminho(this.caminhoFila)) {
+				this.setPosFila(this.posFila);
+				this.chegouNaFila = true;
 			}
-			irParaBalcao();
 			
 		}
 		
@@ -232,11 +237,15 @@ public class ControleAtor {
 			bebo.setPosicaoPrimeiro(true);
 		}
 		// sempre que a posFila mudar o personagem vai andar ate aquela pos
-		ator.setGotoX(fila.getX() + fila.getDistancia() * posFila );
-		ator.setGotoY(fila.getY());
-		casa.setAcao(0);			
+	
+		if(this.chegouNaFila == true) {
+			ator.setGotoX(fila.getX() + fila.getDistancia() * posFila );
+			ator.setGotoY(fila.getY());
+			casa.setAcao(0);						
+		}
 
 	}
+	
 	
 
 	public boolean isFlagBebendo() {
