@@ -102,7 +102,7 @@ public class ControleAtor {
 			}else if(segueCaminho(this.caminhoBar)) {
 
 				
-				int cadeiraX = balcao.getX() - balcao.getDistancia() * posCadeira;
+				int cadeiraX = balcao.getX() + balcao.getDistancia() * posCadeira;
 				int cadeiraY = balcao.getY();
 				
 				ator.setGotoX(cadeiraX);
