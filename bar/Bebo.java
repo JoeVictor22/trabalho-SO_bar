@@ -28,6 +28,7 @@ public class Bebo extends Thread {
 	private boolean posicaoBar=false;
 	private boolean posicaoPrimeiro=false;
 	private boolean inicio=true;
+	private boolean possuiFicha=true;
 	
 	public Bebo(Ator ator, Bar bar, Semaphore mutex, Semaphore cadSemaphore, 
 				int timeCasa, int timeBebendo, String nome) {
@@ -47,6 +48,10 @@ public class Bebo extends Thread {
 			sleep();
 			if(this.estadoNaFila) {
 				try {
+					if(this.isPossuiFicha()) {
+						cadSemaphore.acquire();
+						this.setPossuiFicha(false);
+					}
 					if(bar.isbarReservadoParaAmigos()!=true && this.isPosicaoPrimeiro() && this.isInicio()!=true) {
 						entrarBar();
 					}
@@ -81,29 +86,29 @@ public class Bebo extends Thread {
 	}
 		
 	public void entrarBar() throws InterruptedException {
-		cadSemaphore.acquire();
-		this.setPosicaoPrimeiro(false);
 		mutex.acquire();
 		bar.setCadeiras(bar.getCadeiras()-1);
 		if(bar.getCadeiras()==0) {
 			bar.setbarReservadoParaAmigos(true);
 		}
-		this.estadoNaFila=false;
-		this.estadoBebendo=true;
+		this.setEstadoNaFila(false);
+		this.setEstadoBebendo(true);
 		mutex.release();
 	}
 	
 	public void sairBar() throws InterruptedException {
 		mutex.acquire();
 		bar.setCadeiras(bar.getCadeiras()+1);
-		cadSemaphore.release();
 		if(bar.getCadBKP()==bar.getCadeiras()) {
 			bar.setbarReservadoParaAmigos(false);
 		}
+		cadSemaphore.release();
 		mutex.release();
-		this.estadoBebendo=false;
-		this.estadoCasa=true;		
-		this.posicaoBar=false;
+		this.setEstadoBebendo(false);
+		this.setEstadoCasa(true);		
+		this.setPosicaoBar(false);
+		this.setPossuiFicha(true);
+		this.setPosicaoPrimeiro(false);
 	}
 	
 	public void encherCara() throws InterruptedException {
@@ -221,6 +226,14 @@ public class Bebo extends Thread {
 
 	public void setInicio(boolean inicio) {
 		this.inicio = inicio;
+	}
+	
+	public boolean isPossuiFicha() {
+		return possuiFicha;
+	}
+
+	public void setPossuiFicha(boolean possuiFicha) {
+		this.possuiFicha = possuiFicha;
 	}
 }
 
