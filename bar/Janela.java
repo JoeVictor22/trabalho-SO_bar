@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -56,6 +57,7 @@ public class Janela implements Runnable, ActionListener {
 	private int h;
 	private int w;
 	
+	private String soundtrack = "Data/SFX/fortaleza8bit.midi";
 	public Janela(Bar bar, Semaphore mutex, Semaphore cadSemaphore, int altura, int largura) {
 		this.h = altura;
 		this.w = largura;
@@ -102,6 +104,8 @@ public class Janela implements Runnable, ActionListener {
 		
 		janela.setVisible(true);
 		jogo.setJogando(true);
+		BGM.play(this.soundtrack);
+
 	}
 	
 	public void setOutpuClientes(String texto) {
