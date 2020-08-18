@@ -2,9 +2,7 @@ package bar;
 
 import java.util.concurrent.Semaphore;
 
-public class Jogo 
-{
-	
+public class Jogo {
 	public static void main(String[] args) 
 	{
 		Popup popup = new Popup();
@@ -18,6 +16,5 @@ public class Jogo
 		int w = 1280;
 		Janela janela = new Janela(bar, mutex, cadSemaphore, h, w);
 		janela.create();
-		 
 	}
 }

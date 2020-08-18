@@ -4,8 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.lang.Math;
 
-public class Bartender extends Personagem{
-
+public class Bartender extends Personagem {
 	private BufferedImage[] andandoEsquerda;
 	private BufferedImage[] andandoDireita;
 	private BufferedImage[] andandoCima;
@@ -14,13 +13,10 @@ public class Bartender extends Personagem{
 
 	private int imagemAtual;	
 	private int timer;
-	
 	private int velocidadeDasAnimacoes;
 	private int quantidadeDeFrames;
-	
 	private int tempoParado;
 	private long timerParado;
-
 
 	public Bartender(int h, int w) {
 		super(0, 0, 60, 30, 2);
@@ -41,9 +37,7 @@ public class Bartender extends Personagem{
 		timerParado = System.currentTimeMillis();
 	}
 	
-	public void criarAnimacoes() 
-	{
-		// Data\Sprites\shane
+	public void criarAnimacoes() {
 		parado= carregarImagens("Data/Sprites/gus/gus-copo", 4, "png");
 		andandoEsquerda = carregarImagens("Data/Sprites/gus/gus-e", 4, "png");
 		andandoDireita = carregarImagens("Data/Sprites/gus/gus-d", 4, "png");
@@ -51,8 +45,7 @@ public class Bartender extends Personagem{
 		andandoBaixo = carregarImagens("Data/Sprites/gus/gus-f", 4, "png");
 	}
 	
-	public void atualizar() 
-	{
+	public void atualizar() {
 		if(System.currentTimeMillis() - timerParado > tempoParado) 
 		{
 			timerParado += tempoParado;
@@ -64,13 +57,12 @@ public class Bartender extends Personagem{
 			}
 			tempoParado = (int) (Math.random() * ( 45000 - 22000 ));
 		}
-		
+
 		anda();
 		atualizarContadorDeImagem();	
 	}
 
-	public void pintarAtor(Graphics2D g) 
-	{		
+	public void pintarAtor(Graphics2D g) {		
 		int acao = getAcao();
 	
 		switch(acao) 
@@ -111,12 +103,6 @@ public class Bartender extends Personagem{
 		}
 		timer++;
 	}
-	
-	/*
-	 * setters e getters
-	 */
-	
-
 
 	public BufferedImage[] getParado() {
 		return parado;
@@ -157,8 +143,4 @@ public class Bartender extends Personagem{
 	public void setQuantidadeDeFrames(int quantidadeDeFrames) {
 		this.quantidadeDeFrames = quantidadeDeFrames;
 	}
-	
-
-	
-	
 }

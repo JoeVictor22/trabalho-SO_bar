@@ -11,10 +11,8 @@ public class Popup{
 		this.receber();
 	}
     
-	public void receber()
-	{
-		while(true)
-		{
+	public void receber() {
+		while(true) {
 		    String cadeira = JOptionPane.showInputDialog(null,
 	               informacao, titulo, JOptionPane.INFORMATION_MESSAGE);
 		    try {
@@ -29,6 +27,7 @@ public class Popup{
     public int getNumero() {
 		return numero;
 	}
+    
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}

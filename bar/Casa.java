@@ -5,13 +5,12 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 
-public class Casa extends Personagem{
+public class Casa extends Personagem {
 	private BufferedImage[] cabana;
 	private BufferedImage[] cabanaDormindo;
 
 	private int imagemAtual;	
 	private int timer;
-	
 	private int velocidadeDasAnimacoes;
 	private int quantidadeDeFrames;
 	
@@ -28,29 +27,23 @@ public class Casa extends Personagem{
 		quantidadeDeFrames = 5;
 	}
 	
-	
-	public void criarAnimacoes() 
-	{
-		// Data\Sprites\shane
+	public void criarAnimacoes() {
 		cabana = carregarImagens("Data/Sprites/casa/1Elliott_s_Cabin", 1, "png");
 		cabanaDormindo = carregarImagens("Data/Sprites/casa/Elliott_s_Cabin", 5, "png");
-
-	
 	}
 	
 	public void anda() {
 	}
+	
 	public void atualizar() 
 	{
 		atualizarContadorDeImagem();	
 	}
 
 	public void atualizarContadorDeImagem() {
-
 		int velocidade = velocidadeDasAnimacoes;
-
-		if(timer >= velocidade)
-		{
+		
+		if(timer >= velocidade) {
 			imagemAtual++;
 			if(imagemAtual == quantidadeDeFrames){
 				imagemAtual = 0;
@@ -59,18 +52,15 @@ public class Casa extends Personagem{
 		}
 		timer++;
 	}
-	public void pintarCasa(Graphics2D g) 
-	{			
-		
-		int acao = getAcao();
 	
+	public void pintarCasa(Graphics2D g) {			
+		int acao = getAcao();
 		/* ACOES
 		 * 0 = parado
 		 * 1 = esquerda
 	
 		 *  */
-		switch(acao) 
-		{
+		switch(acao) {
 			case 0:
 				pintar(g, cabana, 0);
 				break;
@@ -80,19 +70,14 @@ public class Casa extends Personagem{
 			default:
 				break;
 		}
-
-
 	}
-	public static BufferedImage resize(BufferedImage img, int W, int H) 
-	{ 
-		
+	
+	public static BufferedImage resize(BufferedImage img, int W, int H) { 
 	    Image temp = img.getScaledInstance(W, H, Image.SCALE_SMOOTH);
 	    BufferedImage novaImagem = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
-
 	    Graphics2D g2d = novaImagem.createGraphics();
 	    g2d.drawImage(temp, 0, 0, null);
 	    g2d.dispose();
-
 	    return novaImagem;
 	}  
 }

@@ -12,17 +12,13 @@ public class Ator extends Personagem
 	private BufferedImage[] andandoBaixo;
 	private BufferedImage[] parado;
 	private BufferedImage[] bebendo;
-	//private BufferedImage[] dormindo;
 	
 	private int imagemAtual;	
 	private int timer;
-	
 	private int velocidadeDasAnimacoesBebendo;
 	private int velocidadeDasAnimacoes;
 	private int quantidadeDeFrames;
 	
-
-
 	public Ator(int h, int w) {
 		super(0, 0, 60, 30, 2);
 		//variaveis que necessitam inicializacao	
@@ -40,16 +36,13 @@ public class Ator extends Personagem
 	
 	public void criarAnimacoes() 
 	{
-		// Data\Sprites\shane
 		andandoEsquerda = carregarImagens("Data/Sprites/shane/walk/esquerda/tile00", 4, "png");
 		andandoDireita = carregarImagens("Data/Sprites/shane/walk/direita/tile00", 4, "png");
 		andandoCima = carregarImagens("Data/Sprites/shane/walk/cima/tile00", 4, "png");
 		andandoBaixo = carregarImagens("Data/Sprites/shane/walk/baixo/tile00", 4, "png");
 		parado= carregarImagens("Data/Sprites/shane/idle/normal/tile00", 4, "png");
 		bebendo= carregarImagens("Data/Sprites/shane/drinking/cima/tile00", 4, "png");
-		//dormindo= carregarImagens("Data/Sprites/shane/sleep/shane-caido", 4, "png");
 	}
-	
 	
 	public void atualizar() 
 	{
@@ -71,6 +64,7 @@ public class Ator extends Personagem
 		 * 5 = beber
 		 * 6 = dormir
 		 *  */
+		
 		switch(acao) 
 		{
 			case 0:
@@ -92,14 +86,11 @@ public class Ator extends Personagem
 				pintar(g, bebendo, imagemAtual);
 				break;
 			case 6:
-				//pintar(g, dormindo, imagemAtual);
 				break;
 			default:
 				break;
 		}
 	}
-	
-
 
 	public void atualizarContadorDeImagem() {
 
@@ -117,12 +108,6 @@ public class Ator extends Personagem
 		timer++;
 	}
 	
-	/*
-	 * setters e getters
-	 */
-	
-
-
 	public BufferedImage[] getParado() {
 		return parado;
 	}
@@ -162,8 +147,4 @@ public class Ator extends Personagem
 	public void setQuantidadeDeFrames(int quantidadeDeFrames) {
 		this.quantidadeDeFrames = quantidadeDeFrames;
 	}
-	
-
-	
-	
 }

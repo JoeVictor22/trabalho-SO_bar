@@ -3,19 +3,13 @@ package bar;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class Cadeira extends Personagem{
-
-
+public class Cadeira extends Personagem {
 	private BufferedImage[] parado;
 
 	private int imagemAtual;	
 	private int timer;
-	
 	private int velocidadeDasAnimacoes;
 	private int quantidadeDeFrames;
-	
-
-
 
 	public Cadeira(int h, int w) {
 		super(0, 0, 20, 24, 2);
@@ -31,19 +25,14 @@ public class Cadeira extends Personagem{
 		quantidadeDeFrames = 4;
 	}
 	
-	public void criarAnimacoes() 
-	{
-		// Data\Sprites\shane
+	public void criarAnimacoes() {
 		parado= carregarImagens("Data/Sprites/outros/banco", 1, "png");
-
 	}
 	
-	public void atualizar() 
-	{
+	public void atualizar() {
 	}
 
-	public void pintarAtor(Graphics2D g) 
-	{		
+	public void pintarAtor(Graphics2D g) {		
 		int acao = getAcao();
 	
 		switch(acao) 
@@ -56,14 +45,6 @@ public class Cadeira extends Personagem{
 				break;
 		}
 	}
-	
-
-	/*
-	 * setters e getters
-	 */
-	
-
-
 	public BufferedImage[] getParado() {
 		return parado;
 	}
@@ -103,7 +84,4 @@ public class Cadeira extends Personagem{
 	public void setQuantidadeDeFrames(int quantidadeDeFrames) {
 		this.quantidadeDeFrames = quantidadeDeFrames;
 	}
-	
-
-	
 }

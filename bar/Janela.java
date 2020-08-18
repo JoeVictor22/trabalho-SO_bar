@@ -18,10 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-
-public class Janela implements Runnable, ActionListener
-{
-
+public class Janela implements Runnable, ActionListener {
 	List<String> threadInfo_bebendo = new ArrayList<>();
     List<String> threadInfo_dormindo = new ArrayList<>();
     
@@ -35,6 +32,7 @@ public class Janela implements Runnable, ActionListener
 	// jframe e jpanel do jogo
 	private JFrame janela;
 	private Canvas jogo;
+	
 	// componentes IO do user
 	JPanel inputUser = new JPanel();
 	JPanel output = new JPanel();
@@ -54,17 +52,11 @@ public class Janela implements Runnable, ActionListener
 
 	private TextAreaOutputStream consoleStream = new TextAreaOutputStream(textAreaLog, "/");
 		
-	
-	
-
-	//keyListener
-	
 	//dimensoes
 	private int h;
 	private int w;
 	
-	public Janela(Bar bar, Semaphore mutex, Semaphore cadSemaphore, int altura, int largura) 
-	{
+	public Janela(Bar bar, Semaphore mutex, Semaphore cadSemaphore, int altura, int largura) {
 		this.h = altura;
 		this.w = largura;
 		this.bar = bar;
@@ -72,14 +64,13 @@ public class Janela implements Runnable, ActionListener
 		this.cadSemaphore = cadSemaphore;
 	}
 
-	public void create() 
-	{
+	public void create() {
 		janela = new JFrame("Papudim simulator");
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		janela.setSize(w,h+160);
 		janela.setResizable(false);
-		
 		janela.setLayout(new BorderLayout());
+		
 		// acoes para os butoes
 		beboButton.addActionListener(this);
  
@@ -92,51 +83,39 @@ public class Janela implements Runnable, ActionListener
 		inputUser.add(tempoDormindo);
 		inputUser.add(beboButton);
 
-		
 		// console redirect implementation
 		output.setLayout(new BorderLayout());
-		//textAreaClientes.setCaretColor(Color.WHITE);
 		textAreaStatus.setCaretColor(Color.WHITE);
 		textAreaLog.setCaretColor(Color.WHITE);
-		
-		//textAreaClientes.setBorder(new TitledBorder("Clientes"));
-		//textAreaStatus.setBorder(new TitledBorder("Status"));
-		//textAreaLog.setBorder(new TitledBorder("Log"));
 
-		
-		//output.add(new JScrollPane(textAreaClientes, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.LINE_START);
 		output.add(new JScrollPane(textAreaStatus, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
 		output.add(new JScrollPane(textAreaLog, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.LINE_START);
 
 		System.setOut(new PrintStream(consoleStream));
 		
-
 		// criacao de instancia principal do jogo
 		jogo = new Canvas(w, h, this, Bebos, bar.getCadeiras());
 		
 		janela.add(jogo, BorderLayout.CENTER);
 		janela.add(inputUser, BorderLayout.PAGE_START);
-
 		janela.add(output, BorderLayout.PAGE_END);
-		
 		
 		janela.setVisible(true);
 		jogo.setJogando(true);
 	}
 	
 	public void setOutpuClientes(String texto) {
-		
 		this.textAreaClientes.setText("<>CLIENTES</>\n" + texto);
 	}
 	public void setOutpuStatus(String texto) {
 		this.textAreaStatus.setText("<>STATUS</>\n" + texto);
 	}
+	
 	public void setOutpuLog(String texto) {
 		this.textAreaLog.setText("<>LOG</>\n" + texto);
 	}
 	
-	public void addPersonagem() 
-	{
+	public void addPersonagem() {
 		jogo.addAtor(Bebos[bebosInseridos-1].getAtor());
 	}
 
@@ -160,11 +139,7 @@ public class Janela implements Runnable, ActionListener
 					nomeDaThread.setText(null);
 				}
         		
-        		if(tmpBebendo>0 && tmpDormindo>0 && nomeDaThread.getText().isEmpty()!=true) {
-					//SOMENTE PARA CONTROLE//
-        			System.out.println("Inseriu");
-					//SOMENTE PARA CONTROLE//
-        			
+        		if(tmpBebendo>0 && tmpDormindo>0 && nomeDaThread.getText().isEmpty()!=true) {        			
 		        	threadInfo_bebendo.add(tempoBebendo.getText());
 		        	threadInfo_dormindo.add(tempoDormindo.getText());
 		        	bebosInseridos++;
@@ -172,24 +147,9 @@ public class Janela implements Runnable, ActionListener
 		    		Ator novoAtor = new Ator(w, h);
 					Bebos[bebosInseridos-1] = new Bebo(novoAtor, bar, mutex, cadSemaphore, Integer.parseInt(threadInfo_dormindo.get(bebosInseridos-1)), Integer.parseInt(threadInfo_bebendo.get(bebosInseridos-1)), ID);
 					Bebos[bebosInseridos-1].start();
-					System.out.println(Bebos[bebosInseridos-1].getName());
 					addPersonagem();
-					
-					//SOMENTE PARA CONTROLE//
-					System.out.println(bebosInseridos);
-					System.out.println(threadInfo_bebendo);
-					System.out.println(threadInfo_dormindo);
-					
-					
-					for(int i=0;i<bebosInseridos;i++) {
-						System.out.println(Bebos[i].status());
-					}
-					System.out.println(Bebos[bebosInseridos-1].toString());
-					//SOMENTE PARA CONTROLE//
         		}
-        		
-			}
-			else {
+			} else {
 				System.out.println("Quantidade maxima de atores excedida");
 			}
 		}
@@ -198,11 +158,14 @@ public class Janela implements Runnable, ActionListener
 	public int getbebosInseridos() {
 		return bebosInseridos;
 	}
+	
 	public int getQuantidadeCadeiras() {
 		return this.bar.getCadeiras();
 	}
+	
 	public void run() {
 	}
+	
 	public void restart() {
 	}
 }

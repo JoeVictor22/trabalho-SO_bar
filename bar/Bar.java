@@ -1,14 +1,11 @@
 package bar;
 
-public class Bar 
-{
+public class Bar {
 	private int cadeiras;
 	private int cadBKP;
 	private boolean barReservadoParaAmigos;
 	
-	
-	public Bar(int cadeiras) 
-	{
+	public Bar(int cadeiras) {
 		this.cadeiras=cadeiras;
 		this.cadBKP=cadeiras;
 		this.setbarReservadoParaAmigos(false);

@@ -9,7 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /*
- * Classe abstrata para servir de base na criacao do jogador e dos inimigos
+ * Classe abstrata para servir de base na criacao dos personagens
  */
 
 abstract public class Personagem 
@@ -38,10 +38,8 @@ abstract public class Personagem
 	protected int h;
 	protected int w;
 	
-	
 	public Personagem(int posX, int posY, int altura, int largura, 
-					  int velocidade) 
-	{
+					  int velocidade) {
 		this.posX = posX;
 		this.posY = posY;
 		this.gotoX = posX;
@@ -62,12 +60,12 @@ abstract public class Personagem
 		this.acao = 0;
 		this.orientacao = 1;
 	
-		
 		/*
 		 * Instanciacao das animacoes
 		 */
 		criarAnimacoes();	
 	}
+	
 	//metodos abstratos	
 	// Atualizar movimentos e variaveis de controle
 	abstract public void atualizar();
@@ -85,8 +83,7 @@ abstract public class Personagem
 	 * enviar component de pintura vindo do canvas, e a animacao a ser utilizada
 	 * o indice da animacao nesse metodo pode variar de acordo com a classe filha
 	 */
-	public void pintar(Graphics2D g, BufferedImage[] animacao, int imagemAtual) 
-	{
+	public void pintar(Graphics2D g, BufferedImage[] animacao, int imagemAtual) {
 	    g.drawImage(
              animacao[imagemAtual],
              posX,posY,
@@ -96,18 +93,16 @@ abstract public class Personagem
              null);
     
 	}	
+	
 	/*
 	 *  metodo para carregar imagens em um vetor
 	 * enviar endereco, e quantidade de imagens e o tipo de extensao sem o ponto (.)
 	 * o endereco das imagens devem ser iguais e enumerados no final de 1 ao size
 	 * 
 	 */
-	public BufferedImage[] carregarImagens(String endereco, int size,  String extensao) 
-	{
+	public BufferedImage[] carregarImagens(String endereco, int size,  String extensao) {
 		BufferedImage[] imagem = new BufferedImage[size];
-		
-		for(int i = 0; i < size; i++) 
-		{	
+		for(int i = 0; i < size; i++) {	
 			try {
 				imagem[i] = ImageIO.read(new File(endereco + (i+1) + "." + extensao));
 			}
@@ -122,8 +117,7 @@ abstract public class Personagem
 	/*
 	 * atualizacao da movimentacao 
 	 */
-	public void anda()
-	{
+	public void anda() {
 		/* DIRECAO
 		 * 0 = parado
 		 * 1 = esquerda
@@ -140,10 +134,6 @@ abstract public class Personagem
 		 * 5 = beber
 		 * 6 = dormir
 		 *  */
-		
-		
-		
-		
 		if(gotoX > posX) {
 			setAcao(2);
 			posX += velocidade;
@@ -176,16 +166,13 @@ abstract public class Personagem
 				gotoY = posY;
 			}
 		}			
-		
 	}
 	
 	/*
 	 * define a direcao de observacao
 	 */
-	public void andar(int acao) 
-	{
-		if(acao != 0) 
-		{
+	public void andar(int acao) {
+		if(acao != 0) {
 			this.acao = acao;
 			this.orientacao = acao;
 		}
@@ -194,28 +181,26 @@ abstract public class Personagem
 		}
 	}
 		
-	public static BufferedImage resize(BufferedImage img, int W, int H) 
-	{ 	
+	public static BufferedImage resize(BufferedImage img, int W, int H) { 	
 	    Image temp = img.getScaledInstance(W, H, Image.SCALE_SMOOTH);
 	    BufferedImage novaImagem = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
-
 	    Graphics2D g2d = novaImagem.createGraphics();
 	    g2d.drawImage(temp, 0, 0, null);
 	    g2d.dispose();
-
 	    return novaImagem;
 	}  
 	
 	/*
 	 * metodos para alterar posicao caso necessario
 	 */
-	public void somarPosY(int soma){
+	public void somarPosY(int soma) {
 		this.posY += soma;		
 	}
 	
 	public void somarPosX(int soma) {
 		this.posX += soma;		
 	}	
+	
 	/*
 	 * Metodos de acesso
 	 */
@@ -280,23 +265,20 @@ abstract public class Personagem
 	public void setVelocidade(int velocidade) {
 		this.velocidade = velocidade;
 	}
+	
 	public int getGotoX() {
 		return gotoX;
 	}
-
 
 	public void setGotoX(int gotoX) {
 		this.gotoX = gotoX;
 	}
 
-
 	public int getGotoY() {
 		return gotoY;
 	}
 
-
 	public void setGotoY(int gotoY) {
 		this.gotoY = gotoY;
 	}
-	
 }

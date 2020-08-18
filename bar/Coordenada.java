@@ -10,6 +10,7 @@ public class Coordenada {
 		this.posY = posY;
 		this.chegou = false;
 	}
+	
 	public boolean chegou(Ator ator) {
 		if(this.chegou == false) {
 			if (this.posX == ator.getPosX() && this.posY == ator.getPosY()) {
@@ -18,8 +19,8 @@ public class Coordenada {
 			}
 		}
 		return false;
-
 	}
+	
 	public int getPosX() {
 		return posX;
 	}
@@ -43,6 +44,4 @@ public class Coordenada {
 	public void setChegou(boolean chegou) {
 		this.chegou = chegou;
 	}
-	
-	
 }

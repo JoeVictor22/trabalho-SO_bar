@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Bebo extends Thread {
-	
 	Semaphore cadSemaphore;
 	Semaphore mutex;
 	Bar bar;
@@ -15,6 +14,8 @@ public class Bebo extends Thread {
 	private int timeCasa;
 	private int timeBebendo;
 	private long timeRestante;
+	
+	//Controle de animações da Thread//
 	private Ator ator;
 
 	//Estado da Thread//
@@ -22,6 +23,7 @@ public class Bebo extends Thread {
 	private boolean estadoBebendo=false;
 	private boolean estadoNaFila=true;
 	
+	//Posições da Thread//
 	private boolean posicaoCasa=false;
 	private boolean posicaoBar=false;
 	private boolean posicaoPrimeiro=false;
