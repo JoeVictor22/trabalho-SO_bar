@@ -1,7 +1,5 @@
 package bar;
 
-import jplay.Sound;
-
 public class BGM {
 	
 	static float valor;

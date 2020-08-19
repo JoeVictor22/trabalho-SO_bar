@@ -57,7 +57,7 @@ public class Janela implements Runnable, ActionListener {
 	private int h;
 	private int w;
 	
-	private String soundtrack = "Data/SFX/fortaleza8bit.wav";
+	private String soundtrack = "Data/BGM/fortaleza8bit.wav";
 	public Janela(Bar bar, Semaphore mutex, Semaphore cadSemaphore, int altura, int largura) {
 		this.h = altura;
 		this.w = largura;
