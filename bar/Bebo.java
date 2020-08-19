@@ -99,10 +99,12 @@ public class Bebo extends Thread {
 	public void sairBar() throws InterruptedException {
 		mutex.acquire();
 		bar.setCadeiras(bar.getCadeiras()+1);
-		if(bar.getCadBKP()==bar.getCadeiras()) {
+		if(bar.getCadBKP()==bar.getCadeiras() && bar.isbarReservadoParaAmigos()) {
 			bar.setbarReservadoParaAmigos(false);
+			cadSemaphore.release(bar.getCadBKP());
+		}else if(bar.isbarReservadoParaAmigos()!=true) {
+			cadSemaphore.release();
 		}
-		cadSemaphore.release();
 		mutex.release();
 		this.setEstadoBebendo(false);
 		this.setEstadoCasa(true);		
@@ -209,7 +211,7 @@ public class Bebo extends Thread {
 		else if(this.estadoNaFila) {
 			return(getName()+" foi para Fila!");
 		}
-		return null;	
+		return null;
 	}
 
 	public boolean isPosicaoPrimeiro() {
